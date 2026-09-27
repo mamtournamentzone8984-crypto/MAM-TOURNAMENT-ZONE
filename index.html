@@ -2,307 +2,270 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MAM TOURNAMENT ZONE</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-:root{
-  --bg:#070c16;
-  --card:#101a2b;
-  --card2:#16233a;
-  --green:#15e6a1;
-  --text:#fff;
-  --muted:#9eafc8;
-  --border:#273750;
-  --red:#ff4d67;
-  --yellow:#ffbd3d;
-}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,"Noto Sans Bengali",sans-serif;
+ margin:0;
+ background:#070c16;
+ color:#fff;
+ font-family:Arial,"Noto Sans Bengali",sans-serif;
 }
 button,input,select{font:inherit}
-button{
-  border:0;
-  cursor:pointer;
-  border-radius:9px;
-  padding:11px 15px;
-  font-weight:bold;
-}
-.btn{background:var(--green);color:#06130e}
-.btn2{background:#293a55;color:#fff}
-.danger{background:var(--red);color:#fff}
-.container{max-width:1150px;margin:auto;padding:18px 15px}
-
+button{cursor:pointer;border:0}
 header{
-  position:sticky;
-  top:0;
-  z-index:5;
-  background:#0c1526ee;
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-  padding:13px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+ background:#0d1728;
+ border-bottom:1px solid #263650;
+ padding:14px 18px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ position:sticky;
+ top:0;
+ z-index:5;
 }
-.logo{font-weight:bold;font-size:18px}
-.logo span{color:var(--green)}
-.header-actions{display:flex;gap:8px}
-
+.logo{font-size:19px;font-weight:bold}
+.green{color:#15e6a1}
+.container{max-width:1150px;margin:auto;padding:18px 14px}
 .hero{
-  margin-top:20px;
-  padding:30px 22px;
-  border-radius:18px;
-  border:1px solid #28485a;
-  background:linear-gradient(135deg,#103d37,#10294a,#101a2e);
+ background:linear-gradient(135deg,#123d39,#10284b,#101a30);
+ border:1px solid #29465c;
+ border-radius:18px;
+ padding:28px 20px;
+ margin-bottom:18px;
 }
-.hero h1{font-size:34px;line-height:1.3;margin:12px 0}
-.hero p{color:#c1d0e5;line-height:1.8}
-
-.green{color:var(--green)}
-
+.hero h1{font-size:34px;margin:12px 0;line-height:1.25}
+.hero p{color:#c2d0e4;line-height:1.8}
+.btn{
+ background:#15e6a1;
+ color:#06130e;
+ padding:11px 15px;
+ border-radius:9px;
+ font-weight:bold;
+}
+.btn.secondary{background:#293a55;color:white}
+.btn.danger{background:#ff4d67;color:white}
+.btn.full{width:100%}
 .stats{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin:18px 0;
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
+ margin:18px 0;
 }
 .stat{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:17px;
+ background:#111c2e;
+ border:1px solid #263650;
+ border-radius:13px;
+ padding:17px;
 }
-.stat small{color:var(--muted)}
-.stat strong{
-  display:block;
-  margin-top:8px;
-  color:var(--green);
-  font-size:25px;
-}
-
+.stat small{color:#9eafc8}
+.stat h2{color:#15e6a1;margin:9px 0 0}
 .section{
-  margin-top:24px;
+ background:#111c2e;
+ border:1px solid #263650;
+ border-radius:14px;
+ padding:18px;
+ margin:18px 0;
 }
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
-}
-.section-title h2{margin:0}
-
-.filters{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:15px;
-}
-.filters button{background:#253650;color:white}
-.filters button.active{background:var(--green);color:#06130e}
-
+.section h2{margin-top:0}
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-  gap:15px;
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
+ gap:15px;
 }
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  overflow:hidden;
+ background:#0d1727;
+ border:1px solid #293b56;
+ border-radius:14px;
+ overflow:hidden;
 }
 .cover{
-  height:145px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:50px;
-  background:linear-gradient(135deg,#14584d,#203b61);
+ height:145px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:linear-gradient(135deg,#155b4d,#20395d);
+ font-size:48px;
 }
 .cover img{width:100%;height:100%;object-fit:cover}
-.cardbody{padding:16px}
-.cardbody h3{margin:10px 0 6px;font-size:19px}
-.muted{color:var(--muted)}
-
+.cardbody{padding:15px}
 .badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  background:#164d3b;
-  color:#76ffd2;
-  font-size:12px;
-  font-weight:bold;
+ display:inline-block;
+ padding:5px 9px;
+ border-radius:20px;
+ background:#164d3b;
+ color:#75ffd0;
+ font-size:12px;
+ font-weight:bold;
 }
 .details{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin:14px 0;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+ margin:14px 0;
 }
-.detail{
-  background:#091321;
-  border-radius:8px;
-  padding:10px;
+.details div{
+ background:#08111f;
+ padding:9px;
+ border-radius:8px;
 }
-.detail small{
-  display:block;
-  color:#91a3be;
-  margin-bottom:5px;
+.details small{
+ display:block;
+ color:#8fa2bd;
+ margin-bottom:5px;
 }
-.detail b{font-size:14px}
-
-.panel{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:18px;
-  margin-top:20px;
+.details b{font-size:14px}
+.filters{
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
+ margin:14px 0;
+}
+.filters button{
+ background:#293a55;
+ color:white;
+ padding:9px 13px;
+ border-radius:8px;
+}
+.filters button.active{
+ background:#15e6a1;
+ color:#06130e;
+}
+.account{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
 }
 .balance{
-  font-size:30px;
-  color:var(--green);
-  font-weight:bold;
-  margin:10px 0 15px;
+ background:linear-gradient(135deg,#064e3b,#123c4e);
+ border:1px solid #1a7358;
+ padding:18px;
+ border-radius:13px;
 }
-.account-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
+.balance small{color:#b8d8d0}
+.balance strong{
+ display:block;
+ color:#6effc5;
+ font-size:29px;
+ margin-top:7px;
 }
-
+.actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-top:12px;
+}
+.empty{
+ background:#0d1727;
+ border:1px solid #263650;
+ border-radius:12px;
+ padding:28px;
+ text-align:center;
+ color:#9eafc8;
+}
 .modal{
-  position:fixed;
-  inset:0;
-  background:#000b;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:20;
-  padding:15px;
-  overflow:auto;
+ display:none;
+ position:fixed;
+ inset:0;
+ background:#000b;
+ z-index:20;
+ align-items:center;
+ justify-content:center;
+ padding:14px;
 }
 .modal.show{display:flex}
 .modalbox{
-  width:100%;
-  max-width:440px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:20px;
+ width:100%;
+ max-width:460px;
+ max-height:92vh;
+ overflow:auto;
+ background:#111c2e;
+ border:1px solid #30425e;
+ border-radius:15px;
+ padding:19px;
 }
 .modalhead{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:15px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:12px;
 }
 .modalhead h2{margin:0}
-
 .field{margin:12px 0}
 .field label{
-  display:block;
-  color:#bdcbe0;
-  font-size:13px;
-  margin-bottom:6px;
+ display:block;
+ color:#aabbd2;
+ margin-bottom:6px;
+ font-size:13px;
 }
 input,select{
-  width:100%;
-  background:#081321;
-  color:white;
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:12px;
-  outline:none;
+ width:100%;
+ padding:12px;
+ border:1px solid #30425e;
+ border-radius:8px;
+ background:#081321;
+ color:white;
+ outline:none;
 }
-input:focus,select:focus{border-color:var(--green)}
-
+input:focus,select:focus{border-color:#15e6a1}
 .notice{
-  background:#091321;
-  border:1px solid var(--border);
-  color:var(--muted);
-  padding:12px;
-  border-radius:9px;
-  line-height:1.7;
-  font-size:13px;
-  margin-bottom:12px;
-}
-.payment-number{
-  display:none;
-  background:#123c34;
-  border:1px solid #176b52;
-  color:#8affd5;
-  padding:12px;
-  border-radius:9px;
-  margin:10px 0;
-  font-weight:bold;
+ background:#091522;
+ border:1px solid #263650;
+ border-radius:9px;
+ padding:12px;
+ color:#aabbd2;
+ line-height:1.7;
+ font-size:13px;
 }
 .message{
-  margin-top:12px;
-  padding:11px;
-  border-radius:8px;
-  line-height:1.6;
-  font-size:13px;
-  overflow-wrap:anywhere;
+ padding:11px;
+ border-radius:8px;
+ margin-top:10px;
+ line-height:1.5;
 }
-.success{
-  background:#09251d;
-  color:#73ffd0;
-  border:1px solid #146b4e;
+.success{background:#073b2b;color:#78ffd0}
+.error{background:#491b26;color:#ffabb7}
+.history{
+ border-top:1px solid #263650;
+ margin-top:15px;
+ padding-top:15px;
 }
-.error{
-  background:#2a1118;
-  color:#ff9dad;
-  border:1px solid #7b293b;
+.historyItem{
+ background:#0a1423;
+ border:1px solid #253650;
+ border-radius:9px;
+ padding:12px;
+ margin-bottom:8px;
+}
+.status{
+ display:inline-block;
+ padding:4px 8px;
+ border-radius:15px;
+ font-size:11px;
+ margin-top:6px;
+}
+.pending{background:#4b3a0b;color:#ffd76e}
+.approved{background:#064e3b;color:#6effc5}
+.rejected{background:#4c1823;color:#ff9dad}
+footer{
+ text-align:center;
+ padding:25px;
+ color:#8193ad;
+ border-top:1px solid #263650;
+ margin-top:30px;
 }
 .hidden{display:none!important}
-
-.history{
-  margin-top:15px;
-  display:grid;
-  gap:8px;
-}
-.history-item{
-  background:#091321;
-  border:1px solid var(--border);
-  border-radius:9px;
-  padding:11px;
-  font-size:13px;
-}
-.status-pending{color:var(--yellow)}
-.status-approved{color:var(--green)}
-.status-rejected{color:#ff7d91}
-
-.empty{
-  text-align:center;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:30px;
-  color:var(--muted);
-}
-
-footer{
-  text-align:center;
-  color:#8799b4;
-  padding:28px 15px;
-  margin-top:35px;
-  border-top:1px solid var(--border);
-}
-
-@media(max-width:600px){
-  .hero h1{font-size:27px}
-  .header-actions button{padding:9px 10px}
-  .logo{font-size:15px}
-  .stats{grid-template-columns:1fr 1fr}
+@media(max-width:650px){
+ .hero h1{font-size:28px}
+ .stats{grid-template-columns:1fr}
+ .account{grid-template-columns:1fr}
+ header{padding:12px}
+ .logo{font-size:15px}
 }
 </style>
 </head>
@@ -310,1165 +273,1246 @@ footer{
 <body>
 
 <header>
-  <div class="logo">
-    🏆 MAM <span>TOURNAMENT ZONE</span>
-  </div>
+ <div class="logo">🏆 MAM <span class="green">TOURNAMENT ZONE</span></div>
 
-  <div class="header-actions">
-    <button class="btn" onclick="openModal('authModal')">🔐 Account</button>
-  </div>
+ <div id="headerActions">
+  <button class="btn" onclick="openAuth()">🔐 Login</button>
+ </div>
 </header>
 
-<div class="container">
+<main class="container">
 
 <section class="hero">
-  <div class="green"><b>🎮 TOURNAMENT PLATFORM</b></div>
+ <div class="green"><b>🎮 OFFICIAL TOURNAMENT PLATFORM</b></div>
 
-  <h1>
-    আপনার স্কিল দেখান,<br>
-    <span class="green">জিতে নিন পুরস্কার!</span>
-  </h1>
+ <h1>
+  আপনার স্কিল দেখান,<br>
+  <span class="green">জিতে নিন পুরস্কার!</span>
+ </h1>
 
-  <p>
-    SOLO, DUO, SQUAD এবং CUSTOM টুর্নামেন্টে অংশ নিন।
-    টুর্নামেন্ট নির্বাচন করুন এবং গেমিং প্রতিযোগিতায় যোগ দিন।
-  </p>
+ <p>
+  SOLO, DUO, SQUAD ও CUSTOM টুর্নামেন্টে অংশ নিন।
+  আপনার পছন্দের ম্যাচ বেছে নিয়ে প্রতিযোগিতায় যোগ দিন।
+ </p>
 
-  <button class="btn"
-    onclick="document.getElementById('tournaments').scrollIntoView({behavior:'smooth'})">
-    🏆 টুর্নামেন্ট দেখুন
-  </button>
+ <button class="btn"
+ onclick="document.getElementById('tournaments').scrollIntoView({behavior:'smooth'})">
+ 🏆 টুর্নামেন্ট দেখুন
+ </button>
 </section>
 
-<section class="stats">
-  <div class="stat">
-    <small>মোট টুর্নামেন্ট</small>
-    <strong id="tournamentCount">০</strong>
-  </div>
+<!-- PUBLIC STATS: VISITOR COUNT রাখা হয়নি -->
+<div class="stats">
+ <div class="stat">
+  <small>মোট টুর্নামেন্ট</small>
+  <h2 id="tournamentCount">০</h2>
+ </div>
 
-  <div class="stat">
-    <small>আপনার Wallet Balance</small>
-    <strong id="headerBalance">৳০</strong>
-  </div>
-</section>
-
-<section id="tournaments" class="section">
-
-  <div class="section-title">
-    <h2>🔥 টুর্নামেন্ট</h2>
-    <button class="btn2" onclick="loadTournaments()">🔄 Refresh</button>
-  </div>
-
-  <div class="filters">
-    <button class="active" onclick="filterTours('ALL',this)">সব</button>
-    <button onclick="filterTours('SOLO',this)">SOLO</button>
-    <button onclick="filterTours('DUO',this)">DUO</button>
-    <button onclick="filterTours('SQUAD',this)">SQUAD</button>
-    <button onclick="filterTours('CUSTOM',this)">CUSTOM</button>
-  </div>
-
-  <div class="grid" id="tournamentList">
-    <div class="empty">টুর্নামেন্ট লোড হচ্ছে...</div>
-  </div>
-
-</section>
-
-<section class="panel">
-  <h2>👤 আমার অ্যাকাউন্ট</h2>
-
-  <p id="accountInfo" class="muted">
-    Login করলে আপনার Account ও Wallet এখানে দেখা যাবে।
-  </p>
-
-  <div id="accountBox" class="hidden">
-
-    <div class="balance" id="accountBalance">৳০</div>
-
-    <p id="userEmail" class="muted"></p>
-
-    <div class="account-actions">
-      <button class="btn" onclick="openDeposit()">➕ টাকা যোগ</button>
-      <button class="btn2" onclick="openWithdraw()">💸 টাকা উত্তোলন</button>
-      <button class="btn2" onclick="loadWallet()">🔄 Balance Refresh</button>
-      <button class="danger" onclick="logout()">Logout</button>
-    </div>
-
-  </div>
-
-  <button id="loginAccountBtn" class="btn"
-    onclick="openModal('authModal')">
-    🔐 Login / Account তৈরি
-  </button>
-</section>
-
-<section id="historyPanel" class="panel hidden">
-  <h2>📋 আমার লেনদেন</h2>
-  <div id="historyList" class="history"></div>
-</section>
-
+ <div class="stat">
+  <small>প্রকাশিত টুর্নামেন্ট</small>
+  <h2>LIVE</h2>
+ </div>
 </div>
 
+<!-- ACCOUNT -->
+<section class="section">
+ <h2>👤 আমার অ্যাকাউন্ট</h2>
+
+ <div id="loggedOutBox">
+  <p style="color:#aabbd2">
+   Tournament-এ অংশ নিতে এবং টাকা ব্যবস্থাপনা করতে Login করুন।
+  </p>
+
+  <button class="btn" onclick="openAuth()">
+   🔐 Login / নতুন অ্যাকাউন্ট
+  </button>
+ </div>
+
+ <div id="loggedInBox" class="hidden">
+
+  <div class="account">
+
+   <div class="balance">
+    <small>💰 Wallet Balance</small>
+    <strong id="walletBalance">৳0</strong>
+   </div>
+
+   <div class="notice">
+    <b>Account</b><br>
+    <span id="userEmail">—</span>
+   </div>
+
+  </div>
+
+  <div class="actions">
+   <button class="btn" onclick="openDeposit()">➕ টাকা যোগ করুন</button>
+   <button class="btn secondary" onclick="openWithdraw()">💸 টাকা উত্তোলন</button>
+   <button class="btn danger" onclick="logout()">Logout</button>
+  </div>
+
+  <div class="history">
+   <h3>💳 Deposit History</h3>
+   <div id="depositHistory">
+    <div class="empty">লোড হচ্ছে...</div>
+   </div>
+  </div>
+
+  <div class="history">
+   <h3>🏧 Withdrawal History</h3>
+   <div id="withdrawHistory">
+    <div class="empty">লোড হচ্ছে...</div>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+<!-- TOURNAMENTS -->
+<section id="tournaments" class="section">
+
+ <h2>🔥 চলমান টুর্নামেন্ট</h2>
+
+ <div class="filters">
+  <button class="active" onclick="filterTours('ALL',this)">সব</button>
+  <button onclick="filterTours('SOLO',this)">SOLO</button>
+  <button onclick="filterTours('DUO',this)">DUO</button>
+  <button onclick="filterTours('SQUAD',this)">SQUAD</button>
+  <button onclick="filterTours('CUSTOM',this)">CUSTOM</button>
+ </div>
+
+ <div class="grid" id="tournamentList">
+  <div class="empty">টুর্নামেন্ট লোড হচ্ছে...</div>
+ </div>
+
+</section>
+
+</main>
+
 <footer>
-  © <span id="year"></span> MAM TOURNAMENT ZONE
-  <br>
-  Fair Play • Play Smart
+ © <span id="year"></span> MAM TOURNAMENT ZONE
+ <br>Fair Play • Play Smart
 </footer>
 
 
-<!-- AUTH MODAL -->
+<!-- ================= AUTH MODAL ================= -->
+
 <div class="modal" id="authModal">
-  <div class="modalbox">
+ <div class="modalbox">
 
-    <div class="modalhead">
-      <h2>🔐 Account</h2>
-      <button class="btn2" onclick="closeModal('authModal')">✕</button>
-    </div>
-
-    <div class="field">
-      <label>ইমেইল</label>
-      <input id="authEmail" type="email" placeholder="আপনার ইমেইল">
-    </div>
-
-    <div class="field">
-      <label>পাসওয়ার্ড</label>
-      <input id="authPassword" type="password" placeholder="কমপক্ষে ৬ অক্ষর">
-    </div>
-
-    <div class="account-actions">
-      <button class="btn" onclick="login()">লগইন</button>
-      <button class="btn2" onclick="signup()">নতুন Account</button>
-    </div>
-
-    <div id="authMessage"></div>
-
+  <div class="modalhead">
+   <h2>🔐 Account</h2>
+   <button class="btn secondary" onclick="closeAuth()">✕</button>
   </div>
+
+  <div class="field">
+   <label>Email</label>
+   <input id="authEmail" type="email" placeholder="আপনার ইমেইল">
+  </div>
+
+  <div class="field">
+   <label>Password</label>
+   <input id="authPassword" type="password" placeholder="কমপক্ষে ৬ অক্ষর">
+  </div>
+
+  <div class="actions">
+   <button class="btn" onclick="login()">Login</button>
+   <button class="btn secondary" onclick="signup()">নতুন Account</button>
+  </div>
+
+  <div id="authMessage"></div>
+
+ </div>
 </div>
 
 
-<!-- DEPOSIT MODAL -->
+<!-- ================= DEPOSIT MODAL ================= -->
+
 <div class="modal" id="depositModal">
-  <div class="modalbox">
+ <div class="modalbox">
 
-    <div class="modalhead">
-      <h2>➕ টাকা যোগ করুন</h2>
-      <button class="btn2" onclick="closeModal('depositModal')">✕</button>
-    </div>
-
-    <div class="field">
-      <label>পরিমাণ (টাকা)</label>
-      <input id="depositAmount" type="number" min="1" step="0.01"
-        placeholder="যেমন: 500">
-    </div>
-
-    <div class="field">
-      <label>পেমেন্ট মাধ্যম</label>
-      <select id="depositMethod" onchange="showPaymentNumber()">
-        <option value="">নির্বাচন করো</option>
-        <option value="bKash">বিকাশ</option>
-        <option value="Nagad">নগদ</option>
-        <option value="Rocket">রকেট</option>
-      </select>
-    </div>
-
-    <div id="paymentNumber" class="payment-number"></div>
-
-    <div class="field">
-      <label>যে নম্বর থেকে টাকা পাঠিয়েছ</label>
-      <input id="depositSender" type="text"
-        placeholder="01XXXXXXXXX">
-    </div>
-
-    <div class="field">
-      <label>ট্রানজ্যাকশন আইডি</label>
-      <input id="depositTransaction" type="text"
-        placeholder="Transaction ID">
-    </div>
-
-    <button class="btn" onclick="submitDeposit()">
-      💳 ডিপোজিট অনুরোধ পাঠাও
-    </button>
-
-    <div id="depositMessage"></div>
-
+  <div class="modalhead">
+   <h2>💰 টাকা যোগ করুন</h2>
+   <button class="btn secondary" onclick="closeDeposit()">✕</button>
   </div>
+
+  <div class="notice">
+   <b>Payment Number</b><br><br>
+   বিকাশ / নগদ: <b>01759748984</b><br>
+   রকেট: <b>01351593943</b><br><br>
+   প্রথমে Send Money করুন, তারপর নিচের তথ্য দিয়ে অনুরোধ পাঠান।
+  </div>
+
+  <div class="field">
+   <label>পরিমাণ (টাকা)</label>
+   <input id="depositAmount" type="number" min="1" step="0.01"
+   placeholder="যেমন: 500">
+  </div>
+
+  <div class="field">
+   <label>পেমেন্ট মাধ্যম</label>
+   <select id="depositMethod">
+    <option value="">নির্বাচন করো</option>
+    <option value="bKash">বিকাশ</option>
+    <option value="Nagad">নগদ</option>
+    <option value="Rocket">রকেট</option>
+   </select>
+  </div>
+
+  <div id="paymentNumber" class="notice hidden"></div>
+
+  <div class="field">
+   <label>যে নম্বর থেকে টাকা পাঠিয়েছ</label>
+   <input id="senderNumber" type="text"
+   placeholder="01XXXXXXXXX">
+  </div>
+
+  <div class="field">
+   <label>Transaction ID</label>
+   <input id="transactionId" type="text"
+   placeholder="Transaction ID">
+  </div>
+
+  <button class="btn full" onclick="submitDeposit()">
+   💳 ডিপোজিট অনুরোধ পাঠাও
+  </button>
+
+  <div id="depositMessage"></div>
+
+ </div>
 </div>
 
 
-<!-- WITHDRAW MODAL -->
+<!-- ================= WITHDRAW MODAL ================= -->
+
 <div class="modal" id="withdrawModal">
-  <div class="modalbox">
+ <div class="modalbox">
 
-    <div class="modalhead">
-      <h2>💸 টাকা উত্তোলন</h2>
-      <button class="btn2" onclick="closeModal('withdrawModal')">✕</button>
-    </div>
-
-    <div class="notice">
-      উত্তোলনের অনুরোধ Admin যাচাই করবেন।
-      Approve না হওয়া পর্যন্ত আপনার টাকা পরিবর্তন হবে না।
-    </div>
-
-    <div class="field">
-      <label>পরিমাণ (টাকা)</label>
-      <input id="withdrawAmount" type="number" min="1" step="0.01"
-        placeholder="যেমন: 500">
-    </div>
-
-    <div class="field">
-      <label>পেমেন্ট মাধ্যম</label>
-      <select id="withdrawMethod">
-        <option value="">নির্বাচন করো</option>
-        <option value="bKash">বিকাশ</option>
-        <option value="Nagad">নগদ</option>
-        <option value="Rocket">রকেট</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label>যে নম্বরে টাকা নিতে চাও</label>
-      <input id="withdrawAccount" type="text"
-        placeholder="01XXXXXXXXX">
-    </div>
-
-    <button class="btn" onclick="submitWithdrawal()">
-      💸 উত্তোলনের অনুরোধ পাঠাও
-    </button>
-
-    <div id="withdrawMessage"></div>
-
+  <div class="modalhead">
+   <h2>💸 টাকা উত্তোলন</h2>
+   <button class="btn secondary" onclick="closeWithdraw()">✕</button>
   </div>
-</div>
 
-
-<!-- JOIN MODAL -->
-<div class="modal" id="joinModal">
-  <div class="modalbox">
-
-    <div class="modalhead">
-      <h2>🎮 Tournament Join</h2>
-      <button class="btn2" onclick="closeModal('joinModal')">✕</button>
-    </div>
-
-    <div id="joinInfo" class="notice"></div>
-
-    <button class="btn" onclick="confirmJoin()">
-      🎮 Tournament-এ Join করুন
-    </button>
-
-    <div id="joinMessage"></div>
-
+  <div class="notice">
+   বর্তমান ব্যালেন্স:
+   <b id="withdrawBalance">৳0</b>
   </div>
+
+  <div class="field">
+   <label>পরিমাণ (টাকা)</label>
+   <input id="withdrawAmount" type="number"
+   min="1" step="0.01" placeholder="যেমন: 500">
+  </div>
+
+  <div class="field">
+   <label>পেমেন্ট মাধ্যম</label>
+   <select id="withdrawMethod">
+    <option value="">নির্বাচন করো</option>
+    <option value="bKash">বিকাশ</option>
+    <option value="Nagad">নগদ</option>
+    <option value="Rocket">রকেট</option>
+   </select>
+  </div>
+
+  <div class="field">
+   <label>যে নম্বরে টাকা নিতে চাও</label>
+   <input id="receiverNumber" type="text"
+   placeholder="01XXXXXXXXX">
+  </div>
+
+  <button class="btn full" onclick="submitWithdrawal()">
+   💸 Withdrawal Request পাঠাও
+  </button>
+
+  <div id="withdrawMessage"></div>
+
+ </div>
 </div>
 
 
 <script>
-
-// =====================================================
-// SUPABASE
-// =====================================================
+/* =========================================
+   SUPABASE CONFIG
+========================================= */
 
 const SUPABASE_URL =
-  "https://qskpvywtzageshrqenlz.supabase.co";
+"https://qskpvywtzageshrqenlz.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
+"sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
 
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+const db =
+window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY
 );
 
 
-// =====================================================
-// GLOBAL
-// =====================================================
+/* =========================================
+   GLOBAL
+========================================= */
 
+let currentUser = null;
 let tournaments = [];
 let activeFilter = "ALL";
-let currentUser = null;
-let selectedTournament = null;
 
 const $ = id => document.getElementById(id);
 
-$("year").textContent = new Date().getFullYear();
+$("year").textContent =
+new Date().getFullYear();
 
 
-// =====================================================
-// HELPERS
-// =====================================================
+/* =========================================
+   HELPERS
+========================================= */
 
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g,c=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  }[c]));
+ return String(value ?? "").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
 }
 
 function money(value){
-  return "৳" + Number(value || 0).toLocaleString("bn-BD");
-}
-
-function openModal(id){
-  $(id).classList.add("show");
-}
-
-function closeModal(id){
-  $(id).classList.remove("show");
+ return "৳" +
+ Number(value || 0).toLocaleString("bn-BD");
 }
 
 function message(id,text,type="error"){
-  $(id).className = "message " + type;
-  $(id).textContent = text;
+ $(id).innerHTML =
+ `<div class="message ${type}">
+ ${escapeHTML(text)}
+ </div>`;
+}
+
+function clearMessage(id){
+ $(id).innerHTML="";
+}
+
+function formatDate(value){
+ if(!value) return "শিগগিরই";
+
+ const d=new Date(value);
+
+ if(isNaN(d.getTime()))
+  return "শিগগিরই";
+
+ return d.toLocaleString("bn-BD",{
+  dateStyle:"medium",
+  timeStyle:"short"
+ });
 }
 
 
-// =====================================================
-// TOURNAMENT
-// =====================================================
+/* =========================================
+   AUTH MODAL
+========================================= */
 
-async function loadTournaments(){
+function openAuth(){
+ $("authModal").classList.add("show");
+}
 
-  const box = $("tournamentList");
-
-  box.innerHTML =
-    '<div class="empty">টুর্নামেন্ট লোড হচ্ছে...</div>';
-
-  const {data,error} = await db
-    .from("tournaments")
-    .select("*")
-    .eq("status","published")
-    .order("created_at",{ascending:false});
-
-  if(error){
-
-    console.error(error);
-
-    box.innerHTML =
-      '<div class="empty">টুর্নামেন্ট লোড করা যায়নি।</div>';
-
-    return;
-  }
-
-  tournaments = data || [];
-
-  $("tournamentCount").textContent =
-    tournaments.length.toLocaleString("bn-BD");
-
-  renderTournaments();
+function closeAuth(){
+ $("authModal").classList.remove("show");
+ clearMessage("authMessage");
 }
 
 
-function filterTours(type,button){
-
-  activeFilter = type;
-
-  document
-    .querySelectorAll(".filters button")
-    .forEach(b=>b.classList.remove("active"));
-
-  button.classList.add("active");
-
-  renderTournaments();
-}
-
-
-function renderTournaments(){
-
-  const box = $("tournamentList");
-
-  const list =
-    activeFilter === "ALL"
-      ? tournaments
-      : tournaments.filter(t=>t.type === activeFilter);
-
-  if(!list.length){
-
-    box.innerHTML =
-      '<div class="empty">এই মুহূর্তে কোনো টুর্নামেন্ট নেই।</div>';
-
-    return;
-  }
-
-  box.innerHTML = list.map(t=>`
-
-    <article class="card">
-
-      <div class="cover">
-        ${
-          t.image_url
-          ? `<img src="${escapeHTML(t.image_url)}" alt="Tournament">`
-          : "🎮"
-        }
-      </div>
-
-      <div class="cardbody">
-
-        <span class="badge">
-          ${escapeHTML(t.type || "TOURNAMENT")}
-        </span>
-
-        <h3>${escapeHTML(t.title)}</h3>
-
-        <p class="muted">
-          ${escapeHTML(t.game || "Free Fire")}
-          ${t.mode ? " · " + escapeHTML(t.mode) : ""}
-        </p>
-
-        <div class="details">
-
-          <div class="detail">
-            <small>এন্ট্রি ফি</small>
-            <b>${money(t.entry_fee)}</b>
-          </div>
-
-          <div class="detail">
-            <small>প্রাইজ পুল</small>
-            <b>${money(t.prize_pool)}</b>
-          </div>
-
-          <div class="detail">
-            <small>সর্বোচ্চ স্লট</small>
-            <b>${Number(t.max_slots || 0).toLocaleString("bn-BD")}</b>
-          </div>
-
-          <div class="detail">
-            <small>শুরুর সময়</small>
-            <b>
-              ${
-                t.start_at
-                ? new Date(t.start_at).toLocaleString("bn-BD")
-                : "শিগগিরই"
-              }
-            </b>
-          </div>
-
-        </div>
-
-        ${
-          t.description
-          ? `<p class="muted">${escapeHTML(t.description)}</p>`
-          : ""
-        }
-
-        <button
-          class="btn"
-          style="width:100%"
-          onclick="joinTournament('${t.id}')">
-          🎮 Join Tournament
-        </button>
-
-      </div>
-
-    </article>
-
-  `).join("");
-}
-
-
-// =====================================================
-// AUTH
-// =====================================================
+/* =========================================
+   SIGNUP
+========================================= */
 
 async function signup(){
 
-  const email = $("authEmail").value.trim();
-  const password = $("authPassword").value;
+ clearMessage("authMessage");
 
-  if(!email || password.length < 6){
+ const email =
+ $("authEmail").value.trim();
 
-    message(
-      "authMessage",
-      "সঠিক ইমেইল এবং কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড দিন।"
-    );
+ const password =
+ $("authPassword").value;
 
-    return;
-  }
+ if(!email || password.length < 6){
+  message(
+   "authMessage",
+   "সঠিক Email এবং কমপক্ষে ৬ অক্ষরের Password দিন।"
+  );
+  return;
+ }
 
-  const {data,error} =
-    await db.auth.signUp({
-      email,
-      password
-    });
+ const {data,error} =
+ await db.auth.signUp({
+  email,
+  password
+ });
 
-  if(error){
+ if(error){
+  message(
+   "authMessage",
+   error.message
+  );
+  return;
+ }
 
-    message("authMessage",error.message);
-    return;
-  }
+ if(data.session){
+
+  currentUser=data.user;
+
+  closeAuth();
+
+  await afterLogin();
+
+ }else{
 
   message(
-    "authMessage",
-    "✅ Account তৈরি হয়েছে। Email verification চালু থাকলে আপনার Email verify করুন।",
-    "success"
+   "authMessage",
+   "Account তৈরি হয়েছে। Email verification চালু থাকলে আপনার Email verify করুন।",
+   "success"
   );
+ }
 }
 
+
+/* =========================================
+   LOGIN
+========================================= */
 
 async function login(){
 
-  const email = $("authEmail").value.trim();
-  const password = $("authPassword").value;
+ clearMessage("authMessage");
 
-  if(!email || !password){
+ const email =
+ $("authEmail").value.trim();
 
-    message(
-      "authMessage",
-      "ইমেইল ও পাসওয়ার্ড দিন।"
-    );
+ const password =
+ $("authPassword").value;
 
-    return;
-  }
+ if(!email || !password){
+  message(
+   "authMessage",
+   "Email এবং Password দিন।"
+  );
+  return;
+ }
 
-  const {data,error} =
-    await db.auth.signInWithPassword({
-      email,
-      password
-    });
+ const {data,error} =
+ await db.auth.signInWithPassword({
+  email,
+  password
+ });
 
-  if(error){
+ if(error){
+  message(
+   "authMessage",
+   error.message
+  );
+  return;
+ }
 
-    message("authMessage",error.message);
-    return;
-  }
+ currentUser=data.user;
 
-  currentUser = data.user;
+ closeAuth();
 
-  closeModal("authModal");
-
-  await updateAccount();
-
-  await loadWallet();
-
-  await loadHistory();
+ await afterLogin();
 }
 
+
+/* =========================================
+   LOGOUT
+========================================= */
 
 async function logout(){
 
-  await db.auth.signOut();
+ await db.auth.signOut();
 
-  currentUser = null;
+ currentUser=null;
 
-  $("accountInfo").textContent =
-    "Login করলে আপনার Account ও Wallet এখানে দেখা যাবে।";
-
-  $("accountBox").classList.add("hidden");
-
-  $("loginAccountBtn").classList.remove("hidden");
-
-  $("historyPanel").classList.add("hidden");
-
-  $("headerBalance").textContent = "৳০";
+ showLoggedOut();
 }
 
 
-async function updateAccount(){
+/* =========================================
+   AUTH UI
+========================================= */
 
-  if(!currentUser) return;
+function showLoggedIn(){
 
-  $("accountInfo").textContent =
-    "আপনার Account সফলভাবে Login করা হয়েছে।";
+ $("loggedOutBox")
+ .classList.add("hidden");
 
-  $("userEmail").textContent =
-    currentUser.email || "";
+ $("loggedInBox")
+ .classList.remove("hidden");
 
-  $("accountBox").classList.remove("hidden");
+ $("headerActions").innerHTML=`
+  <button class="btn" onclick="openDeposit()">
+   💰 Wallet
+  </button>
+ `;
 
-  $("loginAccountBtn").classList.add("hidden");
+ $("userEmail").textContent =
+ currentUser?.email || "—";
+}
+
+function showLoggedOut(){
+
+ $("loggedInBox")
+ .classList.add("hidden");
+
+ $("loggedOutBox")
+ .classList.remove("hidden");
+
+ $("headerActions").innerHTML=`
+  <button class="btn" onclick="openAuth()">
+   🔐 Login
+  </button>
+ `;
 }
 
 
-// =====================================================
-// WALLET
-// =====================================================
+/* =========================================
+   AFTER LOGIN
+========================================= */
+
+async function afterLogin(){
+
+ showLoggedIn();
+
+ await loadWallet();
+
+ await loadDepositHistory();
+
+ await loadWithdrawalHistory();
+}
+
+
+/* =========================================
+   SESSION
+========================================= */
+
+async function checkSession(){
+
+ const {data,error} =
+ await db.auth.getSession();
+
+ if(error){
+  console.error(error);
+  return;
+ }
+
+ if(data.session){
+
+  currentUser=data.session.user;
+
+  await afterLogin();
+
+ }else{
+
+  showLoggedOut();
+ }
+}
+
+
+/* =========================================
+   WALLET
+========================================= */
 
 async function loadWallet(){
 
-  if(!currentUser) return;
+ if(!currentUser) return;
 
-  const {data,error} =
-    await db
-      .from("wallets")
-      .select("balance")
-      .eq("user_id",currentUser.id)
-      .maybeSingle();
+ const {data,error} =
+ await db
+ .from("wallets")
+ .select("balance")
+ .eq("user_id",currentUser.id)
+ .maybeSingle();
 
-  if(error){
+ if(error){
+  console.error("Wallet:",error.message);
+  return;
+ }
 
-    console.error(error);
-    return;
-  }
+ const balance =
+ Number(data?.balance || 0);
 
-  const balance = Number(data?.balance || 0);
+ $("walletBalance").textContent =
+ money(balance);
 
-  $("accountBalance").textContent = money(balance);
-  $("headerBalance").textContent = money(balance);
+ $("withdrawBalance").textContent =
+ money(balance);
 }
 
 
-// =====================================================
-// DEPOSIT
-// =====================================================
+/* =========================================
+   DEPOSIT MODAL
+========================================= */
 
 function openDeposit(){
 
-  if(!currentUser){
+ if(!currentUser){
+  openAuth();
+  return;
+ }
 
-    openModal("authModal");
-    return;
-  }
+ clearMessage("depositMessage");
 
-  $("depositAmount").value = "";
-  $("depositMethod").value = "";
-  $("depositSender").value = "";
-  $("depositTransaction").value = "";
+ $("depositModal")
+ .classList.add("show");
+}
 
-  $("paymentNumber").style.display = "none";
-  $("paymentNumber").textContent = "";
-
-  $("depositMessage").textContent = "";
-  $("depositMessage").className = "";
-
-  openModal("depositModal");
+function closeDeposit(){
+ $("depositModal")
+ .classList.remove("show");
 }
 
 
-function showPaymentNumber(){
+/* PAYMENT NUMBER */
 
-  const method = $("depositMethod").value;
-  const box = $("paymentNumber");
+$("depositMethod")
+.addEventListener("change",function(){
 
-  if(method === "bKash" || method === "Nagad"){
+ const method=this.value;
+ const box=$("paymentNumber");
 
-    box.style.display = "block";
+ if(!method){
+  box.classList.add("hidden");
+  return;
+ }
 
-    box.innerHTML =
-      "📱 " + method +
-      " Send Money করুন: <b>01759748984</b>";
+ let number="";
 
-  }else if(method === "Rocket"){
+ if(method==="bKash" || method==="Nagad"){
+  number="01759748984";
+ }
 
-    box.style.display = "block";
+ if(method==="Rocket"){
+  number="01351593943";
+ }
 
-    box.innerHTML =
-      "🚀 Rocket Send Money করুন: <b>01351593943</b>";
+ box.innerHTML=
+ `এই নম্বরে <b>${escapeHTML(method)}</b> Send Money করুন:<br>
+ <strong style="font-size:20px;color:#6effc5">
+ ${number}
+ </strong>`;
 
-  }else{
+ box.classList.remove("hidden");
+});
 
-    box.style.display = "none";
-    box.textContent = "";
-  }
-}
 
+/* =========================================
+   SUBMIT DEPOSIT
+========================================= */
 
 async function submitDeposit(){
 
-  if(!currentUser){
+ clearMessage("depositMessage");
 
-    message(
-      "depositMessage",
-      "আগে Login করুন।"
-    );
+ if(!currentUser){
+  message(
+   "depositMessage",
+   "আগে Login করুন।"
+  );
+  return;
+ }
 
-    return;
-  }
+ const amount =
+ Number($("depositAmount").value);
 
-  const amount =
-    Number($("depositAmount").value);
+ const method =
+ $("depositMethod").value;
 
-  const method =
-    $("depositMethod").value;
+ const sender =
+ $("senderNumber").value.trim();
 
-  const sender =
-    $("depositSender").value.trim();
+ const transaction =
+ $("transactionId").value.trim();
 
-  const transaction =
-    $("depositTransaction").value.trim();
+ if(!Number.isFinite(amount) || amount <= 0){
+  message(
+   "depositMessage",
+   "সঠিক টাকার পরিমাণ দিন।"
+  );
+  return;
+ }
 
-  if(!Number.isFinite(amount) || amount <= 0){
+ if(!method){
+  message(
+   "depositMessage",
+   "Payment method নির্বাচন করুন।"
+  );
+  return;
+ }
 
-    message(
-      "depositMessage",
-      "সঠিক টাকার পরিমাণ দিন।"
-    );
+ if(!sender){
+  message(
+   "depositMessage",
+   "যে নম্বর থেকে টাকা পাঠিয়েছেন সেটি দিন।"
+  );
+  return;
+ }
 
-    return;
-  }
+ if(!transaction){
+  message(
+   "depositMessage",
+   "Transaction ID দিন।"
+  );
+  return;
+ }
 
-  if(!method){
 
-    message(
-      "depositMessage",
-      "Payment Method নির্বাচন করুন।"
-    );
+ /*
+   request_deposit RPC নেই।
+   তাই deposit_requests table-এ সরাসরি insert।
+ */
 
-    return;
-  }
+ const {error} =
+ await db
+ .from("deposit_requests")
+ .insert({
+  user_id:currentUser.id,
+  amount:amount,
+  method:method,
+  transaction_id:transaction,
+  status:"pending"
+ });
 
-  if(!sender || !transaction){
-
-    message(
-      "depositMessage",
-      "Sender Number এবং Transaction ID দিন।"
-    );
-
-    return;
-  }
-
-  const {error} =
-    await db
-      .from("deposit_requests")
-      .insert({
-        user_id: currentUser.id,
-        amount: amount,
-        method: method,
-        transaction_id: transaction,
-        status: "pending"
-      });
-
-  if(error){
-
-    message(
-      "depositMessage",
-      "অনুরোধ পাঠানো যায়নি: " + error.message
-    );
-
-    return;
-  }
+ if(error){
 
   message(
-    "depositMessage",
-    "✅ Deposit Request পাঠানো হয়েছে। Admin যাচাই করার পর Balance যোগ হবে।",
-    "success"
+   "depositMessage",
+   "Deposit request পাঠানো যায়নি: "+
+   error.message
   );
 
-  $("depositAmount").value = "";
-  $("depositSender").value = "";
-  $("depositTransaction").value = "";
+  return;
+ }
 
-  await loadHistory();
+ /*
+   sender number-এর column তোমার দেওয়া
+   structure-এ নেই, তাই এখানে রাখা হচ্ছে না।
+ */
+
+ message(
+  "depositMessage",
+  "✅ Deposit request সফলভাবে পাঠানো হয়েছে। Admin যাচাই করার পর balance পরিবর্তন হবে।",
+  "success"
+ );
+
+ $("depositAmount").value="";
+ $("depositMethod").value="";
+ $("senderNumber").value="";
+ $("transactionId").value="";
+ $("paymentNumber").classList.add("hidden");
+
+ await loadDepositHistory();
 }
 
 
-// =====================================================
-// WITHDRAW
-// =====================================================
+/* =========================================
+   WITHDRAW MODAL
+========================================= */
 
-function openWithdraw(){
+async function openWithdraw(){
 
-  if(!currentUser){
+ if(!currentUser){
+  openAuth();
+  return;
+ }
 
-    openModal("authModal");
-    return;
-  }
+ await loadWallet();
 
-  $("withdrawAmount").value = "";
-  $("withdrawMethod").value = "";
-  $("withdrawAccount").value = "";
+ clearMessage("withdrawMessage");
 
-  $("withdrawMessage").textContent = "";
-  $("withdrawMessage").className = "";
-
-  openModal("withdrawModal");
+ $("withdrawModal")
+ .classList.add("show");
 }
 
+function closeWithdraw(){
+ $("withdrawModal")
+ .classList.remove("show");
+}
+
+
+/* =========================================
+   SUBMIT WITHDRAWAL
+========================================= */
 
 async function submitWithdrawal(){
 
-  if(!currentUser){
+ clearMessage("withdrawMessage");
 
-    message(
-      "withdrawMessage",
-      "আগে Login করুন।"
-    );
+ if(!currentUser){
+  message(
+   "withdrawMessage",
+   "আগে Login করুন।"
+  );
+  return;
+ }
 
-    return;
+ const amount =
+ Number($("withdrawAmount").value);
+
+ const method =
+ $("withdrawMethod").value;
+
+ const receiver =
+ $("receiverNumber").value.trim();
+
+ if(!Number.isFinite(amount) || amount <= 0){
+  message(
+   "withdrawMessage",
+   "সঠিক টাকার পরিমাণ দিন।"
+  );
+  return;
+ }
+
+ if(!method){
+  message(
+   "withdrawMessage",
+   "Payment method নির্বাচন করুন।"
+  );
+  return;
+ }
+
+ if(!receiver){
+  message(
+   "withdrawMessage",
+   "যে নম্বরে টাকা নিতে চান সেটি দিন।"
+  );
+  return;
+ }
+
+
+ /*
+   তোমার RPC:
+   request_withdrawal(
+     p_amount numeric,
+     p_method text,
+     p_receiver_number text
+   )
+ */
+
+ const {data,error} =
+ await db.rpc(
+  "request_withdrawal",
+  {
+   p_amount:amount,
+   p_method:method,
+   p_receiver_number:receiver
   }
+ );
 
-  const amount =
-    Number($("withdrawAmount").value);
-
-  const method =
-    $("withdrawMethod").value;
-
-  const account =
-    $("withdrawAccount").value.trim();
-
-  if(!Number.isFinite(amount) || amount <= 0){
-
-    message(
-      "withdrawMessage",
-      "সঠিক টাকার পরিমাণ দিন।"
-    );
-
-    return;
-  }
-
-  if(!method){
-
-    message(
-      "withdrawMessage",
-      "Payment Method নির্বাচন করুন।"
-    );
-
-    return;
-  }
-
-  if(!account){
-
-    message(
-      "withdrawMessage",
-      "Account Number দিন।"
-    );
-
-    return;
-  }
-
-  const {data:wallet,error:walletError} =
-    await db
-      .from("wallets")
-      .select("balance")
-      .eq("user_id",currentUser.id)
-      .maybeSingle();
-
-  if(walletError){
-
-    message(
-      "withdrawMessage",
-      walletError.message
-    );
-
-    return;
-  }
-
-  const balance =
-    Number(wallet?.balance || 0);
-
-  if(amount > balance){
-
-    message(
-      "withdrawMessage",
-      "আপনার Wallet Balance-এর চেয়ে বেশি টাকা উত্তোলন করা যাবে না।"
-    );
-
-    return;
-  }
-
-  const {error} =
-    await db
-      .from("withdrawal_requests")
-      .insert({
-        user_id: currentUser.id,
-        amount: amount,
-        method: method,
-        account_number: account,
-        status: "pending"
-      });
-
-  if(error){
-
-    message(
-      "withdrawMessage",
-      "Withdrawal Request পাঠানো যায়নি: " +
-      error.message
-    );
-
-    return;
-  }
+ if(error){
 
   message(
-    "withdrawMessage",
-    "✅ Withdrawal Request পাঠানো হয়েছে। Admin যাচাই করবেন।",
-    "success"
+   "withdrawMessage",
+   "Withdrawal request পাঠানো যায়নি: "+
+   error.message
   );
 
-  $("withdrawAmount").value = "";
-  $("withdrawAccount").value = "";
+  return;
+ }
 
-  await loadHistory();
+ message(
+  "withdrawMessage",
+  data
+   ? String(data)
+   : "✅ Withdrawal request সফলভাবে পাঠানো হয়েছে।",
+  "success"
+ );
+
+ $("withdrawAmount").value="";
+ $("withdrawMethod").value="";
+ $("receiverNumber").value="";
+
+ await loadWallet();
+
+ await loadWithdrawalHistory();
 }
 
 
-// =====================================================
-// HISTORY
-// =====================================================
+/* =========================================
+   DEPOSIT HISTORY
+========================================= */
 
-async function loadHistory(){
+async function loadDepositHistory(){
 
-  if(!currentUser) return;
+ if(!currentUser) return;
 
-  const [deposits,withdrawals,transactions] =
-    await Promise.all([
+ const box=$("depositHistory");
 
-      db
-        .from("deposit_requests")
-        .select("*")
-        .eq("user_id",currentUser.id)
-        .order("created_at",{ascending:false})
-        .limit(20),
+ const {data,error} =
+ await db
+ .from("deposit_requests")
+ .select("id,amount,method,transaction_id,status,created_at")
+ .eq("user_id",currentUser.id)
+ .order("created_at",{ascending:false})
+ .limit(20);
 
-      db
-        .from("withdrawal_requests")
-        .select("*")
-        .eq("user_id",currentUser.id)
-        .order("created_at",{ascending:false})
-        .limit(20),
+ if(error){
 
-      db
-        .from("wallet_transactions")
-        .select("*")
-        .eq("user_id",currentUser.id)
-        .order("created_at",{ascending:false})
-        .limit(20)
+  box.innerHTML=
+  `<div class="message error">
+   ${escapeHTML(error.message)}
+  </div>`;
 
-    ]);
+  return;
+ }
 
-  const list = [];
+ if(!data?.length){
 
-  (deposits.data || []).forEach(x=>{
-    list.push({
-      date:x.created_at,
-      title:"💳 Deposit Request",
-      amount:x.amount,
-      status:x.status
-    });
-  });
+  box.innerHTML=
+  `<div class="empty">
+   এখনো কোনো Deposit request নেই।
+  </div>`;
 
-  (withdrawals.data || []).forEach(x=>{
-    list.push({
-      date:x.created_at,
-      title:"💸 Withdrawal Request",
-      amount:x.amount,
-      status:x.status
-    });
-  });
+  return;
+ }
 
-  (transactions.data || []).forEach(x=>{
-    list.push({
-      date:x.created_at,
-      title:"💰 " + (x.type || "Transaction"),
-      amount:x.amount,
-      status:"completed"
-    });
-  });
+ box.innerHTML=data.map(row=>`
 
-  list.sort(
-    (a,b)=>new Date(b.date)-new Date(a.date)
-  );
+  <div class="historyItem">
 
-  const box = $("historyList");
+   <b>${money(row.amount)}</b>
+   <br>
 
-  if(!list.length){
+   <span style="color:#9eafc8">
+    ${escapeHTML(row.method || "—")}
+   </span>
 
-    box.innerHTML =
-      '<div class="empty">এখনও কোনো লেনদেন নেই।</div>';
+   <br>
 
-    $("historyPanel").classList.remove("hidden");
+   <small style="color:#8498b3">
+    TXN: ${escapeHTML(row.transaction_id || "—")}
+   </small>
 
-    return;
-  }
+   <br>
 
-  box.innerHTML =
-    list.slice(0,30).map(x=>`
+   <span class="status ${escapeHTML(row.status || "pending")}">
+    ${escapeHTML(row.status || "pending")}
+   </span>
 
-      <div class="history-item">
+   <br>
 
-        <b>${escapeHTML(x.title)}</b>
+   <small style="color:#8498b3">
+    ${formatDate(row.created_at)}
+   </small>
 
-        <div style="margin-top:5px">
-          Amount:
-          <b>${money(x.amount)}</b>
-        </div>
+  </div>
 
-        <div style="margin-top:5px">
-          Status:
-          <span class="status-${escapeHTML(x.status)}">
-            ${escapeHTML(x.status)}
-          </span>
-        </div>
-
-        <div class="muted" style="margin-top:5px">
-          ${new Date(x.date).toLocaleString("bn-BD")}
-        </div>
-
-      </div>
-
-    `).join("");
-
-  $("historyPanel").classList.remove("hidden");
+ `).join("");
 }
 
 
-// =====================================================
-// JOIN
-// =====================================================
+/* =========================================
+   WITHDRAWAL HISTORY
+========================================= */
+
+async function loadWithdrawalHistory(){
+
+ if(!currentUser) return;
+
+ const box=$("withdrawHistory");
+
+ const {data,error} =
+ await db
+ .from("withdrawal_requests")
+ .select("id,amount,method,account_number,status,created_at")
+ .eq("user_id",currentUser.id)
+ .order("created_at",{ascending:false})
+ .limit(20);
+
+ if(error){
+
+  box.innerHTML=
+  `<div class="message error">
+   ${escapeHTML(error.message)}
+  </div>`;
+
+  return;
+ }
+
+ if(!data?.length){
+
+  box.innerHTML=
+  `<div class="empty">
+   এখনো কোনো Withdrawal request নেই।
+  </div>`;
+
+  return;
+ }
+
+ box.innerHTML=data.map(row=>`
+
+  <div class="historyItem">
+
+   <b>${money(row.amount)}</b>
+   <br>
+
+   <span style="color:#9eafc8">
+    ${escapeHTML(row.method || "—")}
+   </span>
+
+   <br>
+
+   <small style="color:#8498b3">
+    নম্বর: ${escapeHTML(row.account_number || "—")}
+   </small>
+
+   <br>
+
+   <span class="status ${escapeHTML(row.status || "pending")}">
+    ${escapeHTML(row.status || "pending")}
+   </span>
+
+   <br>
+
+   <small style="color:#8498b3">
+    ${formatDate(row.created_at)}
+   </small>
+
+  </div>
+
+ `).join("");
+}
+
+
+/* =========================================
+   TOURNAMENTS
+========================================= */
+
+async function loadTournaments(){
+
+ const box=$("tournamentList");
+
+ const {data,error} =
+ await db
+ .from("tournaments")
+ .select("*")
+ .eq("status","published")
+ .order("created_at",{ascending:false});
+
+ if(error){
+
+  box.innerHTML=
+  `<div class="empty">
+   Tournament load হয়নি।
+  </div>`;
+
+  console.error(error);
+  return;
+ }
+
+ tournaments=data || [];
+
+ $("tournamentCount").textContent =
+ tournaments.length.toLocaleString("bn-BD");
+
+ renderTournaments();
+}
+
+
+/* =========================================
+   FILTER
+========================================= */
+
+function filterTours(type,button){
+
+ activeFilter=type;
+
+ document
+ .querySelectorAll(".filters button")
+ .forEach(b=>b.classList.remove("active"));
+
+ button.classList.add("active");
+
+ renderTournaments();
+}
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderTournaments(){
+
+ const box=$("tournamentList");
+
+ const list =
+ activeFilter==="ALL"
+ ? tournaments
+ : tournaments.filter(
+    t=>String(t.type||"").toUpperCase()===activeFilter
+   );
+
+ if(!list.length){
+
+  box.innerHTML=
+  `<div class="empty">
+   এই মুহূর্তে কোনো Tournament নেই।
+  </div>`;
+
+  return;
+ }
+
+ box.innerHTML=list.map(t=>`
+
+  <article class="card">
+
+   <div class="cover">
+
+    ${
+     t.image_url
+     ?
+     `<img src="${escapeHTML(t.image_url)}"
+       alt="Tournament">`
+     :
+     "🎮"
+    }
+
+   </div>
+
+   <div class="cardbody">
+
+    <span class="badge">
+     ${escapeHTML(t.type || "TOURNAMENT")}
+    </span>
+
+    <h3>${escapeHTML(t.title)}</h3>
+
+    <p style="color:#aabbd2">
+     🎮 ${escapeHTML(t.game || "Game")}
+     ${t.mode
+      ? " · "+escapeHTML(t.mode)
+      : ""}
+    </p>
+
+    <div class="details">
+
+     <div>
+      <small>এন্ট্রি ফি</small>
+      <b>${money(t.entry_fee)}</b>
+     </div>
+
+     <div>
+      <small>প্রাইজ</small>
+      <b>${money(t.prize_pool)}</b>
+     </div>
+
+     <div>
+      <small>স্লট</small>
+      <b>${Number(t.max_slots||0)
+       .toLocaleString("bn-BD")}</b>
+     </div>
+
+     <div>
+      <small>শুরু</small>
+      <b>${formatDate(t.start_at)}</b>
+     </div>
+
+    </div>
+
+    ${
+     t.description
+     ?
+     `<p style="color:#aabbd2;line-height:1.6">
+      ${escapeHTML(t.description)}
+     </p>`
+     :
+     ""
+    }
+
+    <button
+     class="btn full"
+     onclick="joinTournament('${escapeHTML(t.id)}')">
+     🏆 অংশ নিন
+    </button>
+
+   </div>
+
+  </article>
+
+ `).join("");
+}
+
+
+/* =========================================
+   JOIN TOURNAMENT
+========================================= */
 
 async function joinTournament(id){
 
-  selectedTournament =
-    tournaments.find(
-      t=>String(t.id) === String(id)
-    );
+ if(!currentUser){
 
-  if(!selectedTournament) return;
-
-  const {data} =
-    await db.auth.getUser();
-
-  if(!data.user){
-
-    openModal("authModal");
-
-    message(
-      "authMessage",
-      "Tournament-এ Join করতে আগে Login করুন।"
-    );
-
-    return;
-  }
-
-  currentUser = data.user;
-
-  $("joinInfo").innerHTML = `
-    <b>${escapeHTML(selectedTournament.title)}</b><br><br>
-
-    🎮 Game:
-    ${escapeHTML(selectedTournament.game || "—")}<br>
-
-    🏆 Type:
-    ${escapeHTML(selectedTournament.type || "—")}<br>
-
-    💵 Entry Fee:
-    ${money(selectedTournament.entry_fee)}<br>
-
-    🥇 Prize:
-    ${money(selectedTournament.prize_pool)}
-  `;
-
-  $("joinMessage").textContent = "";
-  $("joinMessage").className = "";
-
-  openModal("joinModal");
-}
-
-
-async function confirmJoin(){
-
-  if(!currentUser || !selectedTournament){
-
-    message(
-      "joinMessage",
-      "Login প্রয়োজন।"
-    );
-
-    return;
-  }
-
-  const entryFee =
-    Number(selectedTournament.entry_fee || 0);
-
-  if(entryFee <= 0){
-
-    message(
-      "joinMessage",
-      "এই Tournament-এর Entry Fee ০। Admin-এর Join নির্দেশনা অনুসরণ করুন।",
-      "success"
-    );
-
-    return;
-  }
-
-  const {data:wallet,error} =
-    await db
-      .from("wallets")
-      .select("balance")
-      .eq("user_id",currentUser.id)
-      .maybeSingle();
-
-  if(error){
-
-    message(
-      "joinMessage",
-      error.message
-    );
-
-    return;
-  }
-
-  const balance =
-    Number(wallet?.balance || 0);
-
-  if(balance < entryFee){
-
-    message(
-      "joinMessage",
-      "আপনার Wallet Balance পর্যাপ্ত নয়। আগে টাকা যোগ করুন।"
-    );
-
-    return;
-  }
+  openAuth();
 
   message(
-    "joinMessage",
-    "আপনার Balance থেকে Entry Fee কাটার জন্য Tournament Registration system এখনো আলাদাভাবে সেটআপ করা হয়নি।",
-    "error"
+   "authMessage",
+   "Tournament-এ অংশ নিতে আগে Login করুন।"
   );
+
+  return;
+ }
+
+ const tournament =
+ tournaments.find(
+  t=>String(t.id)===String(id)
+ );
+
+ if(!tournament) return;
+
+ /*
+   তোমার বর্তমান database structure অনুযায়ী
+   tournament registration RPC/table নিশ্চিত করা হয়নি।
+   তাই ভুল table-এ data পাঠানো হচ্ছে না।
+ */
+
+ alert(
+  "আপনি Login করেছেন। এই Tournament-এ অংশগ্রহণের registration system-এর database setup সম্পূর্ণ হলে এখান থেকেই Join করা যাবে।"
+ );
 }
 
 
-// =====================================================
-// AUTH SESSION
-// =====================================================
+/* =========================================
+   AUTH STATE
+========================================= */
 
 db.auth.onAuthStateChange(
-  async (event,session)=>{
+ async(event,session)=>{
 
-    if(session){
+  if(event==="SIGNED_IN" && session){
 
-      currentUser = session.user;
+   currentUser=session.user;
 
-      await updateAccount();
-      await loadWallet();
-      await loadHistory();
-
-    }else{
-
-      currentUser = null;
-
-      $("accountBox").classList.add("hidden");
-      $("loginAccountBtn").classList.remove("hidden");
-      $("historyPanel").classList.add("hidden");
-      $("headerBalance").textContent = "৳০";
-
-    }
+   await afterLogin();
 
   }
-);
+
+  if(event==="SIGNED_OUT"){
+
+   currentUser=null;
+
+   showLoggedOut();
+  }
+ });
 
 
-// =====================================================
-// INIT
-// =====================================================
+/* =========================================
+   INIT
+========================================= */
 
 async function init(){
 
-  const {data} =
-    await db.auth.getSession();
+ await checkSession();
 
-  if(data.session){
+ await loadTournaments();
 
-    currentUser = data.session.user;
-
-    await updateAccount();
-    await loadWallet();
-    await loadHistory();
-
-  }
-
-  await loadTournaments();
+ /*
+   Visitor tracking ইচ্ছাকৃতভাবে এখানে নেই।
+   Visitor count শুধু Admin Panel-এ থাকবে।
+ */
 }
 
 init();
@@ -1476,4 +1520,4 @@ init();
 </script>
 
 </body>
-  </html>
+</html>
