@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>MAM TOURNAMENT ZONE</title>
+<title>MAM TOURNAMENT ZONE | Free Fire Tournament</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -13,177 +13,555 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
-  background:#07111f;
+  background:#070d18;
   color:#fff;
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-header{
-  background:linear-gradient(135deg,#0d1b2f,#102d49);
-  padding:25px 15px;
-  text-align:center;
-  border-bottom:1px solid #28415e;
-}
-
-.logo{
-  font-size:27px;
-  font-weight:bold;
-  color:#35e69b;
-}
-
-.subtitle{
-  margin-top:8px;
-  color:#aebed1;
-  font-size:14px;
-}
-
-.container{
-  width:100%;
-  max-width:720px;
-  margin:auto;
-  padding:15px;
-}
-
-.card{
-  background:#101d2f;
-  border:1px solid #263c57;
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 8px 25px rgba(0,0,0,.18);
-}
-
-.title{
-  color:#35e69b;
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-label{
-  display:block;
-  color:#cbd5e1;
-  font-size:14px;
-  margin:12px 0 6px;
-}
-
+button,
 input,
 select{
-  width:100%;
-  padding:13px;
-  background:#081321;
-  color:white;
-  border:1px solid #344b66;
-  border-radius:9px;
-  outline:none;
-  font-size:15px;
-}
-
-input:focus,
-select:focus{
-  border-color:#35e69b;
+  font-family:inherit;
 }
 
 button{
-  width:100%;
-  padding:13px;
-  margin-top:12px;
-  border:0;
-  border-radius:9px;
-  background:#20c982;
-  color:#061a12;
-  font-weight:bold;
-  font-size:15px;
   cursor:pointer;
 }
 
-button:active{
-  transform:scale(.98);
+a{
+  text-decoration:none;
+  color:inherit;
 }
 
-.btn-dark{
-  background:#263b55;
-  color:white;
+/* ================= HEADER ================= */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(7,13,24,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #22344c;
 }
 
-.btn-red{
-  background:#d9485f;
-  color:white;
+.nav{
+  max-width:1100px;
+  margin:auto;
+  min-height:68px;
+  padding:10px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
-.row{
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  background:linear-gradient(135deg,#20d38b,#0b8f64);
+  box-shadow:0 8px 25px rgba(32,211,139,.2);
+}
+
+.brand-text{
+  font-size:17px;
+  font-weight:900;
+  color:#42e9a0;
+}
+
+.brand-sub{
+  color:#8294a9;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.wallet-mini{
+  display:none;
+  background:#102b2a;
+  border:1px solid #245a4d;
+  padding:9px 12px;
+  border-radius:10px;
+  color:#42e9a0;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.login-top{
+  border:0;
+  background:#22c985;
+  color:#061810;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+  max-width:1100px;
+  margin:20px auto 0;
+  padding:0 15px;
+}
+
+.hero-box{
+  min-height:300px;
+  border:1px solid #233850;
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(31,211,139,.22),transparent 30%),
+    radial-gradient(circle at 15% 80%,rgba(50,100,255,.16),transparent 30%),
+    linear-gradient(135deg,#0e1c2e,#091321 65%,#102a29);
+}
+
+.hero-content{
+  padding:40px 30px;
+  max-width:700px;
+  position:relative;
+  z-index:2;
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 11px;
+  border-radius:30px;
+  background:#153b35;
+  border:1px solid #236957;
+  color:#42e9a0;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.hero h1{
+  margin:0;
+  font-size:38px;
+  line-height:1.15;
+}
+
+.hero h1 span{
+  color:#42e9a0;
+}
+
+.hero p{
+  color:#a7b6c8;
+  line-height:1.7;
+  margin:15px 0;
+  font-size:15px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.primary{
+  border:0;
+  background:#22c985;
+  color:#04160f;
+  padding:13px 18px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.secondary{
+  border:1px solid #36506d;
+  background:#101d2e;
+  color:#fff;
+  padding:13px 18px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.hero-glow{
+  position:absolute;
+  right:-70px;
+  bottom:-100px;
+  width:350px;
+  height:350px;
+  border-radius:50%;
+  background:rgba(32,211,139,.12);
+  filter:blur(30px);
+}
+
+/* ================= STATS ================= */
+
+.stats{
+  max-width:1100px;
+  margin:16px auto;
+  padding:0 15px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.stat{
+  background:#0d1828;
+  border:1px solid #20344c;
+  border-radius:14px;
+  padding:15px;
+}
+
+.stat-icon{
+  font-size:22px;
+}
+
+.stat-number{
+  font-size:20px;
+  font-weight:900;
+  margin-top:8px;
+}
+
+.stat-label{
+  color:#8192a6;
+  font-size:12px;
+  margin-top:4px;
+}
+
+/* ================= MAIN ================= */
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:10px 15px 40px;
+}
+
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  margin:30px 0 14px;
+}
+
+.section-title{
+  font-size:23px;
+  font-weight:900;
+}
+
+.section-title span{
+  color:#42e9a0;
+}
+
+.section-desc{
+  color:#8293a8;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.section-link{
+  color:#42e9a0;
+  font-size:13px;
+}
+
+/* ================= TOURNAMENT ================= */
+
+.tournaments{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.t-card{
+  background:#0d1828;
+  border:1px solid #213650;
+  border-radius:17px;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.t-card:hover{
+  transform:translateY(-3px);
+  border-color:#2f6b59;
+}
+
+.t-banner{
+  height:115px;
+  padding:15px;
+  position:relative;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(40,230,155,.2),transparent 35%),
+    linear-gradient(135deg,#122942,#0c1725);
+}
+
+.t-banner.red{
+  background:
+    radial-gradient(circle at 80% 20%,rgba(255,76,76,.2),transparent 35%),
+    linear-gradient(135deg,#2a1721,#0d1724);
+}
+
+.t-banner.blue{
+  background:
+    radial-gradient(circle at 80% 20%,rgba(72,130,255,.22),transparent 35%),
+    linear-gradient(135deg,#142344,#0c1725);
+}
+
+.t-game{
+  color:#42e9a0;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.t-name{
+  font-size:19px;
+  font-weight:900;
+  margin-top:9px;
+}
+
+.t-status{
+  position:absolute;
+  top:13px;
+  right:13px;
+  padding:6px 9px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:bold;
+  background:#164b3a;
+  color:#42e9a0;
+}
+
+.t-status.closed{
+  background:#45232a;
+  color:#ff8995;
+}
+
+.t-body{
+  padding:15px;
+}
+
+.prize{
+  color:#ffd166;
+  font-size:22px;
+  font-weight:900;
+}
+
+.prize-label{
+  color:#8092a7;
+  font-size:11px;
+}
+
+.t-info{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:8px;
+  margin:14px 0;
+}
+
+.info-box{
+  background:#081321;
+  border:1px solid #1d3047;
+  padding:10px;
+  border-radius:9px;
+}
+
+.info-label{
+  color:#71849a;
+  font-size:10px;
+}
+
+.info-value{
+  margin-top:4px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.join-btn{
+  width:100%;
+  padding:12px;
+  border:0;
+  border-radius:9px;
+  background:#22c985;
+  color:#04160f;
+  font-weight:900;
+}
+
+.join-btn.closed{
+  background:#27374b;
+  color:#8999aa;
+}
+
+/* ================= HOW ================= */
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.step{
+  background:#0d1828;
+  border:1px solid #20344c;
+  padding:17px;
+  border-radius:14px;
+}
+
+.step-icon{
+  font-size:25px;
+}
+
+.step h3{
+  font-size:15px;
+  margin:10px 0 6px;
+}
+
+.step p{
+  color:#8192a6;
+  font-size:12px;
+  line-height:1.6;
+  margin:0;
+}
+
+/* ================= ACCOUNT ================= */
+
+.card{
+  background:#0d1828;
+  border:1px solid #213650;
+  border-radius:16px;
+  padding:18px;
+  margin-top:15px;
+}
+
+.card-title{
+  font-size:19px;
+  font-weight:900;
+  color:#42e9a0;
+  margin-bottom:14px;
 }
 
 .hidden{
   display:none !important;
 }
 
+.user-email{
+  color:#9aadc1;
+  font-size:13px;
+  word-break:break-all;
+  margin-bottom:12px;
+}
+
 .balance-box{
-  text-align:center;
-  background:linear-gradient(135deg,#0c2630,#102f38);
-  padding:20px;
+  background:linear-gradient(135deg,#102f2c,#102131);
+  border:1px solid #225a4e;
   border-radius:13px;
-  margin-bottom:15px;
+  padding:17px;
+  text-align:center;
 }
 
 .balance-label{
-  color:#9fb2c7;
-  font-size:14px;
+  color:#8fa4b7;
+  font-size:12px;
 }
 
 .balance{
-  color:#35e69b;
+  color:#42e9a0;
   font-size:34px;
-  font-weight:bold;
-  margin-top:7px;
+  font-weight:900;
+  margin-top:6px;
+}
+
+.account-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+label{
+  display:block;
+  color:#b8c6d5;
+  font-size:13px;
+  margin:12px 0 6px;
+}
+
+input,
+select{
+  width:100%;
+  padding:12px;
+  border-radius:9px;
+  background:#081321;
+  color:#fff;
+  border:1px solid #30465f;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border-color:#42e9a0;
+}
+
+.full-btn{
+  width:100%;
+  padding:12px;
+  border:0;
+  border-radius:9px;
+  margin-top:12px;
+  background:#22c985;
+  color:#04160f;
+  font-weight:900;
+}
+
+.dark-btn{
+  background:#263a52;
+  color:white;
+}
+
+.red-btn{
+  background:#b83d4d;
+  color:white;
 }
 
 .notice{
-  background:#182b43;
-  border:1px solid #29425f;
-  padding:13px;
-  border-radius:10px;
+  padding:12px;
+  border-radius:9px;
+  background:#172b42;
+  border:1px solid #28435f;
+  color:#d0dbe7;
+  font-size:13px;
   line-height:1.6;
-  font-size:14px;
-  margin-bottom:12px;
+  margin:10px 0;
 }
 
 .success{
-  border-color:#1d805d;
-  background:#103529;
+  background:#10352b;
+  border-color:#21694f;
 }
 
 .error{
-  border-color:#8f3544;
-  background:#3a1820;
+  background:#3b1b22;
+  border-color:#71313d;
 }
 
-.muted{
-  color:#9fb0c3;
+.history-item{
+  padding:12px 0;
+  border-bottom:1px solid #23364d;
   font-size:13px;
-  line-height:1.5;
-}
-
-.user-email{
-  text-align:center;
-  color:#b8c8da;
-  font-size:14px;
-  margin-bottom:12px;
-  word-break:break-all;
-}
-
-.item{
-  padding:13px 0;
-  border-bottom:1px solid #263b55;
   line-height:1.7;
 }
 
-.item:last-child{
+.history-item:last-child{
   border-bottom:0;
 }
 
@@ -192,259 +570,793 @@ button:active{
   font-weight:bold;
 }
 
-.empty{
-  color:#8fa2b7;
-  text-align:center;
-  padding:10px;
-}
+/* ================= FOOTER ================= */
 
-.small{
-  font-size:12px;
-  color:#8fa2b7;
-}
-
-.footer{
+footer{
+  border-top:1px solid #1c3047;
+  margin-top:25px;
+  padding:25px 15px;
   text-align:center;
-  padding:20px 10px;
-  color:#70849a;
+  color:#6f8196;
   font-size:12px;
 }
 
-.loader{
-  text-align:center;
-  color:#35e69b;
-  padding:10px;
+.footer-name{
+  color:#42e9a0;
+  font-size:15px;
+  font-weight:bold;
+  margin-bottom:5px;
 }
 
-@media(max-width:520px){
-  .row{
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+  .tournaments{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .steps{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .nav{
+    min-height:62px;
+  }
+
+  .brand-text{
+    font-size:14px;
+  }
+
+  .wallet-mini{
+    display:block;
+  }
+
+  .hero-box{
+    min-height:330px;
+  }
+
+  .hero-content{
+    padding:30px 20px;
+  }
+
+  .hero h1{
+    font-size:29px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .tournaments{
     grid-template-columns:1fr;
   }
 
-  .logo{
-    font-size:23px;
+  .steps{
+    grid-template-columns:1fr 1fr;
   }
+
+  .account-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:400px){
+
+  .brand-sub{
+    display:none;
+  }
+
+  .login-top{
+    padding:9px 10px;
+    font-size:11px;
+  }
+
+  .wallet-mini{
+    padding:8px;
+    font-size:11px;
+  }
+
+  .steps{
+    grid-template-columns:1fr;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
-  <div class="logo">🔥 MAM TOURNAMENT ZONE</div>
-  <div class="subtitle">FREE FIRE TOURNAMENT • WALLET</div>
+
+<div class="nav">
+
+<div class="brand">
+
+<div class="logo">🔥</div>
+
+<div>
+<div class="brand-text">
+MAM TOURNAMENT ZONE
+</div>
+
+<div class="brand-sub">
+FREE FIRE TOURNAMENT PLATFORM
+</div>
+</div>
+
+</div>
+
+<div class="nav-right">
+
+<div id="miniWallet" class="wallet-mini">
+৳ <span id="miniBalance">0</span>
+</div>
+
+<button class="login-top" onclick="scrollToAccount()">
+👤 Account
+</button>
+
+</div>
+
+</div>
+
 </header>
 
-<div class="container">
 
-<!-- ================= AUTH ================= -->
+<!-- ================= HERO ================= -->
 
-<section class="card" id="authCard">
+<section class="hero">
 
-  <div class="title">🔐 অ্যাকাউন্ট</div>
+<div class="hero-box">
 
-  <div id="authMessage" class="notice hidden"></div>
+<div class="hero-glow"></div>
 
-  <label>ইমেইল</label>
-  <input
-    id="email"
-    type="email"
-    placeholder="আপনার ইমেইল লিখুন"
-    autocomplete="email"
-  >
+<div class="hero-content">
 
-  <label>পাসওয়ার্ড</label>
-  <input
-    id="password"
-    type="password"
-    placeholder="কমপক্ষে ৬ অক্ষর"
-    autocomplete="current-password"
-  >
+<div class="badge">
+🔥 FREE FIRE TOURNAMENT
+</div>
 
-  <div class="row">
-    <button id="signupBtn">📝 অ্যাকাউন্ট তৈরি</button>
-    <button id="loginBtn" class="btn-dark">🔑 লগইন</button>
-  </div>
+<h1>
+খেলুন, জিতুন এবং
+<span>চ্যাম্পিয়ন</span> হন!
+</h1>
 
-  <p class="muted">
-    নতুন অ্যাকাউন্ট তৈরি করার পর আপনার ইমেইল ভেরিফাই করতে হতে পারে।
-  </p>
+<p>
+MAM TOURNAMENT ZONE-এ আপনার Squad নিয়ে
+Free Fire Tournament-এ অংশ নিন।
+Tournament নির্বাচন করুন, Join করুন এবং
+আপনার স্কিল দেখান।
+</p>
 
-</section>
+<div class="hero-buttons">
 
+<button class="primary" onclick="scrollToTournaments()">
+🏆 Tournament দেখুন
+</button>
 
-<!-- ================= USER ================= -->
+<button class="secondary" onclick="scrollToAccount()">
+👤 Login / Account
+</button>
 
-<section class="card hidden" id="userCard">
-
-  <div class="title">👤 আমার অ্যাকাউন্ট</div>
-
-  <div class="user-email" id="userEmail"></div>
-
-  <div class="balance-box">
-    <div class="balance-label">বর্তমান ব্যালেন্স</div>
-    <div class="balance">
-      ৳ <span id="balance">0.00</span>
-    </div>
-  </div>
-
-  <div class="row">
-    <button id="refreshBtn">🔄 রিফ্রেশ</button>
-    <button id="logoutBtn" class="btn-red">🚪 লগআউট</button>
-  </div>
-
-</section>
-
-
-<!-- ================= DEPOSIT ================= -->
-
-<section class="card hidden" id="depositCard">
-
-  <div class="title">💰 টাকা জমা করুন</div>
-
-  <div class="notice">
-    <b>বিকাশ / নগদ নম্বর</b><br>
-    <span style="font-size:20px;color:#35e69b;">
-      01759748984
-    </span>
-    <br>
-    টাকা পাঠানোর পর Transaction ID নিচে লিখুন।
-  </div>
-
-  <label>পেমেন্ট মাধ্যম</label>
-
-  <select id="depositMethod">
-    <option value="bkash">বিকাশ</option>
-    <option value="nagad">নগদ</option>
-  </select>
-
-  <label>টাকার পরিমাণ</label>
-
-  <input
-    id="depositAmount"
-    type="number"
-    min="100"
-    step="1"
-    placeholder="সর্বনিম্ন ১০০ টাকা"
-  >
-
-  <label>Transaction ID</label>
-
-  <input
-    id="depositTxn"
-    type="text"
-    placeholder="যেমন: 8A7B6C5D"
-  >
-
-  <button id="depositBtn">
-    💳 টাকা জমার আবেদন
-  </button>
-
-  <div id="depositMessage" class="notice hidden"></div>
-
-</section>
-
-
-<!-- ================= WITHDRAW ================= -->
-
-<section class="card hidden" id="withdrawCard">
-
-  <div class="title">💸 টাকা উত্তোলন</div>
-
-  <div class="notice">
-    <b>সর্বনিম্ন উত্তোলন:</b> ৳২০০
-    <br>
-    আপনার আবেদন অ্যাডমিন যাচাই করার পর উত্তোলন সম্পন্ন হবে।
-  </div>
-
-  <label>পেমেন্ট মাধ্যম</label>
-
-  <select id="withdrawMethod">
-    <option value="bkash">বিকাশ</option>
-    <option value="nagad">নগদ</option>
-  </select>
-
-  <label>টাকার পরিমাণ</label>
-
-  <input
-    id="withdrawAmount"
-    type="number"
-    min="200"
-    step="1"
-    placeholder="সর্বনিম্ন ২০০ টাকা"
-  >
-
-  <label>বিকাশ / নগদ নম্বর</label>
-
-  <input
-    id="withdrawNumber"
-    type="tel"
-    maxlength="11"
-    placeholder="01XXXXXXXXX"
-  >
-
-  <button id="withdrawBtn">
-    💸 উত্তোলনের আবেদন
-  </button>
-
-  <div id="withdrawMessage" class="notice hidden"></div>
-
-</section>
-
-
-<!-- ================= HISTORY ================= -->
-
-<section class="card hidden" id="historyCard">
-
-  <div class="title">📋 আমার আবেদন</div>
-
-  <h3>💰 টাকা জমার আবেদন</h3>
-
-  <div id="depositHistory">
-    <div class="loader">লোড হচ্ছে...</div>
-  </div>
-
-  <hr style="border-color:#263b55;margin:20px 0;">
-
-  <h3>💸 টাকা উত্তোলনের আবেদন</h3>
-
-  <div id="withdrawHistory">
-    <div class="loader">লোড হচ্ছে...</div>
-  </div>
-
-</section>
-
-
-<div id="mainMessage" class="notice hidden"></div>
-
-<div class="footer">
-  MAM TOURNAMENT ZONE © 2026
 </div>
 
 </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-icon">🏆</div>
+<div class="stat-number">50+</div>
+<div class="stat-label">Tournament</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">👥</div>
+<div class="stat-number">1000+</div>
+<div class="stat-label">Players</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">💰</div>
+<div class="stat-number">৳50K+</div>
+<div class="stat-label">Prize Pool</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">⚡</div>
+<div class="stat-number">24/7</div>
+<div class="stat-label">Platform</div>
+</div>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+<!-- ================= TOURNAMENT ================= -->
+
+<div id="tournamentsSection">
+
+<div class="section-head">
+
+<div>
+
+<div class="section-title">
+🔥 <span>চলমান</span> Tournament
+</div>
+
+<div class="section-desc">
+আপনার পছন্দের Tournament নির্বাচন করুন
+</div>
+
+</div>
+
+<div class="section-link">
+MAM TOURNAMENT
+</div>
+
+</div>
+
+
+<div class="tournaments">
+
+
+<!-- TOURNAMENT 1 -->
+
+<div class="t-card">
+
+<div class="t-banner">
+
+<div class="t-game">
+FREE FIRE • SQUAD
+</div>
+
+<div class="t-name">
+Night Battle
+</div>
+
+<div class="t-status">
+OPEN
+</div>
+
+</div>
+
+<div class="t-body">
+
+<div class="prize-label">
+PRIZE POOL
+</div>
+
+<div class="prize">
+৳ 1,000
+</div>
+
+<div class="t-info">
+
+<div class="info-box">
+<div class="info-label">ENTRY FEE</div>
+<div class="info-value">৳ 50</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">SLOTS</div>
+<div class="info-value">12 / 25</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">DATE</div>
+<div class="info-value">আজ</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">TIME</div>
+<div class="info-value">09:00 PM</div>
+</div>
+
+</div>
+
+<button class="join-btn"
+onclick="joinTournament('Night Battle',50)">
+🎮 JOIN TOURNAMENT
+</button>
+
+</div>
+
+</div>
+
+
+<!-- TOURNAMENT 2 -->
+
+<div class="t-card">
+
+<div class="t-banner blue">
+
+<div class="t-game">
+FREE FIRE • SQUAD
+</div>
+
+<div class="t-name">
+Pro League
+</div>
+
+<div class="t-status">
+OPEN
+</div>
+
+</div>
+
+<div class="t-body">
+
+<div class="prize-label">
+PRIZE POOL
+</div>
+
+<div class="prize">
+৳ 2,500
+</div>
+
+<div class="t-info">
+
+<div class="info-box">
+<div class="info-label">ENTRY FEE</div>
+<div class="info-value">৳ 100</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">SLOTS</div>
+<div class="info-value">28 / 48</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">DATE</div>
+<div class="info-value">আগামীকাল</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">TIME</div>
+<div class="info-value">08:00 PM</div>
+</div>
+
+</div>
+
+<button class="join-btn"
+onclick="joinTournament('Pro League',100)">
+🎮 JOIN TOURNAMENT
+</button>
+
+</div>
+
+</div>
+
+
+<!-- TOURNAMENT 3 -->
+
+<div class="t-card">
+
+<div class="t-banner red">
+
+<div class="t-game">
+FREE FIRE • SOLO
+</div>
+
+<div class="t-name">
+Champion Cup
+</div>
+
+<div class="t-status">
+OPEN
+</div>
+
+</div>
+
+<div class="t-body">
+
+<div class="prize-label">
+PRIZE POOL
+</div>
+
+<div class="prize">
+৳ 5,000
+</div>
+
+<div class="t-info">
+
+<div class="info-box">
+<div class="info-label">ENTRY FEE</div>
+<div class="info-value">৳ 200</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">SLOTS</div>
+<div class="info-value">40 / 100</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">DATE</div>
+<div class="info-value">শুক্রবার</div>
+</div>
+
+<div class="info-box">
+<div class="info-label">TIME</div>
+<div class="info-value">10:00 PM</div>
+</div>
+
+</div>
+
+<button class="join-btn"
+onclick="joinTournament('Champion Cup',200)">
+🎮 JOIN TOURNAMENT
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= HOW TO PLAY ================= -->
+
+<div class="section-head">
+
+<div>
+
+<div class="section-title">
+🎯 কিভাবে <span>খেলবেন?</span>
+</div>
+
+<div class="section-desc">
+মাত্র কয়েকটি ধাপে Tournament-এ অংশ নিন
+</div>
+
+</div>
+
+</div>
+
+
+<div class="steps">
+
+<div class="step">
+<div class="step-icon">👤</div>
+<h3>১. Account তৈরি করুন</h3>
+<p>
+ইমেইল ও পাসওয়ার্ড দিয়ে আপনার Account তৈরি করুন।
+</p>
+</div>
+
+<div class="step">
+<div class="step-icon">💰</div>
+<h3>২. Wallet Add করুন</h3>
+<p>
+বিকাশ বা নগদের মাধ্যমে টাকা জমা দিয়ে Wallet Balance তৈরি করুন।
+</p>
+</div>
+
+<div class="step">
+<div class="step-icon">🎮</div>
+<h3>৩. Tournament Join</h3>
+<p>
+পছন্দের Tournament নির্বাচন করে Join করুন।
+</p>
+</div>
+
+<div class="step">
+<div class="step-icon">🏆</div>
+<h3>৪. জিতুন</h3>
+<p>
+Match খেলুন এবং Tournament-এর ফলাফল অনুযায়ী পুরস্কার পান।
+</p>
+</div>
+
+</div>
+
+
+<!-- ================= ACCOUNT AREA ================= -->
+
+<section id="accountArea" class="card">
+
+<div class="card-title">
+👤 আমার Account
+</div>
+
+
+<!-- AUTH -->
+
+<div id="authArea">
+
+<div id="authMessage" class="notice hidden"></div>
+
+<label>
+ইমেইল
+</label>
+
+<input
+id="email"
+type="email"
+placeholder="আপনার ইমেইল"
+>
+
+<label>
+পাসওয়ার্ড
+</label>
+
+<input
+id="password"
+type="password"
+placeholder="কমপক্ষে ৬ অক্ষর"
+>
+
+<div class="row">
+
+<button
+class="full-btn"
+onclick="signup()"
+>
+📝 অ্যাকাউন্ট তৈরি
+</button>
+
+<button
+class="full-btn dark-btn"
+onclick="login()"
+>
+🔑 লগইন
+</button>
+
+</div>
+
+<p class="muted">
+নতুন Account তৈরি করার পর Email Verification প্রয়োজন হতে পারে।
+</p>
+
+</div>
+
+
+<!-- USER -->
+
+<div id="userArea" class="hidden">
+
+<div id="userEmail" class="user-email"></div>
+
+<div class="balance-box">
+
+<div class="balance-label">
+CURRENT WALLET BALANCE
+</div>
+
+<div class="balance">
+৳ <span id="balance">0.00</span>
+</div>
+
+</div>
+
+<div class="account-grid">
+
+<!-- DEPOSIT -->
+
+<div class="card">
+
+<div class="card-title">
+💰 টাকা জমা
+</div>
+
+<div class="notice">
+<b>বিকাশ / নগদ</b><br>
+
+<span style="font-size:20px;color:#42e9a0">
+01759748984
+</span>
+
+<br>
+
+টাকা পাঠানোর পর Transaction ID দিন।
+</div>
+
+<label>
+মাধ্যম
+</label>
+
+<select id="depositMethod">
+<option value="bkash">বিকাশ</option>
+<option value="nagad">নগদ</option>
+</select>
+
+<label>
+পরিমাণ
+</label>
+
+<input
+id="depositAmount"
+type="number"
+min="100"
+placeholder="সর্বনিম্ন ৳100"
+>
+
+<label>
+Transaction ID
+</label>
+
+<input
+id="depositTxn"
+placeholder="TxnID"
+>
+
+<button
+class="full-btn"
+onclick="depositMoney()"
+>
+💳 জমার আবেদন
+</button>
+
+<div
+id="depositMessage"
+class="notice hidden">
+</div>
+
+</div>
+
+
+<!-- WITHDRAW -->
+
+<div class="card">
+
+<div class="card-title">
+💸 টাকা উত্তোলন
+</div>
+
+<div class="notice">
+সর্বনিম্ন উত্তোলন:
+<b>৳200</b>
+</div>
+
+<label>
+মাধ্যম
+</label>
+
+<select id="withdrawMethod">
+<option value="bkash">বিকাশ</option>
+<option value="nagad">নগদ</option>
+</select>
+
+<label>
+পরিমাণ
+</label>
+
+<input
+id="withdrawAmount"
+type="number"
+min="200"
+placeholder="সর্বনিম্ন ৳200"
+>
+
+<label>
+যে নম্বরে টাকা নেবেন
+</label>
+
+<input
+id="withdrawNumber"
+type="tel"
+maxlength="11"
+placeholder="01XXXXXXXXX"
+>
+
+<button
+class="full-btn"
+onclick="withdrawMoney()"
+>
+💸 উত্তোলনের আবেদন
+</button>
+
+<div
+id="withdrawMessage"
+class="notice hidden">
+</div>
+
+</div>
+
+</div>
+
+
+<button
+class="full-btn dark-btn"
+onclick="loadApp()"
+>
+🔄 Wallet Refresh
+</button>
+
+<button
+class="full-btn red-btn"
+onclick="logout()"
+>
+🚪 Logout
+</button>
+
+
+<!-- HISTORY -->
+
+<div class="card">
+
+<div class="card-title">
+📋 আমার আবেদন
+</div>
+
+<h4>💰 Deposit History</h4>
+
+<div id="depositHistory">
+লোড হচ্ছে...
+</div>
+
+<hr style="border-color:#23364d;margin:20px 0">
+
+<h4>💸 Withdraw History</h4>
+
+<div id="withdrawHistory">
+লোড হচ্ছে...
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-name">
+🔥 MAM TOURNAMENT ZONE
+</div>
+
+Free Fire Tournament Platform
+
+<br><br>
+
+© 2026 MAM TOURNAMENT ZONE
+
+</footer>
 
 
 <script>
 
-/* =========================================================
-   SUPABASE CONFIG
-========================================================= */
+/* ======================================================
+   SUPABASE
+====================================================== */
 
 const SUPABASE_URL =
 "https://qskpvywtzageshrqenlz.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
+const SUPABASE_KEY =
 "sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
 
-
-/* =========================================================
-   SUPABASE CLIENT
-========================================================= */
-
-const client =
+const supabaseClient =
 window.supabase.createClient(
   SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY,
+  SUPABASE_KEY,
   {
     auth:{
       persistSession:true,
@@ -455,22 +1367,40 @@ window.supabase.createClient(
 );
 
 
-/* =========================================================
-   SHORTCUT
-========================================================= */
+/* ======================================================
+   HELPER
+====================================================== */
 
 function $(id){
   return document.getElementById(id);
 }
 
 
-/* =========================================================
-   MESSAGE
-========================================================= */
+function escapeHTML(value){
 
-function showMessage(elementId,text,type="normal"){
+  return String(value ?? "")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+}
 
-  const el=$(elementId);
+
+function money(value){
+
+  return Number(value || 0)
+  .toLocaleString("en-BD",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+
+}
+
+
+function message(id,text,type="normal"){
+
+  const el=$(id);
 
   if(!el)return;
 
@@ -482,92 +1412,278 @@ function showMessage(elementId,text,type="normal"){
     "error"
   );
 
-  if(type==="success"){
+  if(type==="success")
     el.classList.add("success");
-  }
 
-  if(type==="error"){
+  if(type==="error")
     el.classList.add("error");
-  }
+
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+/* ======================================================
+   SCROLL
+====================================================== */
 
-function escapeHTML(value){
+function scrollToAccount(){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  $("accountArea")
+  .scrollIntoView({
+    behavior:"smooth"
+  });
+
 }
 
 
-/* =========================================================
-   FORMAT MONEY
-========================================================= */
+function scrollToTournaments(){
 
-function money(value){
+  $("tournamentsSection")
+  .scrollIntoView({
+    behavior:"smooth"
+  });
 
-  return Number(value || 0)
-    .toLocaleString("en-BD",{
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
-    });
 }
 
 
-/* =========================================================
-   SHOW / HIDE USER AREA
-========================================================= */
+/* ======================================================
+   CURRENT USER
+====================================================== */
 
-function setLoggedIn(isLoggedIn){
+async function currentUser(){
 
-  $("authCard")
-    .classList.toggle("hidden",isLoggedIn);
-
-  $("userCard")
-    .classList.toggle("hidden",!isLoggedIn);
-
-  $("depositCard")
-    .classList.toggle("hidden",!isLoggedIn);
-
-  $("withdrawCard")
-    .classList.toggle("hidden",!isLoggedIn);
-
-  $("historyCard")
-    .classList.toggle("hidden",!isLoggedIn);
-}
-
-
-/* =========================================================
-   GET USER
-========================================================= */
-
-async function getCurrentUser(){
-
-  const result=await client.auth.getUser();
+  const result =
+    await supabaseClient.auth.getUser();
 
   if(result.error){
+
     console.error(result.error);
+
     return null;
   }
 
   return result.data.user || null;
+
 }
 
 
-/* =========================================================
+/* ======================================================
+   SIGN UP
+====================================================== */
+
+async function signup(){
+
+  const email =
+    $("email").value.trim();
+
+  const password =
+    $("password").value;
+
+  if(!email){
+
+    message(
+      "authMessage",
+      "ইমেইল লিখুন।",
+      "error"
+    );
+
+    return;
+  }
+
+  if(password.length < 6){
+
+    message(
+      "authMessage",
+      "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।",
+      "error"
+    );
+
+    return;
+  }
+
+  message(
+    "authMessage",
+    "অ্যাকাউন্ট তৈরি হচ্ছে..."
+  );
+
+  try{
+
+    const result =
+      await supabaseClient.auth.signUp({
+
+        email:email,
+
+        password:password,
+
+        options:{
+          emailRedirectTo:
+          "https://mamtournamentzone8984-crypto.github.io/MAM-TOURNAMENT-ZONE/"
+        }
+
+      });
+
+    if(result.error){
+
+      message(
+        "authMessage",
+        result.error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    if(result.data.session){
+
+      message(
+        "authMessage",
+        "অ্যাকাউন্ট তৈরি হয়েছে এবং লগইন হয়েছে।",
+        "success"
+      );
+
+      await loadApp();
+
+    }else{
+
+      message(
+        "authMessage",
+        "অ্যাকাউন্ট তৈরি হয়েছে। আপনার Email Verify করুন, তারপর Login করুন।",
+        "success"
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    message(
+      "authMessage",
+      "সমস্যা হয়েছে: "+error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* ======================================================
+   LOGIN
+====================================================== */
+
+async function login(){
+
+  const email =
+    $("email").value.trim();
+
+  const password =
+    $("password").value;
+
+  if(!email){
+
+    message(
+      "authMessage",
+      "ইমেইল লিখুন।",
+      "error"
+    );
+
+    return;
+  }
+
+  if(!password){
+
+    message(
+      "authMessage",
+      "পাসওয়ার্ড লিখুন।",
+      "error"
+    );
+
+    return;
+  }
+
+  message(
+    "authMessage",
+    "লগইন হচ্ছে..."
+  );
+
+  try{
+
+    const result =
+      await supabaseClient.auth
+      .signInWithPassword({
+
+        email:email,
+
+        password:password
+
+      });
+
+    if(result.error){
+
+      message(
+        "authMessage",
+        result.error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    message(
+      "authMessage",
+      "লগইন সফল হয়েছে।",
+      "success"
+    );
+
+    await loadApp();
+
+  }catch(error){
+
+    message(
+      "authMessage",
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* ======================================================
+   LOGOUT
+====================================================== */
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  $("authArea")
+  .classList.remove("hidden");
+
+  $("userArea")
+  .classList.add("hidden");
+
+  $("miniWallet")
+  .style.display="none";
+
+  message(
+    "authMessage",
+    "আপনি Logout করেছেন।",
+    "success"
+  );
+
+}
+
+
+/* ======================================================
    LOAD WALLET
-========================================================= */
+====================================================== */
 
 async function loadWallet(user){
 
-  const result=await client
+  const result =
+    await supabaseClient
     .from("wallets")
     .select("balance")
     .eq("user_id",user.id)
@@ -582,68 +1698,80 @@ async function loadWallet(user){
     return;
   }
 
-  $("balance").textContent=
-    money(result.data?.balance || 0);
+  const balance =
+    Number(result.data?.balance || 0);
+
+  $("balance").textContent =
+    money(balance);
+
+  $("miniBalance").textContent =
+    money(balance);
+
+  $("miniWallet")
+    .style.display="block";
+
 }
 
 
-/* =========================================================
-   LOAD DEPOSIT HISTORY
-========================================================= */
+/* ======================================================
+   DEPOSIT HISTORY
+====================================================== */
 
 async function loadDeposits(user){
 
-  const result=await client
+  const result =
+    await supabaseClient
     .from("deposit_requests")
     .select(
       "amount,method,transaction_id,status,created_at"
     )
     .eq("user_id",user.id)
-    .order("created_at",{ascending:false})
+    .order(
+      "created_at",
+      {ascending:false}
+    )
     .limit(30);
 
   if(result.error){
 
-    console.error(result.error);
-
-    $("depositHistory").innerHTML=
-      '<div class="notice error">আবেদন লোড করা যায়নি।</div>';
+    $("depositHistory").innerHTML =
+      '<div class="notice error">Deposit History লোড হয়নি।</div>';
 
     return;
   }
 
-  const rows=result.data || [];
+  const rows =
+    result.data || [];
 
   if(rows.length===0){
 
-    $("depositHistory").innerHTML=
-      '<div class="empty">এখনো কোনো জমার আবেদন নেই।</div>';
+    $("depositHistory").innerHTML =
+      '<div class="muted">কোনো Deposit আবেদন নেই।</div>';
 
     return;
   }
 
-  $("depositHistory").innerHTML=
-    rows.map(row=>{
+  $("depositHistory").innerHTML =
+    rows.map(r=>{
 
       let status="অপেক্ষমাণ";
 
-      if(row.status==="approved"){
+      if(r.status==="approved")
         status="অনুমোদিত";
-      }
 
-      if(row.status==="rejected"){
+      if(r.status==="rejected")
         status="বাতিল";
-      }
 
-      const method=
-        row.method==="bkash"
+      const method =
+        r.method==="bkash"
         ? "বিকাশ"
         : "নগদ";
 
       return `
-        <div class="item">
 
-          <b>৳${money(row.amount)}</b>
+        <div class="history-item">
+
+          💰 <b>৳${money(r.amount)}</b>
           • ${method}
 
           <br>
@@ -654,75 +1782,79 @@ async function loadDeposits(user){
 
           <br>
 
-          <span class="small">
-            Transaction ID:
-            ${escapeHTML(row.transaction_id)}
+          <span class="muted">
+            TxnID:
+            ${escapeHTML(r.transaction_id)}
           </span>
 
         </div>
+
       `;
 
     }).join("");
+
 }
 
 
-/* =========================================================
-   LOAD WITHDRAW HISTORY
-========================================================= */
+/* ======================================================
+   WITHDRAW HISTORY
+====================================================== */
 
 async function loadWithdrawals(user){
 
-  const result=await client
+  const result =
+    await supabaseClient
     .from("withdraw_requests")
     .select(
       "amount,method,account_number,status,created_at"
     )
     .eq("user_id",user.id)
-    .order("created_at",{ascending:false})
+    .order(
+      "created_at",
+      {ascending:false}
+    )
     .limit(30);
 
   if(result.error){
 
-    console.error(result.error);
-
-    $("withdrawHistory").innerHTML=
-      '<div class="notice error">আবেদন লোড করা যায়নি।</div>';
+    $("withdrawHistory").innerHTML =
+      '<div class="notice error">Withdraw History লোড হয়নি।</div>';
 
     return;
   }
 
-  const rows=result.data || [];
+  const rows =
+    result.data || [];
 
   if(rows.length===0){
 
-    $("withdrawHistory").innerHTML=
-      '<div class="empty">এখনো কোনো উত্তোলনের আবেদন নেই।</div>';
+    $("withdrawHistory").innerHTML =
+      '<div class="muted">কোনো Withdraw আবেদন নেই।</div>';
 
     return;
   }
 
-  $("withdrawHistory").innerHTML=
-    rows.map(row=>{
+  $("withdrawHistory").innerHTML =
+    rows.map(r=>{
 
       let status="অপেক্ষমাণ";
 
-      if(row.status==="approved"){
+      if(r.status==="approved")
         status="অনুমোদিত";
-      }
 
-      if(row.status==="rejected"){
+      if(r.status==="rejected")
         status="বাতিল";
-      }
 
-      const method=
-        row.method==="bkash"
+      const method =
+        r.method==="bkash"
         ? "বিকাশ"
         : "নগদ";
 
       return `
-        <div class="item">
 
-          <b>৳${money(row.amount)}</b>
+        <div class="history-item">
+
+          💸 <b>৳${money(r.amount)}</b>
           • ${method}
 
           <br>
@@ -733,541 +1865,317 @@ async function loadWithdrawals(user){
 
           <br>
 
-          <span class="small">
+          <span class="muted">
             নম্বর:
-            ${escapeHTML(row.account_number)}
+            ${escapeHTML(r.account_number)}
           </span>
 
         </div>
+
       `;
 
     }).join("");
+
 }
 
 
-/* =========================================================
-   LOAD EVERYTHING
-========================================================= */
+/* ======================================================
+   LOAD APP
+====================================================== */
 
 async function loadApp(){
 
-  const user=await getCurrentUser();
+  const user =
+    await currentUser();
 
   if(!user){
 
-    setLoggedIn(false);
+    $("authArea")
+    .classList.remove("hidden");
+
+    $("userArea")
+    .classList.add("hidden");
+
+    $("miniWallet")
+    .style.display="none";
 
     return;
   }
 
-  setLoggedIn(true);
+  $("authArea")
+  .classList.add("hidden");
 
-  $("userEmail").textContent=
+  $("userArea")
+  .classList.remove("hidden");
+
+  $("userEmail").textContent =
     user.email || "";
 
   await loadWallet(user);
+
   await loadDeposits(user);
+
   await loadWithdrawals(user);
+
 }
 
 
-/* =========================================================
-   SIGN UP
-========================================================= */
+/* ======================================================
+   DEPOSIT MONEY
+====================================================== */
 
-$("signupBtn").addEventListener(
-  "click",
-  async function(){
+async function depositMoney(){
 
-    const email=
-      $("email").value.trim();
+  const amount =
+    Number($("depositAmount").value);
 
-    const password=
-      $("password").value;
+  const method =
+    $("depositMethod").value;
 
-    if(!email){
+  const transactionId =
+    $("depositTxn").value.trim();
 
-      showMessage(
-        "authMessage",
-        "আপনার ইমেইল লিখুন।",
-        "error"
-      );
+  if(!Number.isFinite(amount) || amount<100){
 
-      return;
-    }
-
-    if(password.length<6){
-
-      showMessage(
-        "authMessage",
-        "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।",
-        "error"
-      );
-
-      return;
-    }
-
-    showMessage(
-      "authMessage",
-      "অ্যাকাউন্ট তৈরি হচ্ছে...",
-      "normal"
+    message(
+      "depositMessage",
+      "সর্বনিম্ন ৳100 জমা দিতে হবে।",
+      "error"
     );
 
-    try{
-
-      const result=
-        await client.auth.signUp({
-
-          email:email,
-
-          password:password,
-
-          options:{
-            emailRedirectTo:
-            "https://mamtournamentzone8984-crypto.github.io/MAM-TOURNAMENT-ZONE/"
-          }
-
-        });
-
-      if(result.error){
-
-        showMessage(
-          "authMessage",
-          result.error.message,
-          "error"
-        );
-
-        return;
-      }
-
-      if(result.data.session){
-
-        showMessage(
-          "authMessage",
-          "অ্যাকাউন্ট তৈরি হয়েছে এবং লগইন হয়েছে।",
-          "success"
-        );
-
-        await loadApp();
-
-      }else{
-
-        showMessage(
-          "authMessage",
-          "অ্যাকাউন্ট তৈরি হয়েছে। আপনার ইমেইলে ভেরিফিকেশন লিংক পাঠানো হয়েছে। ইমেইলটি ভেরিফাই করে আবার লগইন করুন।",
-          "success"
-        );
-
-      }
-
-    }catch(error){
-
-      console.error(error);
-
-      showMessage(
-        "authMessage",
-        "অ্যাকাউন্ট তৈরি করা যায়নি: "+error.message,
-        "error"
-      );
-
-    }
-
+    return;
   }
-);
 
+  if(!transactionId){
 
-/* =========================================================
-   LOGIN
-========================================================= */
-
-$("loginBtn").addEventListener(
-  "click",
-  async function(){
-
-    const email=
-      $("email").value.trim();
-
-    const password=
-      $("password").value;
-
-    if(!email){
-
-      showMessage(
-        "authMessage",
-        "ইমেইল লিখুন।",
-        "error"
-      );
-
-      return;
-    }
-
-    if(!password){
-
-      showMessage(
-        "authMessage",
-        "পাসওয়ার্ড লিখুন।",
-        "error"
-      );
-
-      return;
-    }
-
-    showMessage(
-      "authMessage",
-      "লগইন হচ্ছে...",
-      "normal"
+    message(
+      "depositMessage",
+      "Transaction ID লিখুন।",
+      "error"
     );
 
-    try{
-
-      const result=
-        await client.auth.signInWithPassword({
-
-          email:email,
-
-          password:password
-
-        });
-
-      if(result.error){
-
-        showMessage(
-          "authMessage",
-          result.error.message,
-          "error"
-        );
-
-        return;
-      }
-
-      showMessage(
-        "authMessage",
-        "লগইন সফল হয়েছে।",
-        "success"
-      );
-
-      await loadApp();
-
-    }catch(error){
-
-      console.error(error);
-
-      showMessage(
-        "authMessage",
-        "লগইন করা যায়নি: "+error.message,
-        "error"
-      );
-
-    }
-
+    return;
   }
-);
+
+  const user =
+    await currentUser();
+
+  if(!user){
+
+    message(
+      "depositMessage",
+      "আগে Login করুন।",
+      "error"
+    );
+
+    return;
+  }
+
+  const result =
+    await supabaseClient
+    .from("deposit_requests")
+    .insert({
+
+      user_id:user.id,
+
+      amount:amount,
+
+      method:method,
+
+      transaction_id:transactionId
+
+    });
+
+  if(result.error){
+
+    message(
+      "depositMessage",
+      "আবেদন পাঠানো যায়নি: "+result.error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  $("depositAmount").value="";
+  $("depositTxn").value="";
+
+  message(
+    "depositMessage",
+    "Deposit আবেদন সফলভাবে পাঠানো হয়েছে। Admin যাচাই করবেন।",
+    "success"
+  );
+
+  await loadDeposits(user);
+
+}
 
 
-/* =========================================================
-   LOGOUT
-========================================================= */
+/* ======================================================
+   WITHDRAW MONEY
+====================================================== */
 
-$("logoutBtn").addEventListener(
-  "click",
-  async function(){
+async function withdrawMoney(){
 
-    const result=
-      await client.auth.signOut();
+  const amount =
+    Number($("withdrawAmount").value);
 
-    if(result.error){
+  const method =
+    $("withdrawMethod").value;
 
-      showMessage(
-        "mainMessage",
-        result.error.message,
-        "error"
-      );
+  const number =
+    $("withdrawNumber").value.trim();
 
-      return;
-    }
+  if(!Number.isFinite(amount) || amount<200){
 
-    setLoggedIn(false);
+    message(
+      "withdrawMessage",
+      "সর্বনিম্ন ৳200 উত্তোলন করতে পারবেন।",
+      "error"
+    );
 
-    $("email").value="";
-    $("password").value="";
+    return;
+  }
 
-    showMessage(
+  if(!/^01[3-9][0-9]{8}$/.test(number)){
+
+    message(
+      "withdrawMessage",
+      "সঠিক ১১ সংখ্যার বাংলাদেশি মোবাইল নম্বর দিন।",
+      "error"
+    );
+
+    return;
+  }
+
+  const user =
+    await currentUser();
+
+  if(!user){
+
+    message(
+      "withdrawMessage",
+      "আগে Login করুন।",
+      "error"
+    );
+
+    return;
+  }
+
+  const result =
+    await supabaseClient
+    .from("withdraw_requests")
+    .insert({
+
+      user_id:user.id,
+
+      amount:amount,
+
+      method:method,
+
+      account_number:number
+
+    });
+
+  if(result.error){
+
+    message(
+      "withdrawMessage",
+      "আবেদন পাঠানো যায়নি: "+result.error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  $("withdrawAmount").value="";
+  $("withdrawNumber").value="";
+
+  message(
+    "withdrawMessage",
+    "Withdraw আবেদন সফলভাবে পাঠানো হয়েছে। Admin যাচাই করবেন।",
+    "success"
+  );
+
+  await loadWithdrawals(user);
+
+}
+
+
+/* ======================================================
+   JOIN TOURNAMENT
+====================================================== */
+
+async function joinTournament(name,fee){
+
+  const user =
+    await currentUser();
+
+  if(!user){
+
+    scrollToAccount();
+
+    message(
+      "authMessage",
+      "Tournament Join করতে আগে Login বা Account তৈরি করুন।",
+      "error"
+    );
+
+    return;
+  }
+
+  const wallet =
+    await supabaseClient
+    .from("wallets")
+    .select("balance")
+    .eq("user_id",user.id)
+    .maybeSingle();
+
+  if(wallet.error){
+
+    alert(
+      "Wallet পাওয়া যায়নি। আগে Wallet সেটআপ করুন।"
+    );
+
+    return;
+  }
+
+  const balance =
+    Number(wallet.data?.balance || 0);
+
+  if(balance < fee){
+
+    scrollToAccount();
+
+    message(
       "mainMessage",
-      "আপনি সফলভাবে লগআউট করেছেন।",
-      "success"
+      "আপনার Wallet Balance ৳"+money(balance)+
+      "। এই Tournament-এর Entry Fee ৳"+fee+
+      "। আগে টাকা Add করুন।"
     );
 
+    return;
   }
-);
 
+  alert(
+    name+
+    " Join করার জন্য আপনার Wallet-এ পর্যাপ্ত Balance আছে।\n\n"+
+    "Entry Fee: ৳"+fee+
+    "\n\nTournament Join-এর final balance deduction ও slot confirmation Admin/Supabase secure system দিয়ে করতে হবে।"
+  );
 
-/* =========================================================
-   REFRESH
-========================================================= */
+}
 
-$("refreshBtn").addEventListener(
-  "click",
-  async function(){
 
-    $("refreshBtn").textContent=
-      "লোড হচ্ছে...";
-
-    await loadApp();
-
-    $("refreshBtn").textContent=
-      "🔄 রিফ্রেশ";
-
-  }
-);
-
-
-/* =========================================================
-   DEPOSIT
-========================================================= */
-
-$("depositBtn").addEventListener(
-  "click",
-  async function(){
-
-    const amount=
-      Number($("depositAmount").value);
-
-    const method=
-      $("depositMethod").value;
-
-    const transactionId=
-      $("depositTxn").value.trim();
-
-    if(!Number.isFinite(amount) || amount<100){
-
-      showMessage(
-        "depositMessage",
-        "সর্বনিম্ন ১০০ টাকা জমা দিতে হবে।",
-        "error"
-      );
-
-      return;
-    }
-
-    if(!transactionId){
-
-      showMessage(
-        "depositMessage",
-        "Transaction ID লিখুন।",
-        "error"
-      );
-
-      return;
-    }
-
-    const user=
-      await getCurrentUser();
-
-    if(!user){
-
-      showMessage(
-        "depositMessage",
-        "আগে লগইন করুন।",
-        "error"
-      );
-
-      return;
-    }
-
-    $("depositBtn").disabled=true;
-
-    $("depositBtn").textContent=
-      "আবেদন পাঠানো হচ্ছে...";
-
-    try{
-
-      const result=
-        await client
-        .from("deposit_requests")
-        .insert({
-
-          user_id:user.id,
-
-          amount:amount,
-
-          method:method,
-
-          transaction_id:transactionId
-
-        });
-
-      if(result.error){
-
-        showMessage(
-          "depositMessage",
-          result.error.message,
-          "error"
-        );
-
-        return;
-      }
-
-      $("depositAmount").value="";
-      $("depositTxn").value="";
-
-      showMessage(
-        "depositMessage",
-        "টাকা জমার আবেদন সফলভাবে পাঠানো হয়েছে। অ্যাডমিন যাচাই করবেন।",
-        "success"
-      );
-
-      await loadDeposits(user);
-
-    }catch(error){
-
-      showMessage(
-        "depositMessage",
-        "আবেদন পাঠানো যায়নি: "+error.message,
-        "error"
-      );
-
-    }finally{
-
-      $("depositBtn").disabled=false;
-
-      $("depositBtn").textContent=
-        "💳 টাকা জমার আবেদন";
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   WITHDRAW
-========================================================= */
-
-$("withdrawBtn").addEventListener(
-  "click",
-  async function(){
-
-    const amount=
-      Number($("withdrawAmount").value);
-
-    const method=
-      $("withdrawMethod").value;
-
-    const number=
-      $("withdrawNumber").value.trim();
-
-    if(!Number.isFinite(amount) || amount<200){
-
-      showMessage(
-        "withdrawMessage",
-        "সর্বনিম্ন ২০০ টাকা উত্তোলন করতে পারবেন।",
-        "error"
-      );
-
-      return;
-    }
-
-    if(!/^01[3-9][0-9]{8}$/.test(number)){
-
-      showMessage(
-        "withdrawMessage",
-        "সঠিক ১১ সংখ্যার বাংলাদেশি মোবাইল নম্বর দিন।",
-        "error"
-      );
-
-      return;
-    }
-
-    const user=
-      await getCurrentUser();
-
-    if(!user){
-
-      showMessage(
-        "withdrawMessage",
-        "আগে লগইন করুন।",
-        "error"
-      );
-
-      return;
-    }
-
-    $("withdrawBtn").disabled=true;
-
-    $("withdrawBtn").textContent=
-      "আবেদন পাঠানো হচ্ছে...";
-
-    try{
-
-      const result=
-        await client
-        .from("withdraw_requests")
-        .insert({
-
-          user_id:user.id,
-
-          amount:amount,
-
-          method:method,
-
-          account_number:number
-
-        });
-
-      if(result.error){
-
-        showMessage(
-          "withdrawMessage",
-          result.error.message,
-          "error"
-        );
-
-        return;
-      }
-
-      $("withdrawAmount").value="";
-      $("withdrawNumber").value="";
-
-      showMessage(
-        "withdrawMessage",
-        "উত্তোলনের আবেদন সফলভাবে পাঠানো হয়েছে। অ্যাডমিন যাচাই করবেন।",
-        "success"
-      );
-
-      await loadWithdrawals(user);
-
-    }catch(error){
-
-      showMessage(
-        "withdrawMessage",
-        "আবেদন পাঠানো যায়নি: "+error.message,
-        "error"
-      );
-
-    }finally{
-
-      $("withdrawBtn").disabled=false;
-
-      $("withdrawBtn").textContent=
-        "💸 উত্তোলনের আবেদন";
-
-    }
-
-  }
-);
-
-
-/* =========================================================
+/* ======================================================
    AUTH STATE
-========================================================= */
+====================================================== */
 
-client.auth.onAuthStateChange(
-  function(event,session){
+supabaseClient.auth.onAuthStateChange(
+  function(){
 
     setTimeout(
-      function(){
-        loadApp();
-      },
+      loadApp,
       0
     );
 
@@ -1275,9 +2183,9 @@ client.auth.onAuthStateChange(
 );
 
 
-/* =========================================================
-   START APP
-========================================================= */
+/* ======================================================
+   START
+====================================================== */
 
 window.addEventListener(
   "load",
