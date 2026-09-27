@@ -3,352 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MAM TOURNAMENT ZONE | Admin Panel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b1020;
+  color:#fff;
 }
-
-:root {
-  --bg: #080d18;
-  --card: #111a2b;
-  --card2: #18243a;
-  --primary: #00e5a0;
-  --text: #ffffff;
-  --muted: #9baac2;
-  --danger: #ff4d67;
-  --border: #273650;
+header{
+  background:#111a30;
+  padding:18px;
+  border-bottom:1px solid #263553;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
 }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
+header h2{margin:0;color:#38e8a5;font-size:21px}
+.container{max-width:1200px;margin:auto;padding:18px}
+.card{
+  background:#121c32;
+  border:1px solid #263553;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:18px;
 }
-
-button, input, select, textarea {
-  font: inherit;
+h3{margin-top:0;color:#38e8a5}
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #344563;
+  border-radius:8px;
+  background:#0b1428;
+  color:#fff;
+  margin:7px 0 14px;
+  font-size:14px;
 }
-
-button {
-  cursor: pointer;
-  border: none;
+textarea{min-height:90px;resize:vertical}
+label{font-size:13px;color:#c7d2e5}
+button{
+  border:0;
+  border-radius:8px;
+  padding:11px 15px;
+  font-weight:bold;
+  cursor:pointer;
+  margin:3px;
 }
-
-.hidden {
-  display: none !important;
+.btn{background:#38e8a5;color:#06150f}
+.btn2{background:#263957;color:#fff}
+.danger{background:#e74c3c;color:white}
+.warning{background:#f1b72b;color:#111}
+.success{background:#22c55e;color:#06150f}
+.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:18px;
 }
-
-header {
-  background: #0d1628;
-  border-bottom: 1px solid var(--border);
-  padding: 17px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  flex-wrap: wrap;
+.tabs button{
+  background:#1c2a45;
+  color:#fff;
+  flex:1;
+  min-width:110px;
 }
-
-.logo {
-  font-size: 21px;
-  font-weight: bold;
-  color: var(--primary);
+.tabs button.active{
+  background:#38e8a5;
+  color:#06150f;
 }
-
-.logo small {
-  display: block;
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 5px;
+.panel{display:none}
+.panel.active{display:block}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
 }
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
+.stat{
+  background:#1b2a45;
+  padding:18px;
+  border-radius:12px;
 }
-
-.login-box {
-  max-width: 420px;
-  margin: 70px auto;
-  background: var(--card);
-  padding: 28px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
+.stat strong{
+  display:block;
+  font-size:25px;
+  color:#38e8a5;
+  margin-top:8px;
 }
-
-h1 {
-  font-size: 25px;
-  margin-bottom: 10px;
+.item{
+  background:#0d172b;
+  border:1px solid #293a58;
+  border-radius:12px;
+  padding:15px;
+  margin:12px 0;
+  overflow-wrap:anywhere;
 }
-
-h2 {
-  font-size: 21px;
-  margin-bottom: 18px;
+.item h4{margin:0 0 10px;color:#38e8a5}
+.item p{font-size:14px;line-height:1.7;margin:5px 0}
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  background:#344563;
 }
-
-h3 {
-  font-size: 17px;
-  margin-bottom: 12px;
+.pending{background:#f1b72b;color:#111}
+.approved{background:#22c55e;color:#06150f}
+.rejected{background:#e74c3c;color:#fff}
+.hidden{display:none!important}
+#message{
+  padding:12px;
+  border-radius:8px;
+  margin:10px 0;
+  display:none;
+  overflow-wrap:anywhere;
 }
-
-.subtitle {
-  color: var(--muted);
-  margin-bottom: 22px;
-  line-height: 1.6;
+table{width:100%;border-collapse:collapse}
+th,td{
+  border-bottom:1px solid #293a58;
+  padding:10px;
+  text-align:left;
+  font-size:13px;
 }
-
-label {
-  display: block;
-  font-size: 13px;
-  color: #cbd6e8;
-  margin-bottom: 7px;
-}
-
-input, select, textarea {
-  width: 100%;
-  background: #0a1323;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  color: white;
-  padding: 12px;
-  margin-bottom: 15px;
-  outline: none;
-}
-
-input:focus, select:focus, textarea:focus {
-  border-color: var(--primary);
-}
-
-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.btn {
-  padding: 11px 16px;
-  border-radius: 9px;
-  font-weight: bold;
-  background: var(--primary);
-  color: #06150f;
-  transition: .2s;
-}
-
-.btn:hover {
-  opacity: .85;
-}
-
-.btn-secondary {
-  background: #263650;
-  color: white;
-}
-
-.btn-danger {
-  background: var(--danger);
-  color: white;
-}
-
-.btn-warning {
-  background: #ffb020;
-  color: #201500;
-}
-
-.btn-full {
-  width: 100%;
-}
-
-.top-actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.tabs {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
-
-.tab {
-  padding: 12px 16px;
-  border-radius: 9px;
-  background: var(--card);
-  color: white;
-  border: 1px solid var(--border);
-}
-
-.tab.active {
-  background: var(--primary);
-  color: #06150f;
-  font-weight: bold;
-}
-
-.panel {
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 20px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 15px;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.stat-card {
-  background: var(--card);
-  padding: 20px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-}
-
-.stat-card p {
-  color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 10px;
-}
-
-.stat-card strong {
-  font-size: 27px;
-  color: var(--primary);
-}
-
-.tournament-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 17px;
-  margin-bottom: 14px;
-}
-
-.tournament-card h3 {
-  font-size: 19px;
-}
-
-.tournament-info {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  margin: 15px 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.badge {
-  display: inline-block;
-  font-size: 12px;
-  border-radius: 6px;
-  padding: 5px 9px;
-  background: #263650;
-  color: white;
-  margin-bottom: 12px;
-}
-
-.badge.published {
-  background: #064e3b;
-  color: #6effc5;
-}
-
-.badge.draft {
-  background: #49340c;
-  color: #ffda80;
-}
-
-.badge.cancelled {
-  background: #4c1823;
-  color: #ff9dad;
-}
-
-.notice {
-  background: #0a1323;
-  border: 1px solid var(--border);
-  padding: 13px;
-  border-radius: 9px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-  margin-bottom: 15px;
-}
-
-.message {
-  margin: 12px 0;
-  padding: 12px;
-  border-radius: 8px;
-  background: #0a1323;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-
-.message.error {
-  color: #ff9dad;
-  border: 1px solid #7b293b;
-}
-
-.message.success {
-  color: #6effc5;
-  border: 1px solid #146b4e;
-}
-
-.empty {
-  text-align: center;
-  padding: 35px 10px;
-  color: var(--muted);
-}
-
-.small {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-@media (max-width: 650px) {
-  .container {
-    padding: 13px;
-  }
-
-  .grid, .stats {
-    grid-template-columns: 1fr;
-  }
-
-  .panel {
-    padding: 15px;
-  }
-
-  .logo {
-    font-size: 18px;
-  }
-
-  .top-actions {
-    width: 100%;
-  }
-
-  .top-actions button {
-    flex: 1;
-  }
+.tablewrap{overflow-x:auto}
+.small{font-size:12px;color:#a9b8d0}
+@media(max-width:600px){
+  .container{padding:10px}
+  .card{padding:13px}
+  header h2{font-size:17px}
 }
 </style>
 </head>
@@ -356,211 +142,191 @@ textarea {
 <body>
 
 <header>
-  <div class="logo">
-    MAM TOURNAMENT ZONE
-    <small>ADMIN CONTROL PANEL</small>
-  </div>
-
-  <div class="top-actions">
-    <button class="btn btn-secondary" onclick="loadAll()">🔄 Refresh</button>
-    <button class="btn btn-danger hidden" id="logoutBtn" onclick="logout()">Logout</button>
-  </div>
+  <h2>🏆 MAM TOURNAMENT ZONE</h2>
+  <button id="logoutBtn" class="danger hidden" onclick="logout()">লগআউট</button>
 </header>
 
+<div class="container">
+
+<div id="message"></div>
+
 <!-- LOGIN -->
-<section id="loginSection" class="container">
-  <div class="login-box">
-    <h1>🔐 Admin Login</h1>
-    <p class="subtitle">MAM TOURNAMENT ZONE অ্যাডমিন প্যানেলে প্রবেশ করো।</p>
+<section id="loginBox" class="card">
+  <h3>🔐 অ্যাডমিন লগইন</h3>
 
-    <form id="loginForm">
-      <label>ইমেইল</label>
-      <input type="email" id="loginEmail" placeholder="Admin email" required>
+  <label>ইমেইল</label>
+  <input id="email" type="email" placeholder="অ্যাডমিন ইমেইল">
 
-      <label>পাসওয়ার্ড</label>
-      <input type="password" id="loginPassword" placeholder="Password" required>
+  <label>পাসওয়ার্ড</label>
+  <input id="password" type="password" placeholder="পাসওয়ার্ড">
 
-      <button class="btn btn-full" type="submit">Login করুন</button>
-    </form>
-
-    <div id="loginMessage"></div>
-  </div>
+  <button class="btn" onclick="login()">লগইন করুন</button>
 </section>
 
-<!-- ADMIN PANEL -->
-<main id="adminSection" class="container hidden">
+<!-- ADMIN -->
+<section id="adminBox" class="hidden">
 
-  <div class="stats">
-    <div class="stat-card">
-      <p>মোট টুর্নামেন্ট</p>
+<div class="tabs">
+  <button class="active" onclick="showTab('statsPanel',this)">📊 ড্যাশবোর্ড</button>
+  <button onclick="showTab('createPanel',this)">➕ টুর্নামেন্ট তৈরি</button>
+  <button onclick="showTab('listPanel',this)">🏆 টুর্নামেন্ট তালিকা</button>
+  <button onclick="showTab('depositPanel',this)">💰 ডিপোজিট</button>
+  <button onclick="showTab('withdrawPanel',this)">💸 উইথড্র</button>
+  <button onclick="showTab('prizePanel',this)">🎁 পুরস্কার</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="statsPanel" class="panel active">
+
+  <div class="grid">
+    <div class="stat">
+      মোট টুর্নামেন্ট
       <strong id="totalTournaments">0</strong>
     </div>
-
-    <div class="stat-card">
-      <p>প্রকাশিত টুর্নামেন্ট</p>
+    <div class="stat">
+      প্রকাশিত টুর্নামেন্ট
       <strong id="publishedTournaments">0</strong>
     </div>
-
-    <div class="stat-card">
-      <p>মোট ভিজিটর</p>
-      <strong id="totalVisitors">—</strong>
+    <div class="stat">
+      ডিপোজিট রিকোয়েস্ট
+      <strong id="depositCount">0</strong>
+    </div>
+    <div class="stat">
+      উইথড্র রিকোয়েস্ট
+      <strong id="withdrawCount">0</strong>
     </div>
   </div>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="createPanel" onclick="showTab('createPanel',this)">➕ টুর্নামেন্ট তৈরি</button>
-    <button class="tab" data-tab="listPanel" onclick="showTab('listPanel',this)">🏆 টুর্নামেন্ট তালিকা</button>
-    <button class="tab" data-tab="prizePanel" onclick="showTab('prizePanel',this)">💰 পুরস্কার প্রদান</button>
-    <button class="tab" data-tab="statsPanel" onclick="showTab('statsPanel',this)">👥 ভিজিটর তথ্য</button>
+  <div class="card" style="margin-top:18px">
+    <h3>📊 ভিজিটর পরিসংখ্যান</h3>
+    <p>মোট ভিজিট: <strong id="visitCount">লোড হচ্ছে...</strong></p>
+    <button class="btn2" onclick="loadVisitorStats()">রিফ্রেশ</button>
   </div>
 
-  <!-- CREATE / EDIT -->
-  <section id="createPanel" class="panel">
-    <h2 id="formTitle">➕ নতুন টুর্নামেন্ট তৈরি</h2>
+  <button class="btn2" onclick="loadAll()">🔄 সব তথ্য রিফ্রেশ</button>
+</div>
 
-    <div class="notice">
-      এখানে টুর্নামেন্ট তৈরি করলে সেটি Supabase-এর <b>tournaments</b> টেবিলে সংরক্ষিত হবে।
-      প্রকাশ করতে Status থেকে Published নির্বাচন করো।
-    </div>
+<!-- CREATE TOURNAMENT -->
+<div id="createPanel" class="panel">
+  <div class="card">
+    <h3 id="formTitle">➕ নতুন টুর্নামেন্ট তৈরি</h3>
 
-    <form id="tournamentForm">
+    <input type="hidden" id="editId">
 
-      <input type="hidden" id="editId">
+    <label>টুর্নামেন্টের নাম</label>
+    <input id="title" placeholder="যেমন: Friday Free Fire Tournament">
 
-      <div class="grid">
-        <div>
-          <label>টুর্নামেন্টের নাম *</label>
-          <input id="title" required placeholder="যেমন: Friday Night Tournament">
-        </div>
+    <label>গেম</label>
+    <select id="game">
+      <option value="Free Fire">Free Fire</option>
+      <option value="PUBG Mobile">PUBG Mobile</option>
+      <option value="Mobile Legends">Mobile Legends</option>
+      <option value="Other">Other</option>
+    </select>
 
-        <div>
-          <label>গেমের নাম *</label>
-          <input id="game" required placeholder="যেমন: Free Fire">
-        </div>
+    <label>টুর্নামেন্টের ধরন</label>
+    <select id="type">
+      <option value="SOLO">SOLO</option>
+      <option value="DUO">DUO</option>
+      <option value="SQUAD">SQUAD</option>
+      <option value="CUSTOM">CUSTOM</option>
+    </select>
 
-        <div>
-          <label>টুর্নামেন্টের ধরন *</label>
-          <select id="type" required>
-            <option value="SOLO">SOLO</option>
-            <option value="DUO">DUO</option>
-            <option value="SQUAD">SQUAD</option>
-            <option value="CUSTOM">CUSTOM</option>
-          </select>
-        </div>
+    <label>মোড</label>
+    <input id="mode" placeholder="যেমন: Battle Royale / Clash Squad">
 
-        <div>
-          <label>মোড</label>
-          <input id="mode" placeholder="যেমন: Battle Royale">
-        </div>
+    <label>এন্ট্রি ফি (৳)</label>
+    <input id="entry_fee" type="number" min="0" value="0">
 
-        <div>
-          <label>এন্ট্রি ফি (৳)</label>
-          <input id="entry_fee" type="number" min="0" step="0.01" value="0" required>
-        </div>
+    <label>পুরস্কার (৳)</label>
+    <input id="prize_pool" type="number" min="0" value="0">
 
-        <div>
-          <label>প্রাইজ পুল (৳)</label>
-          <input id="prize_pool" type="number" min="0" step="0.01" value="0" required>
-        </div>
+    <label>সর্বোচ্চ স্লট</label>
+    <input id="max_slots" type="number" min="1" value="48">
 
-        <div>
-          <label>সর্বোচ্চ স্লট</label>
-          <input id="max_slots" type="number" min="1" value="48" required>
-        </div>
+    <label>শুরুর সময়</label>
+    <input id="start_at" type="datetime-local">
 
-        <div>
-          <label>টুর্নামেন্ট শুরুর সময়</label>
-          <input id="start_at" type="datetime-local">
-        </div>
+    <label>রেজিস্ট্রেশনের শেষ সময়</label>
+    <input id="registration_deadline" type="datetime-local">
 
-        <div>
-          <label>রেজিস্ট্রেশনের শেষ সময়</label>
-          <input id="registration_deadline" type="datetime-local">
-        </div>
+    <label>ছবির URL</label>
+    <input id="image_url" placeholder="https://example.com/image.jpg">
 
-        <div>
-          <label>স্ট্যাটাস</label>
-          <select id="status">
-            <option value="draft">Draft (প্রকাশিত নয়)</option>
-            <option value="published">Published (প্রকাশিত)</option>
-            <option value="cancelled">Cancelled (বাতিল)</option>
-          </select>
-        </div>
-      </div>
+    <label>বিস্তারিত</label>
+    <textarea id="description" placeholder="টুর্নামেন্ট সম্পর্কে লিখুন"></textarea>
 
-      <label>টুর্নামেন্টের ছবি URL</label>
-      <input id="image_url" type="url" placeholder="https://example.com/image.jpg">
+    <label>নিয়মাবলি</label>
+    <textarea id="rules" placeholder="টুর্নামেন্টের নিয়ম লিখুন"></textarea>
 
-      <label>বিস্তারিত</label>
-      <textarea id="description" placeholder="টুর্নামেন্ট সম্পর্কে বিস্তারিত লিখো"></textarea>
+    <label>স্ট্যাটাস</label>
+    <select id="status">
+      <option value="draft">Draft</option>
+      <option value="published">Published</option>
+      <option value="closed">Closed</option>
+    </select>
 
-      <label>নিয়মাবলি</label>
-      <textarea id="rules" placeholder="টুর্নামেন্টের নিয়ম লিখো"></textarea>
+    <button class="btn" onclick="saveTournament()">💾 সেভ করুন</button>
+    <button class="btn2" onclick="resetForm()">নতুন করে লিখুন</button>
+  </div>
+</div>
 
-      <button class="btn" type="submit" id="saveTournamentBtn">💾 টুর্নামেন্ট সেভ করো</button>
-      <button class="btn btn-secondary hidden" type="button" id="cancelEditBtn" onclick="resetTournamentForm()">বাতিল</button>
+<!-- TOURNAMENT LIST -->
+<div id="listPanel" class="panel">
+  <div class="card">
+    <h3>🏆 টুর্নামেন্ট তালিকা</h3>
 
-      <div id="tournamentMessage"></div>
-    </form>
-  </section>
+    <input id="searchTournament" placeholder="টুর্নামেন্ট খুঁজুন..." oninput="renderTournaments()">
 
-  <!-- TOURNAMENT LIST -->
-  <section id="listPanel" class="panel hidden">
-    <h2>🏆 টুর্নামেন্ট তালিকা</h2>
+    <button class="btn2" onclick="loadTournaments()">🔄 রিফ্রেশ</button>
 
-    <input id="searchTournament" placeholder="টুর্নামেন্টের নাম দিয়ে খুঁজুন..." oninput="renderTournaments()">
+    <div id="tournamentList">লোড হচ্ছে...</div>
+  </div>
+</div>
 
-    <div id="tournamentList">
-      <div class="empty">লোড হচ্ছে...</div>
-    </div>
-  </section>
+<!-- DEPOSITS -->
+<div id="depositPanel" class="panel">
+  <div class="card">
+    <h3>💰 ডিপোজিট রিকোয়েস্ট</h3>
+    <button class="btn2" onclick="loadDeposits()">🔄 রিফ্রেশ</button>
+    <div id="depositList">লোড হচ্ছে...</div>
+  </div>
+</div>
 
-  <!-- PRIZE -->
-  <section id="prizePanel" class="panel hidden">
-    <h2>💰 বিজয়ীকে পুরস্কার প্রদান</h2>
+<!-- WITHDRAWALS -->
+<div id="withdrawPanel" class="panel">
+  <div class="card">
+    <h3>💸 উইথড্র রিকোয়েস্ট</h3>
+    <button class="btn2" onclick="loadWithdrawals()">🔄 রিফ্রেশ</button>
+    <div id="withdrawList">লোড হচ্ছে...</div>
+  </div>
+</div>
 
-    <div class="notice">
-      বিজয়ীর Supabase Auth User ID, পুরস্কারের পরিমাণ এবং বিবরণ দিতে হবে।
-      নিচের ফর্মটি <b>admin_award_prize</b> RPC ফাংশন ব্যবহার করে।
-    </div>
+<!-- PRIZE -->
+<div id="prizePanel" class="panel">
+  <div class="card">
+    <h3>🎁 ইউজারকে পুরস্কার দিন</h3>
 
-    <form id="prizeForm">
+    <label>ইউজারের UID</label>
+    <input id="prizeUserId" placeholder="ইউজারের UUID">
 
-      <label>বিজয়ীর User ID (UUID) *</label>
-      <input id="prizeUserId" required placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+    <label>পুরস্কারের পরিমাণ (৳)</label>
+    <input id="prizeAmount" type="number" min="0.01" step="0.01" placeholder="যেমন: 100">
 
-      <label>পুরস্কারের পরিমাণ (৳) *</label>
-      <input id="prizeAmount" type="number" min="0.01" step="0.01" required placeholder="যেমন: 500">
+    <label>বিবরণ</label>
+    <input id="prizeDescription" placeholder="যেমন: Tournament Winner Prize">
 
-      <label>পুরস্কারের বিবরণ *</label>
-      <input id="prizeDescription" required placeholder="যেমন: Friday Tournament Winner">
+    <button class="btn" onclick="awardPrize()">🎁 পুরস্কার দিন</button>
+  </div>
+</div>
 
-      <button class="btn" type="submit">🏆 পুরস্কার প্রদান করো</button>
-
-      <div id="prizeMessage"></div>
-    </form>
-  </section>
-
-  <!-- VISITOR STATS -->
-  <section id="statsPanel" class="panel hidden">
-    <h2>👥 ওয়েবসাইট ভিজিটর তথ্য</h2>
-
-    <div class="notice">
-      ভিজিটর সংখ্যা দেখানোর জন্য Supabase-এ <b>admin_visit_stats</b> RPC ফাংশন থাকতে হবে।
-      ফাংশনটি না থাকলে এখানে ত্রুটি দেখাবে।
-    </div>
-
-    <button class="btn" onclick="loadVisitorStats()">🔄 ভিজিটর তথ্য দেখো</button>
-
-    <div id="visitorDetails" class="message">তথ্য লোড করতে বোতামে চাপ দাও।</div>
-  </section>
-
-</main>
+</section>
+</div>
 
 <script>
-// =====================================
-// SUPABASE CONFIGURATION
-// =====================================
+/* ==============================
+   SUPABASE CONFIG
+================================ */
 
 const SUPABASE_URL = "https://qskpvywtzageshrqenlz.supabase.co";
 
@@ -574,717 +340,545 @@ const db = window.supabase.createClient(
 );
 
 let tournaments = [];
-let currentUser = null;
 
+/* ==============================
+   MESSAGE
+================================ */
 
-// =====================================
-// HELPER FUNCTIONS
-// =====================================
+function message(text, type="info"){
+  const box = document.getElementById("message");
+  box.style.display = "block";
+  box.textContent = text;
 
-function $(id) {
-  return document.getElementById(id);
+  box.style.background =
+    type === "error" ? "#7f1d1d" :
+    type === "success" ? "#14532d" : "#1e3a5f";
+
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function showMessage(id, text, type = "error") {
-  const el = $(id);
-
-  el.className = "message " + type;
-  el.textContent = text;
+function clearMessage(){
+  const box = document.getElementById("message");
+  box.style.display = "none";
+  box.textContent = "";
 }
 
-function clearMessage(id) {
-  const el = $(id);
-  el.textContent = "";
-  el.className = "";
-}
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
-}
-
-function formatMoney(value) {
-  return "৳" + Number(value || 0).toLocaleString("en-BD");
-}
-
-function formatDate(value) {
-  if (!value) return "নির্ধারিত নয়";
-
-  const date = new Date(value);
-
-  if (isNaN(date.getTime())) return value;
-
-  return date.toLocaleString("bn-BD", {
-    dateStyle: "medium",
-    timeStyle: "short"
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, function(ch){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[ch];
   });
 }
 
-function toLocalDateTime(value) {
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (isNaN(date.getTime())) return "";
-
-  const local = new Date(
-    date.getTime() - date.getTimezoneOffset() * 60000
-  );
-
-  return local.toISOString().slice(0, 16);
+function money(value){
+  return "৳" + Number(value || 0).toLocaleString("en-US");
 }
 
-function toISO(value) {
-  if (!value) return null;
-
-  const date = new Date(value);
-
-  if (isNaN(date.getTime())) {
-    throw new Error("তারিখ সঠিক নয়।");
-  }
-
-  return date.toISOString();
+function dateText(value){
+  if(!value) return "নির্ধারিত নয়";
+  const d = new Date(value);
+  return isNaN(d.getTime()) ? escapeHTML(value) : d.toLocaleString("bn-BD");
 }
 
+function statusBadge(status){
+  const s = String(status || "").toLowerCase();
+  let cls = "badge";
 
-// =====================================
-// AUTH CHECK
-// =====================================
+  if(s === "pending") cls += " pending";
+  if(s === "approved") cls += " approved";
+  if(s === "rejected") cls += " rejected";
 
-async function checkSession() {
-  const { data, error } = await db.auth.getSession();
+  return `<span class="${cls}">${escapeHTML(status || "N/A")}</span>`;
+}
 
-  if (error) {
-    console.error(error);
+/* ==============================
+   AUTH
+================================ */
+
+async function login(){
+  clearMessage();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if(!email || !password){
+    return message("ইমেইল ও পাসওয়ার্ড লিখুন।","error");
   }
 
-  const session = data?.session;
+  const {data,error} = await db.auth.signInWithPassword({
+    email,
+    password
+  });
 
-  if (!session) {
-    showLogin();
-    return;
+  if(error){
+    return message("লগইন ব্যর্থ: " + error.message,"error");
   }
 
-  if (session.user.id !== ADMIN_UID) {
+  if(data.user.id !== ADMIN_UID){
     await db.auth.signOut();
+    return message("এই অ্যাকাউন্ট অ্যাডমিন নয়।","error");
+  }
 
-    showLogin();
+  await checkSession();
+}
 
-    showMessage(
-      "loginMessage",
-      "এই অ্যাকাউন্টের অ্যাডমিন অনুমতি নেই।",
-      "error"
-    );
+async function logout(){
+  await db.auth.signOut();
+  location.reload();
+}
 
+async function checkSession(){
+  const {data,error} = await db.auth.getSession();
+
+  if(error || !data.session){
+    document.getElementById("loginBox").classList.remove("hidden");
+    document.getElementById("adminBox").classList.add("hidden");
+    document.getElementById("logoutBtn").classList.add("hidden");
     return;
   }
 
-  currentUser = session.user;
-
-  showAdmin();
-
-  await loadAll();
-}
-
-function showLogin() {
-  $("loginSection").classList.remove("hidden");
-  $("adminSection").classList.add("hidden");
-  $("logoutBtn").classList.add("hidden");
-}
-
-function showAdmin() {
-  $("loginSection").classList.add("hidden");
-  $("adminSection").classList.remove("hidden");
-  $("logoutBtn").classList.remove("hidden");
-}
-
-
-// =====================================
-// LOGIN
-// =====================================
-
-$("loginForm").addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  clearMessage("loginMessage");
-
-  const email = $("loginEmail").value.trim();
-  const password = $("loginPassword").value;
-
-  const button = this.querySelector("button[type='submit']");
-
-  button.disabled = true;
-  button.textContent = "লগইন হচ্ছে...";
-
-  try {
-    const { data, error } = await db.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    if (error) throw error;
-
-    if (data.user.id !== ADMIN_UID) {
-      await db.auth.signOut();
-
-      throw new Error("এই অ্যাকাউন্টটি অ্যাডমিন নয়।");
-    }
-
-    currentUser = data.user;
-
-    showAdmin();
-
-    await loadAll();
-
-  } catch (error) {
-    showMessage("loginMessage", error.message, "error");
-
-  } finally {
-    button.disabled = false;
-    button.textContent = "Login করুন";
+  if(data.session.user.id !== ADMIN_UID){
+    await db.auth.signOut();
+    message("অ্যাক্সেস অনুমোদিত নয়।","error");
+    return;
   }
-});
 
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("adminBox").classList.remove("hidden");
+  document.getElementById("logoutBtn").classList.remove("hidden");
 
-// =====================================
-// LOGOUT
-// =====================================
-
-async function logout() {
-  const confirmed = confirm("তুমি কি লগআউট করতে চাও?");
-
-  if (!confirmed) return;
-
-  await db.auth.signOut();
-
-  currentUser = null;
-
-  showLogin();
+  loadAll();
 }
 
+/* ==============================
+   TABS
+================================ */
 
-// =====================================
-// TAB SYSTEM
-// =====================================
-
-function showTab(tabId, button) {
-  document.querySelectorAll(".tabs .tab").forEach(tab => {
-    tab.classList.remove("active");
+function showTab(id,button){
+  document.querySelectorAll(".panel").forEach(panel=>{
+    panel.classList.remove("active");
   });
 
-  button.classList.add("active");
-
-  ["createPanel", "listPanel", "prizePanel", "statsPanel"].forEach(id => {
-    $(id).classList.toggle("hidden", id !== tabId);
+  document.querySelectorAll(".tabs button").forEach(btn=>{
+    btn.classList.remove("active");
   });
 
-  if (tabId === "listPanel") {
-    loadTournaments();
-  }
+  document.getElementById(id).classList.add("active");
 
-  if (tabId === "statsPanel") {
-    loadVisitorStats();
-  }
+  if(button) button.classList.add("active");
+
+  if(id === "depositPanel") loadDeposits();
+  if(id === "withdrawPanel") loadWithdrawals();
+  if(id === "listPanel") loadTournaments();
+  if(id === "statsPanel") loadAll();
 }
 
+/* ==============================
+   LOAD ALL
+================================ */
 
-// =====================================
-// LOAD ALL
-// =====================================
-
-async function loadAll() {
-  await loadTournaments();
-  await loadVisitorStats();
+async function loadAll(){
+  await Promise.all([
+    loadTournaments(),
+    loadDeposits(),
+    loadWithdrawals(),
+    loadVisitorStats()
+  ]);
 }
 
+/* ==============================
+   TOURNAMENTS
+================================ */
 
-// =====================================
-// LOAD TOURNAMENTS
-// =====================================
+async function loadTournaments(){
+  const box = document.getElementById("tournamentList");
+  box.textContent = "লোড হচ্ছে...";
 
-async function loadTournaments() {
-  $("tournamentList").innerHTML =
-    '<div class="empty">টুর্নামেন্ট লোড হচ্ছে...</div>';
-
-  const { data, error } = await db
+  const {data,error} = await db
     .from("tournaments")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("created_at",{ascending:false});
 
-  if (error) {
-    $("tournamentList").innerHTML =
-      '<div class="message error">টুর্নামেন্ট লোড হয়নি: ' +
-      escapeHTML(error.message) +
-      "</div>";
-
+  if(error){
+    box.textContent = "টুর্নামেন্ট লোড হয়নি: " + error.message;
     return;
   }
 
   tournaments = data || [];
 
-  $("totalTournaments").textContent = tournaments.length;
+  document.getElementById("totalTournaments").textContent = tournaments.length;
 
-  $("publishedTournaments").textContent =
-    tournaments.filter(t => t.status === "published").length;
+  document.getElementById("publishedTournaments").textContent =
+    tournaments.filter(t=>t.status === "published").length;
 
   renderTournaments();
 }
 
+function renderTournaments(){
+  const box = document.getElementById("tournamentList");
+  const q = (document.getElementById("searchTournament").value || "").toLowerCase();
 
-// =====================================
-// RENDER TOURNAMENTS
-// =====================================
-
-function renderTournaments() {
-  const search = $("searchTournament").value.trim().toLowerCase();
-
-  const filtered = tournaments.filter(t => {
-    return String(t.title || "").toLowerCase().includes(search);
-  });
-
-  if (!filtered.length) {
-    $("tournamentList").innerHTML =
-      '<div class="empty">কোনো টুর্নামেন্ট পাওয়া যায়নি।</div>';
-
-    return;
-  }
-
-  $("tournamentList").innerHTML = filtered.map(t => {
-    const statusClass =
-      t.status === "published" ? "published" :
-      t.status === "cancelled" ? "cancelled" : "draft";
-
-    const statusText =
-      t.status === "published" ? "প্রকাশিত" :
-      t.status === "cancelled" ? "বাতিল" : "Draft";
-
-    return `
-      <div class="tournament-card">
-
-        <span class="badge ${statusClass}">
-          ${escapeHTML(statusText)}
-        </span>
-
-        <h3>${escapeHTML(t.title)}</h3>
-
-        <div class="tournament-info">
-          <div>🎮 গেম: ${escapeHTML(t.game || "—")}</div>
-          <div>🏆 ধরন: ${escapeHTML(t.type || "—")}</div>
-          <div>💵 এন্ট্রি: ${formatMoney(t.entry_fee)}</div>
-          <div>🥇 প্রাইজ: ${formatMoney(t.prize_pool)}</div>
-          <div>👥 স্লট: ${escapeHTML(t.max_slots ?? "—")}</div>
-          <div>🕒 শুরু: ${escapeHTML(formatDate(t.start_at))}</div>
-        </div>
-
-        <div class="card-actions">
-          <button class="btn btn-secondary"
-            onclick="editTournament('${t.id}')">
-            ✏️ Edit
-          </button>
-
-          <button class="btn btn-warning"
-            onclick="togglePublish('${t.id}')">
-            ${t.status === "published" ? "📢 Draft করো" : "📢 Publish করো"}
-          </button>
-
-          <button class="btn btn-danger"
-            onclick="deleteTournament('${t.id}')">
-            🗑️ Delete
-          </button>
-        </div>
-
-      </div>
-    `;
-  }).join("");
-}
-
-
-// =====================================
-// SAVE TOURNAMENT
-// =====================================
-
-$("tournamentForm").addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  clearMessage("tournamentMessage");
-
-  if (!currentUser || currentUser.id !== ADMIN_UID) {
-    showMessage(
-      "tournamentMessage",
-      "অ্যাডমিন লগইন পাওয়া যায়নি।",
-      "error"
-    );
-    return;
-  }
-
-  const editId = $("editId").value;
-
-  let payload;
-
-  try {
-    payload = {
-      title: $("title").value.trim(),
-      game: $("game").value.trim(),
-      type: $("type").value,
-      mode: $("mode").value.trim() || null,
-      entry_fee: Number($("entry_fee").value || 0),
-      prize_pool: Number($("prize_pool").value || 0),
-      max_slots: Number($("max_slots").value),
-      start_at: toISO($("start_at").value),
-      registration_deadline: toISO($("registration_deadline").value),
-      image_url: $("image_url").value.trim() || null,
-      description: $("description").value.trim() || null,
-      rules: $("rules").value.trim() || null,
-      status: $("status").value
-    };
-
-    if (!payload.title || !payload.game) {
-      throw new Error("টুর্নামেন্টের নাম ও গেমের নাম দিতে হবে।");
-    }
-
-    if (payload.entry_fee < 0 || payload.prize_pool < 0) {
-      throw new Error("টাকার পরিমাণ ০-এর কম হতে পারবে না।");
-    }
-
-    if (!Number.isInteger(payload.max_slots) || payload.max_slots < 1) {
-      throw new Error("স্লট সংখ্যা কমপক্ষে ১ হতে হবে।");
-    }
-
-  } catch (error) {
-    showMessage("tournamentMessage", error.message, "error");
-    return;
-  }
-
-  const button = $("saveTournamentBtn");
-
-  button.disabled = true;
-  button.textContent = "সেভ হচ্ছে...";
-
-  try {
-    let result;
-
-    if (editId) {
-      result = await db
-        .from("tournaments")
-        .update(payload)
-        .eq("id", editId)
-        .select();
-
-    } else {
-      payload.created_by = currentUser.id;
-
-      result = await db
-        .from("tournaments")
-        .insert(payload)
-        .select();
-    }
-
-    if (result.error) throw result.error;
-
-    if (!result.data || result.data.length === 0) {
-      throw new Error(
-        "ডেটা সেভ হয়েছে কি না নিশ্চিত হওয়া যায়নি। Supabase RLS Policy পরীক্ষা করো।"
-      );
-    }
-
-    showMessage(
-      "tournamentMessage",
-      editId
-        ? "✅ টুর্নামেন্ট সফলভাবে আপডেট হয়েছে!"
-        : "✅ নতুন টুর্নামেন্ট সফলভাবে তৈরি হয়েছে!",
-      "success"
-    );
-
-    resetTournamentForm();
-
-    await loadTournaments();
-
-  } catch (error) {
-    showMessage(
-      "tournamentMessage",
-      "সেভ করা যায়নি: " + error.message,
-      "error"
-    );
-
-  } finally {
-    button.disabled = false;
-    button.textContent = "💾 টুর্নামেন্ট সেভ করো";
-  }
-});
-
-
-// =====================================
-// EDIT TOURNAMENT
-// =====================================
-
-function editTournament(id) {
-  const t = tournaments.find(item => String(item.id) === String(id));
-
-  if (!t) {
-    alert("টুর্নামেন্ট পাওয়া যায়নি।");
-    return;
-  }
-
-  $("editId").value = t.id;
-  $("title").value = t.title || "";
-  $("game").value = t.game || "";
-  $("type").value = t.type || "SOLO";
-  $("mode").value = t.mode || "";
-  $("entry_fee").value = t.entry_fee ?? 0;
-  $("prize_pool").value = t.prize_pool ?? 0;
-  $("max_slots").value = t.max_slots ?? 48;
-  $("start_at").value = toLocalDateTime(t.start_at);
-  $("registration_deadline").value =
-    toLocalDateTime(t.registration_deadline);
-  $("image_url").value = t.image_url || "";
-  $("description").value = t.description || "";
-  $("rules").value = t.rules || "";
-  $("status").value = t.status || "draft";
-
-  $("formTitle").textContent = "✏️ টুর্নামেন্ট এডিট";
-  $("saveTournamentBtn").textContent = "💾 পরিবর্তন সেভ করো";
-  $("cancelEditBtn").classList.remove("hidden");
-
-  clearMessage("tournamentMessage");
-
-  showTab("createPanel", document.querySelector('[data-tab="createPanel"]'));
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-
-// =====================================
-// RESET FORM
-// =====================================
-
-function resetTournamentForm() {
-  $("tournamentForm").reset();
-
-  $("editId").value = "";
-
-  $("entry_fee").value = 0;
-  $("prize_pool").value = 0;
-  $("max_slots").value = 48;
-  $("type").value = "SOLO";
-  $("status").value = "draft";
-
-  $("formTitle").textContent = "➕ নতুন টুর্নামেন্ট তৈরি";
-  $("saveTournamentBtn").textContent = "💾 টুর্নামেন্ট সেভ করো";
-
-  $("cancelEditBtn").classList.add("hidden");
-
-  clearMessage("tournamentMessage");
-}
-
-
-// =====================================
-// PUBLISH / DRAFT
-// =====================================
-
-async function togglePublish(id) {
-  const t = tournaments.find(item => String(item.id) === String(id));
-
-  if (!t) return;
-
-  const newStatus =
-    t.status === "published" ? "draft" : "published";
-
-  const confirmed = confirm(
-    newStatus === "published"
-      ? "এই টুর্নামেন্টটি প্রকাশ করতে চাও?"
-      : "এই টুর্নামেন্টটি Draft করতে চাও?"
+  const filtered = tournaments.filter(t=>
+    String(t.title || "").toLowerCase().includes(q) ||
+    String(t.game || "").toLowerCase().includes(q) ||
+    String(t.type || "").toLowerCase().includes(q)
   );
 
-  if (!confirmed) return;
-
-  const { error } = await db
-    .from("tournaments")
-    .update({ status: newStatus })
-    .eq("id", id);
-
-  if (error) {
-    alert("স্ট্যাটাস পরিবর্তন করা যায়নি: " + error.message);
+  if(!filtered.length){
+    box.innerHTML = "<p>কোনো টুর্নামেন্ট পাওয়া যায়নি।</p>";
     return;
   }
 
-  alert(
-    newStatus === "published"
-      ? "✅ টুর্নামেন্ট প্রকাশিত হয়েছে!"
-      : "টুর্নামেন্ট Draft করা হয়েছে।"
-  );
+  box.innerHTML = filtered.map(t=>`
+    <div class="item">
+      <h4>${escapeHTML(t.title)}</h4>
 
+      <p>🎮 গেম: ${escapeHTML(t.game)}</p>
+      <p>👥 ধরন: ${escapeHTML(t.type)}</p>
+      <p>🕹️ মোড: ${escapeHTML(t.mode)}</p>
+      <p>💰 এন্ট্রি ফি: ${money(t.entry_fee)}</p>
+      <p>🏆 পুরস্কার: ${money(t.prize_pool)}</p>
+      <p>👥 স্লট: ${escapeHTML(t.max_slots)}</p>
+      <p>🕒 শুরু: ${dateText(t.start_at)}</p>
+      <p>📌 স্ট্যাটাস: ${statusBadge(t.status)}</p>
+
+      <button class="warning" onclick="editTournament('${t.id}')">✏️ এডিট</button>
+      <button class="danger" onclick="deleteTournament('${t.id}')">🗑️ ডিলিট</button>
+    </div>
+  `).join("");
+}
+
+async function saveTournament(){
+  clearMessage();
+
+  const editId = document.getElementById("editId").value;
+
+  const title = document.getElementById("title").value.trim();
+
+  if(!title){
+    return message("টুর্নামেন্টের নাম লিখুন।","error");
+  }
+
+  const entryFee = Number(document.getElementById("entry_fee").value || 0);
+  const prizePool = Number(document.getElementById("prize_pool").value || 0);
+  const maxSlots = Number(document.getElementById("max_slots").value || 0);
+
+  if(entryFee < 0 || prizePool < 0 || maxSlots <= 0){
+    return message("এন্ট্রি ফি, পুরস্কার ও স্লটের সংখ্যা সঠিকভাবে লিখুন।","error");
+  }
+
+  const startAt = document.getElementById("start_at").value;
+  const deadline = document.getElementById("registration_deadline").value;
+
+  const payload = {
+    title,
+    game: document.getElementById("game").value,
+    type: document.getElementById("type").value,
+    mode: document.getElementById("mode").value.trim(),
+    entry_fee: entryFee,
+    prize_pool: prizePool,
+    max_slots: maxSlots,
+    start_at: startAt ? new Date(startAt).toISOString() : null,
+    registration_deadline: deadline ? new Date(deadline).toISOString() : null,
+    image_url: document.getElementById("image_url").value.trim() || null,
+    description: document.getElementById("description").value.trim(),
+    rules: document.getElementById("rules").value.trim(),
+    status: document.getElementById("status").value
+  };
+
+  let result;
+
+  if(editId){
+    result = await db
+      .from("tournaments")
+      .update(payload)
+      .eq("id",editId);
+  }else{
+    const {data:sessionData} = await db.auth.getSession();
+
+    payload.created_by = sessionData.session.user.id;
+
+    result = await db
+      .from("tournaments")
+      .insert(payload);
+  }
+
+  if(result.error){
+    return message("সেভ হয়নি: " + result.error.message,"error");
+  }
+
+  message(editId ? "টুর্নামেন্ট আপডেট হয়েছে।" : "নতুন টুর্নামেন্ট তৈরি হয়েছে।","success");
+
+  resetForm();
   await loadTournaments();
+  showTab("listPanel",document.querySelectorAll(".tabs button")[2]);
 }
 
+function editTournament(id){
+  const t = tournaments.find(x=>String(x.id) === String(id));
 
-// =====================================
-// DELETE TOURNAMENT
-// =====================================
+  if(!t) return message("টুর্নামেন্ট পাওয়া যায়নি।","error");
 
-async function deleteTournament(id) {
-  const confirmed = confirm(
-    "⚠️ তুমি কি সত্যিই এই টুর্নামেন্টটি ডিলিট করতে চাও? এই কাজটি ফিরিয়ে আনা নাও যেতে পারে।"
-  );
+  document.getElementById("editId").value = t.id;
+  document.getElementById("title").value = t.title || "";
+  document.getElementById("game").value = t.game || "Free Fire";
+  document.getElementById("type").value = t.type || "SOLO";
+  document.getElementById("mode").value = t.mode || "";
+  document.getElementById("entry_fee").value = t.entry_fee ?? 0;
+  document.getElementById("prize_pool").value = t.prize_pool ?? 0;
+  document.getElementById("max_slots").value = t.max_slots ?? 48;
+  document.getElementById("image_url").value = t.image_url || "";
+  document.getElementById("description").value = t.description || "";
+  document.getElementById("rules").value = t.rules || "";
+  document.getElementById("status").value = t.status || "draft";
 
-  if (!confirmed) return;
+  document.getElementById("start_at").value = toLocalDateTime(t.start_at);
+  document.getElementById("registration_deadline").value = toLocalDateTime(t.registration_deadline);
 
-  const { error } = await db
+  document.getElementById("formTitle").textContent = "✏️ টুর্নামেন্ট এডিট করুন";
+
+  showTab("createPanel",document.querySelectorAll(".tabs button")[1]);
+}
+
+function toLocalDateTime(value){
+  if(!value) return "";
+  const d = new Date(value);
+  if(isNaN(d.getTime())) return "";
+
+  const local = new Date(d.getTime() - d.getTimezoneOffset()*60000);
+  return local.toISOString().slice(0,16);
+}
+
+function resetForm(){
+  document.getElementById("editId").value = "";
+  document.getElementById("title").value = "";
+  document.getElementById("mode").value = "";
+  document.getElementById("entry_fee").value = 0;
+  document.getElementById("prize_pool").value = 0;
+  document.getElementById("max_slots").value = 48;
+  document.getElementById("start_at").value = "";
+  document.getElementById("registration_deadline").value = "";
+  document.getElementById("image_url").value = "";
+  document.getElementById("description").value = "";
+  document.getElementById("rules").value = "";
+  document.getElementById("status").value = "draft";
+  document.getElementById("formTitle").textContent = "➕ নতুন টুর্নামেন্ট তৈরি";
+}
+
+async function deleteTournament(id){
+  if(!confirm("আপনি কি নিশ্চিতভাবে এই টুর্নামেন্ট ডিলিট করতে চান?")) return;
+
+  const {error} = await db
     .from("tournaments")
     .delete()
-    .eq("id", id);
+    .eq("id",id);
 
-  if (error) {
-    alert("ডিলিট করা যায়নি: " + error.message);
-    return;
+  if(error){
+    return message("ডিলিট হয়নি: " + error.message,"error");
   }
 
-  alert("✅ টুর্নামেন্ট ডিলিট হয়েছে!");
-
+  message("টুর্নামেন্ট ডিলিট হয়েছে।","success");
   await loadTournaments();
 }
 
+/* ==============================
+   DEPOSITS
+================================ */
 
-// =====================================
-// AWARD PRIZE
-// =====================================
+async function loadDeposits(){
+  const box = document.getElementById("depositList");
+  box.textContent = "লোড হচ্ছে...";
 
-$("prizeForm").addEventListener("submit", async function(event) {
-  event.preventDefault();
+  const {data,error} = await db
+    .from("deposit_requests")
+    .select("*")
+    .order("created_at",{ascending:false});
 
-  clearMessage("prizeMessage");
-
-  if (!currentUser || currentUser.id !== ADMIN_UID) {
-    showMessage(
-      "prizeMessage",
-      "অ্যাডমিন লগইন পাওয়া যায়নি।",
-      "error"
-    );
+  if(error){
+    box.textContent = "ডিপোজিট লোড হয়নি: " + error.message;
     return;
   }
 
-  const userId = $("prizeUserId").value.trim();
-  const amount = Number($("prizeAmount").value);
-  const description = $("prizeDescription").value.trim();
+  const rows = data || [];
 
-  if (!userId || !description || !Number.isFinite(amount) || amount <= 0) {
-    showMessage(
-      "prizeMessage",
-      "সঠিক User ID, পুরস্কারের পরিমাণ ও বিবরণ দিতে হবে।",
-      "error"
-    );
+  document.getElementById("depositCount").textContent =
+    rows.filter(r=>r.status === "pending").length;
+
+  if(!rows.length){
+    box.innerHTML = "<p>কোনো ডিপোজিট রিকোয়েস্ট নেই।</p>";
     return;
   }
 
-  const confirmed = confirm(
-    "তুমি কি এই ব্যবহারকারীকে " +
-    formatMoney(amount) +
-    " পুরস্কার দিতে চাও?"
-  );
+  box.innerHTML = rows.map(r=>`
+    <div class="item">
+      <h4>💰 ডিপোজিট: ${money(r.amount)}</h4>
 
-  if (!confirmed) return;
+      <p>👤 ইউজার UID: ${escapeHTML(r.user_id)}</p>
+      <p>💳 মাধ্যম: ${escapeHTML(r.method)}</p>
+      <p>🧾 ট্রানজ্যাকশন ID: ${escapeHTML(r.transaction_id)}</p>
+      <p>🕒 সময়: ${dateText(r.created_at)}</p>
+      <p>📌 স্ট্যাটাস: ${statusBadge(r.status)}</p>
 
-  const button = this.querySelector("button[type='submit']");
-
-  button.disabled = true;
-  button.textContent = "পুরস্কার দেওয়া হচ্ছে...";
-
-  try {
-    const { data, error } = await db.rpc("admin_award_prize", {
-      p_user_id: userId,
-      p_amount: amount,
-      p_description: description
-    });
-
-    if (error) throw error;
-
-    showMessage(
-      "prizeMessage",
-      "✅ পুরস্কার দেওয়ার অনুরোধ সফল হয়েছে!",
-      "success"
-    );
-
-    $("prizeForm").reset();
-
-  } catch (error) {
-    showMessage(
-      "prizeMessage",
-      "পুরস্কার দেওয়া যায়নি: " + error.message,
-      "error"
-    );
-
-  } finally {
-    button.disabled = false;
-    button.textContent = "🏆 পুরস্কার প্রদান করো";
-  }
-});
-
-
-// =====================================
-// VISITOR STATS
-// =====================================
-
-async function loadVisitorStats() {
-  $("visitorDetails").textContent = "ভিজিটর তথ্য লোড হচ্ছে...";
-
-  try {
-    const { data, error } = await db.rpc("admin_visit_stats");
-
-    if (error) throw error;
-
-    $("visitorDetails").textContent =
-      typeof data === "object"
-        ? JSON.stringify(data, null, 2)
-        : String(data ?? "কোনো তথ্য পাওয়া যায়নি।");
-
-    if (typeof data === "number") {
-      $("totalVisitors").textContent = data.toLocaleString("bn-BD");
-    }
-
-    if (data && typeof data === "object") {
-      const count =
-        data.total_visitors ??
-        data.total_visits ??
-        data.total ??
-        data.visitors;
-
-      if (count !== undefined) {
-        $("totalVisitors").textContent =
-          Number(count).toLocaleString("bn-BD");
-      }
-    }
-
-  } catch (error) {
-    $("visitorDetails").textContent =
-      "ভিজিটর তথ্য লোড করা যায়নি: " + error.message;
-
-    $("totalVisitors").textContent = "—";
-  }
+      ${r.status === "pending" ? `
+        <button class="success" onclick="reviewDeposit('${r.id}',true)">✅ অনুমোদন</button>
+        <button class="danger" onclick="reviewDeposit('${r.id}',false)">❌ বাতিল</button>
+      ` : ""}
+    </div>
+  `).join("");
 }
 
+async function reviewDeposit(id,approve){
+  const action = approve ? "অনুমোদন" : "বাতিল";
 
-// =====================================
-// AUTH STATE CHANGE
-// =====================================
+  if(!confirm("আপনি কি ডিপোজিটটি " + action + " করতে চান?")) return;
 
-db.auth.onAuthStateChange((event, session) => {
-  if (event === "SIGNED_OUT") {
-    currentUser = null;
-    showLogin();
+  const {error} = await db.rpc("admin_review_deposit",{
+    p_request_id: String(id),
+    p_approve: approve
+  });
+
+  if(error){
+    return message("ডিপোজিট আপডেট হয়নি: " + error.message,"error");
   }
-});
 
+  message("ডিপোজিট " + action + " করা হয়েছে।","success");
 
-// =====================================
-// START
-// =====================================
+  await loadDeposits();
+}
+
+/* ==============================
+   WITHDRAWALS
+================================ */
+
+async function loadWithdrawals(){
+  const box = document.getElementById("withdrawList");
+  box.textContent = "লোড হচ্ছে...";
+
+  const {data,error} = await db
+    .from("withdraw_requests")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    box.textContent = "উইথড্র লোড হয়নি: " + error.message;
+    return;
+  }
+
+  const rows = data || [];
+
+  document.getElementById("withdrawCount").textContent =
+    rows.filter(r=>r.status === "pending").length;
+
+  if(!rows.length){
+    box.innerHTML = "<p>কোনো উইথড্র রিকোয়েস্ট নেই।</p>";
+    return;
+  }
+
+  box.innerHTML = rows.map(r=>`
+    <div class="item">
+      <h4>💸 উইথড্র: ${money(r.amount)}</h4>
+
+      <p>👤 ইউজার UID: ${escapeHTML(r.user_id)}</p>
+      <p>💳 মাধ্যম: ${escapeHTML(r.method)}</p>
+      <p>🏦 অ্যাকাউন্ট নম্বর: ${escapeHTML(r.account_number)}</p>
+      <p>🕒 সময়: ${dateText(r.created_at)}</p>
+      <p>📌 স্ট্যাটাস: ${statusBadge(r.status)}</p>
+
+      ${r.status === "pending" ? `
+        <button class="success" onclick="reviewWithdrawal('${r.id}',true)">✅ পেমেন্ট সম্পন্ন</button>
+        <button class="danger" onclick="reviewWithdrawal('${r.id}',false)">❌ বাতিল</button>
+      ` : ""}
+    </div>
+  `).join("");
+}
+
+async function reviewWithdrawal(id,approve){
+  const action = approve ? "অনুমোদন" : "বাতিল";
+
+  if(approve){
+    if(!confirm("ইউজারকে টাকা পাঠিয়েছেন কি? টাকা পাঠানো হয়ে থাকলে তবেই অনুমোদন করুন।")) return;
+  }else{
+    if(!confirm("আপনি কি উইথড্র রিকোয়েস্টটি বাতিল করতে চান?")) return;
+  }
+
+  const {error} = await db.rpc("admin_review_withdrawal",{
+    p_request_id: String(id),
+    p_approve: approve
+  });
+
+  if(error){
+    return message("উইথড্র আপডেট হয়নি: " + error.message,"error");
+  }
+
+  message("উইথড্র " + action + " করা হয়েছে।","success");
+
+  await loadWithdrawals();
+}
+
+/* ==============================
+   AWARD PRIZE
+================================ */
+
+async function awardPrize(){
+  clearMessage();
+
+  const userId = document.getElementById("prizeUserId").value.trim();
+  const amount = Number(document.getElementById("prizeAmount").value);
+  const description = document.getElementById("prizeDescription").value.trim();
+
+  if(!userId || !amount || amount <= 0 || !description){
+    return message("ইউজার UID, পুরস্কারের পরিমাণ ও বিবরণ সঠিকভাবে লিখুন।","error");
+  }
+
+  if(!confirm("আপনি কি এই ইউজারকে " + money(amount) + " পুরস্কার দিতে চান?")) return;
+
+  const {error} = await db.rpc("admin_award_prize",{
+    p_user_id: userId,
+    p_amount: amount,
+    p_description: description
+  });
+
+  if(error){
+    return message("পুরস্কার দেওয়া যায়নি: " + error.message,"error");
+  }
+
+  message("🎉 পুরস্কার সফলভাবে দেওয়া হয়েছে।","success");
+
+  document.getElementById("prizeUserId").value = "";
+  document.getElementById("prizeAmount").value = "";
+  document.getElementById("prizeDescription").value = "";
+}
+
+/* ==============================
+   VISITOR STATS
+================================ */
+
+async function loadVisitorStats(){
+  const box = document.getElementById("visitCount");
+  box.textContent = "লোড হচ্ছে...";
+
+  const {count,error} = await db
+    .from("site_visits")
+    .select("*",{count:"exact",head:true});
+
+  if(error){
+    box.textContent = "লোড হয়নি";
+    return;
+  }
+
+  box.textContent = Number(count || 0).toLocaleString("bn-BD");
+}
+
+/* ==============================
+   START
+================================ */
 
 checkSession();
-
 </script>
 
 </body>
