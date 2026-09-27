@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MAM TOURNAMENT ZONE</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -265,7 +264,7 @@ footer{
 
 <script>
 const SUPABASE_URL="https://qskpvywtzageshrqenlz.supabase.co";
-const SUPABASE_KEY="sb_publishable_yqi_zggCenxo5y7Rdugutg_eib";
+const SUPABASE_KEY="sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
 
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
@@ -305,6 +304,7 @@ async function loadTournaments(){
 
  if(error){
   box.innerHTML='<div class="empty">টুর্নামেন্ট লোড হয়নি। Supabase SQL সেটআপ পরীক্ষা করুন।</div>';
+  console.error(error);
   return;
  }
 
@@ -376,9 +376,9 @@ function renderTournaments(){
 }
 
 async function joinTournament(id){
- const {data}=await db.auth.getUser();
+ const {data,error}=await db.auth.getUser();
 
- if(!data.user){
+ if(error || !data.user){
   openLogin();
   $("authMessage").textContent="অংশ নিতে আগে লগইন করুন।";
   return;
@@ -396,7 +396,7 @@ async function signup(){
   return;
  }
 
- const {error}=await db.auth.signUp({email,password});
+ const {data,error}=await db.auth.signUp({email,password});
 
  $("authMessage").textContent=error
   ?error.message
@@ -406,6 +406,11 @@ async function signup(){
 async function login(){
  const email=$("email").value.trim();
  const password=$("password").value;
+
+ if(!email || !password){
+  $("authMessage").textContent="ইমেইল ও পাসওয়ার্ড লিখুন।";
+  return;
+ }
 
  const {data,error}=await db.auth.signInWithPassword({email,password});
 
@@ -419,7 +424,13 @@ async function login(){
 }
 
 async function logout(){
- await db.auth.signOut();
+ const {error}=await db.auth.signOut();
+
+ if(error){
+  $("authMessage").textContent=error.message;
+  return;
+ }
+
  $("accountInfo").textContent="লগইন করে আপনার অ্যাকাউন্ট ব্যবহার করুন।";
 }
 
@@ -441,7 +452,9 @@ async function trackVisitor(){
    localStorage.setItem("mam_visitor_id",visitorId);
   }
 
-  await db.rpc("track_site_visit",{p_visitor_id:visitorId});
+  const {error}=await db.rpc("track_site_visit",{p_visitor_id:visitorId});
+
+  if(error) console.log("Visitor tracking:",error.message);
  }catch(error){
   console.log("Visitor tracking:",error.message);
  }
@@ -464,9 +477,13 @@ async function loadVisitorStats(){
 }
 
 async function init(){
- const {data}=await db.auth.getSession();
+ const {data,error}=await db.auth.getSession();
 
- if(data.session){
+ if(error){
+  console.error(error);
+ }
+
+ if(data?.session){
   updateAccount(data.session.user);
  }
 
