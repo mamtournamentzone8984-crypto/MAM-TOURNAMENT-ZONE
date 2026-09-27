@@ -2,95 +2,50 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MAM TOURNAMENT ZONE</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
-  --bg:#080d18;
-  --card:#111a2b;
-  --card2:#17243a;
-  --green:#00e5a0;
-  --blue:#386bff;
-  --text:#f5f7ff;
-  --muted:#91a2bc;
-  --border:#26354d;
-  --red:#ff5263;
+  --bg:#080d18;--card:#111a2b;--card2:#17243a;
+  --green:#00e5a0;--blue:#386bff;--text:#f5f7ff;
+  --muted:#91a2bc;--border:#26354d;--red:#ff5263;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,"Noto Sans Bengali",sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;background:var(--bg);color:var(--text)}
 button,input,select{font:inherit}
 button{cursor:pointer;border:0}
-header{
-  position:sticky;top:0;z-index:20;
-  background:#0b1220f5;
-  border-bottom:1px solid var(--border);
-  padding:14px 5%;
-  display:flex;align-items:center;
-  justify-content:space-between;gap:12px;
-}
+header{position:sticky;top:0;z-index:20;background:#0b1220f5;border-bottom:1px solid var(--border);padding:14px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{font-size:20px;font-weight:900;color:var(--green)}
 .logo span{color:white}
-.btn{
-  padding:11px 16px;border-radius:10px;
-  font-weight:bold;background:var(--green);color:#04130e;
-}
+.btn{padding:11px 16px;border-radius:10px;font-weight:bold;background:var(--green);color:#04130e}
 .btn2{background:var(--card2);color:white;border:1px solid var(--border)}
 .container{max-width:1150px;margin:auto;padding:20px}
-.hero{
-  background:linear-gradient(120deg,#132d4a,#123e3c,#172347);
-  border:1px solid var(--border);border-radius:22px;
-  padding:30px 24px;margin:18px 0;
-}
+.hero{background:linear-gradient(120deg,#132d4a,#123e3c,#172347);border:1px solid var(--border);border-radius:22px;padding:30px 24px;margin:18px 0}
 .hero h1{font-size:30px;margin:0 0 12px}
 .hero p{color:#c5d4e8;line-height:1.8}
-.stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:12px;margin:18px 0;
-}
-.stat,.panel,.tournament,.wallet-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:17px;
-}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.stat,.panel,.tournament,.wallet-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:17px}
 .stat strong{display:block;font-size:22px;color:var(--green);margin-top:8px}
 .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 15px}
 .section-title h2{font-size:21px;margin:0}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-.filter{
-  padding:9px 15px;border-radius:30px;
-  background:var(--card2);color:white;border:1px solid var(--border)
-}
+.filter{padding:9px 15px;border-radius:30px;background:var(--card2);color:white;border:1px solid var(--border)}
 .filter.active{background:var(--green);color:#04130e}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
 .tournament{overflow:hidden;padding:0}
-.tour-top{
-  background:linear-gradient(135deg,#1b4260,#18382f);
-  min-height:105px;padding:18px;
-  display:flex;align-items:flex-end;
-}
+.tour-top{background:linear-gradient(135deg,#1b4260,#18382f);min-height:105px;padding:18px;display:flex;align-items:flex-end}
 .tour-body{padding:17px}
 .tour-body h3{margin:0 0 10px;font-size:19px}
-.badge{
-  display:inline-block;background:#163d34;color:var(--green);
-  padding:6px 10px;border-radius:30px;font-size:12px;
-}
+.badge{display:inline-block;background:#163d34;color:var(--green);padding:6px 10px;border-radius:30px;font-size:12px}
 .meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
 .meta div{background:#0b1321;padding:11px;border-radius:10px}
 .meta small{display:block;color:var(--muted);margin-bottom:6px}
 .meta strong{font-size:14px}
 .full{width:100%}
 .hidden{display:none!important}
-.wallet-card{
-  background:linear-gradient(135deg,#103c34,#11233a);
-  padding:23px;margin:16px 0;
-}
+.wallet-card{background:linear-gradient(135deg,#103c34,#11233a);padding:23px;margin:16px 0}
 .balance{font-size:32px;font-weight:900;color:var(--green);margin:10px 0}
 .actions{display:flex;gap:10px;flex-wrap:wrap}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
@@ -98,52 +53,31 @@ header{
 .tab.active{background:var(--green);color:#04130e}
 .field{margin:14px 0}
 .field label{display:block;color:#c5d4e8;font-size:14px;margin-bottom:8px}
-.field input,.field select{
-  width:100%;padding:13px;border-radius:10px;
-  border:1px solid var(--border);background:#0a1220;color:white;
-  outline:none;
-}
-.panel{margin:18px 0}
+.field input,.field select{width:100%;padding:13px;border-radius:10px;border:1px solid var(--border);background:#0a1220;color:white;outline:none}
 .note{font-size:13px;color:var(--muted);line-height:1.8}
-.list-item{
-  padding:13px 0;border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;gap:12px;
-}
+.list-item{padding:13px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:12px}
 .status{font-size:12px;color:var(--green)}
 footer{text-align:center;color:var(--muted);padding:35px 15px}
-.modal{
-  position:fixed;inset:0;background:#000b;z-index:100;
-  display:flex;align-items:center;justify-content:center;padding:15px;
-}
-.modal-box{
-  background:var(--card);border:1px solid var(--border);
-  width:100%;max-width:430px;border-radius:18px;padding:22px;
-  max-height:90vh;overflow:auto;
-}
+.modal{position:fixed;inset:0;background:#000b;z-index:100;display:flex;align-items:center;justify-content:center;padding:15px}
+.modal-box{background:var(--card);border:1px solid var(--border);width:100%;max-width:430px;border-radius:18px;padding:22px;max-height:90vh;overflow:auto}
 .modal-head{display:flex;justify-content:space-between;align-items:center}
 .close{background:transparent;color:white;font-size:25px}
-#toast{
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-  background:#203149;padding:13px 18px;border-radius:12px;
-  z-index:200;display:none;max-width:90%;text-align:center;
-}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#203149;padding:13px 18px;border-radius:12px;z-index:200;display:none;max-width:90%;text-align:center}
+.payment-box{background:#0a1724;border:1px solid #245443;border-radius:14px;padding:18px;margin:15px 0}
+.payment-number{font-size:27px;font-weight:900;color:var(--green);margin:12px 0;letter-spacing:1px}
+.payment-label{color:#c5d4e8;font-size:14px}
 @media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){
-  header{padding:12px 4%}
-  .logo{font-size:16px}
-  .container{padding:14px}
-  .hero{padding:23px 18px}
-  .hero h1{font-size:25px}
-  .grid{grid-template-columns:1fr}
-  .stats{gap:8px}
-  .stat{padding:12px;font-size:12px}
-  .stat strong{font-size:18px}
+ header{padding:12px 4%}.logo{font-size:16px}
+ .container{padding:14px}.hero{padding:23px 18px}
+ .hero h1{font-size:25px}.grid{grid-template-columns:1fr}
+ .stats{gap:8px}.stat{padding:12px;font-size:12px}
+ .stat strong{font-size:18px}
 }
 </style>
 </head>
 
 <body>
-
 <header>
   <div class="logo">MAM <span>TOURNAMENT ZONE</span></div>
   <div id="headerAuth">
@@ -152,15 +86,10 @@ footer{text-align:center;color:var(--muted);padding:35px 15px}
 </header>
 
 <main class="container">
-
   <section class="hero">
     <span class="badge">🎮 GAMING TOURNAMENT PLATFORM</span>
     <h1>খেলো, জিতো, পুরস্কার নাও!</h1>
-    <p>
-      MAM TOURNAMENT ZONE-এ স্বাগতম।
-      তোমার পছন্দের গেমের টুর্নামেন্ট খুঁজে নাও,
-      অ্যাকাউন্ট তৈরি করো এবং প্রতিযোগিতার জন্য প্রস্তুত হও।
-    </p>
+    <p>MAM TOURNAMENT ZONE-এ স্বাগতম। তোমার পছন্দের গেমের টুর্নামেন্ট খুঁজে নাও, অ্যাকাউন্ট তৈরি করো এবং প্রতিযোগিতার জন্য প্রস্তুত হও।</p>
     <button class="btn" onclick="scrollToTournaments()">টুর্নামেন্ট দেখো ↓</button>
   </section>
 
@@ -171,16 +100,13 @@ footer{text-align:center;color:var(--muted);padding:35px 15px}
   </div>
 
   <section id="walletSection" class="hidden">
-    <div class="section-title">
-      <h2>💰 আমার ওয়ালেট</h2>
-    </div>
-
+    <div class="section-title"><h2>💰 আমার ওয়ালেট</h2></div>
     <div class="wallet-card">
       <div>বর্তমান ব্যালেন্স</div>
       <div class="balance">৳ <span id="balance">০.০০</span></div>
       <div class="actions">
         <button class="btn" onclick="openMoney('deposit')">＋ Add Money</button>
-        <button class="btn btn2" onclick="openMoney('withdraw')"> টাকা তুলুন</button>
+        <button class="btn btn2" onclick="openMoney('withdraw')">টাকা তুলুন</button>
       </div>
     </div>
 
@@ -223,7 +149,6 @@ footer{text-align:center;color:var(--muted);padding:35px 15px}
       <button class="btn btn2" onclick="logout()">লগআউট</button>
     </div>
   </section>
-
 </main>
 
 <footer>
@@ -231,7 +156,7 @@ footer{text-align:center;color:var(--muted);padding:35px 15px}
   <p>© 2026 MAM TOURNAMENT ZONE. All rights reserved.</p>
 </footer>
 
-<!-- AUTH MODAL -->
+<!-- LOGIN / SIGNUP -->
 <div id="authModal" class="modal hidden">
   <div class="modal-box">
     <div class="modal-head">
@@ -259,7 +184,7 @@ footer{text-align:center;color:var(--muted);padding:35px 15px}
   </div>
 </div>
 
-<!-- MONEY MODAL -->
+<!-- ADD MONEY / WITHDRAW -->
 <div id="moneyModal" class="modal hidden">
   <div class="modal-box">
     <div class="modal-head">
@@ -283,6 +208,15 @@ footer{text-align:center;color:var(--muted);padding:35px 15px}
         </select>
       </div>
 
+      <!-- পেমেন্ট নম্বর ও নির্দেশনা -->
+      <div id="paymentInfo" class="payment-box hidden">
+        <div class="badge">📲 Send Money</div>
+        <p id="paymentInstruction" class="payment-label"></p>
+        <div id="paymentNumber" class="payment-number"></div>
+        <button type="button" class="btn" onclick="copyPaymentNumber()">📋 নম্বর কপি করো</button>
+        <p class="note">উপরের নম্বরে টাকা পাঠানোর পর নিচে ট্রানজ্যাকশন আইডি লিখো।</p>
+      </div>
+
       <div id="depositFields">
         <div class="field">
           <label>যে নম্বর থেকে টাকা পাঠিয়েছ</label>
@@ -304,10 +238,7 @@ footer{text-align:center;color:var(--muted);padding:35px 15px}
       <button class="btn full" id="moneySubmit">অনুরোধ পাঠাও</button>
     </form>
 
-    <p class="note">
-      টাকা জমা বা উত্তোলনের অনুরোধ অ্যাডমিন যাচাই করবেন।
-      অনুরোধ পাঠালেই ব্যালেন্স পরিবর্তন হবে না।
-    </p>
+    <p class="note">টাকা জমা বা উত্তোলনের অনুরোধ অ্যাডমিন যাচাই করবেন। অনুরোধ পাঠালেই ব্যালেন্স পরিবর্তন হবে না।</p>
   </div>
 </div>
 
@@ -316,7 +247,6 @@ footer{text-align:center;color:var(--muted);padding:35px 15px}
 <script>
 const SUPABASE_URL = "https://qskpvywtzageshrqenlz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
-
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
@@ -327,89 +257,71 @@ let categoryFilter = "ALL";
 let statusFilter = "ALL";
 
 function toast(message){
-  const el = document.getElementById("toast");
-  el.textContent = message;
-  el.style.display = "block";
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.style.display="block";
   setTimeout(()=>el.style.display="none",4000);
 }
-
-function closeModal(id){
-  document.getElementById(id).classList.add("hidden");
-}
-
-function openAuth(){
-  document.getElementById("authModal").classList.remove("hidden");
-}
-
-function scrollToTournaments(){
-  document.getElementById("tournaments").scrollIntoView({behavior:"smooth"});
-}
+function closeModal(id){document.getElementById(id).classList.add("hidden")}
+function openAuth(){document.getElementById("authModal").classList.remove("hidden")}
+function scrollToTournaments(){document.getElementById("tournaments").scrollIntoView({behavior:"smooth"})}
 
 function authMode(mode){
-  authModeValue = mode;
-  document.getElementById("authTitle").textContent =
-    mode==="login" ? "লগইন" : "নতুন অ্যাকাউন্ট তৈরি";
-  document.getElementById("authSubmit").textContent =
-    mode==="login" ? "লগইন" : "রেজিস্ট্রেশন";
+  authModeValue=mode;
+  document.getElementById("authTitle").textContent=mode==="login"?"লগইন":"নতুন অ্যাকাউন্ট তৈরি";
+  document.getElementById("authSubmit").textContent=mode==="login"?"লগইন":"রেজিস্ট্রেশন";
   document.getElementById("loginTab").classList.toggle("active",mode==="login");
   document.getElementById("signupTab").classList.toggle("active",mode==="signup");
 }
 
 async function submitAuth(event){
   event.preventDefault();
-
-  const email = document.getElementById("authEmail").value.trim();
-  const password = document.getElementById("authPassword").value;
-
+  const email=document.getElementById("authEmail").value.trim();
+  const password=document.getElementById("authPassword").value;
   let result;
 
   if(authModeValue==="signup"){
-    result = await db.auth.signUp({email,password});
+    result=await db.auth.signUp({email,password});
   }else{
-    result = await db.auth.signInWithPassword({email,password});
+    result=await db.auth.signInWithPassword({email,password});
   }
 
-  if(result.error){
-    toast("সমস্যা: " + result.error.message);
-    return;
-  }
+  if(result.error){toast("সমস্যা: "+result.error.message);return;}
 
-  if(authModeValue==="signup" && !result.data.session){
+  if(authModeValue==="signup"&&!result.data.session){
     toast("অ্যাকাউন্ট তৈরি হয়েছে। ইমেইল যাচাই করে লগইন করো।");
     closeModal("authModal");
     return;
   }
 
-  currentUser = result.data.user;
+  currentUser=result.data.user;
   closeModal("authModal");
   toast("সফলভাবে লগইন হয়েছে!");
   await updateUI();
 }
 
 async function logout(){
-  const {error} = await db.auth.signOut();
+  const {error}=await db.auth.signOut();
   if(error){toast(error.message);return;}
-  currentUser = null;
+  currentUser=null;
   await updateUI();
   toast("লগআউট হয়েছে");
 }
 
 async function updateUI(){
-  const {data} = await db.auth.getUser();
-  currentUser = data.user;
-
-  const authBox = document.getElementById("headerAuth");
+  const {data}=await db.auth.getUser();
+  currentUser=data.user;
+  const authBox=document.getElementById("headerAuth");
 
   if(currentUser){
-    authBox.innerHTML =
-      `<button class="btn btn2" onclick="document.getElementById('profileSection').scrollIntoView({behavior:'smooth'})">👤 আমার অ্যাকাউন্ট</button>`;
+    authBox.innerHTML=`<button class="btn btn2" onclick="document.getElementById('profileSection').scrollIntoView({behavior:'smooth'})">👤 আমার অ্যাকাউন্ট</button>`;
     document.getElementById("walletSection").classList.remove("hidden");
     document.getElementById("profileSection").classList.remove("hidden");
-    document.getElementById("profileEmail").textContent = currentUser.email || "";
+    document.getElementById("profileEmail").textContent=currentUser.email||"";
     await loadWallet();
     await loadTransactions();
   }else{
-    authBox.innerHTML = `<button class="btn" onclick="openAuth()">Login / Signup</button>`;
+    authBox.innerHTML=`<button class="btn" onclick="openAuth()">Login / Signup</button>`;
     document.getElementById("walletSection").classList.add("hidden");
     document.getElementById("profileSection").classList.add("hidden");
   }
@@ -417,120 +329,123 @@ async function updateUI(){
 
 async function loadWallet(){
   if(!currentUser)return;
-
-  const {data,error} = await db
-    .from("wallets")
-    .select("balance")
-    .eq("user_id",currentUser.id)
-    .maybeSingle();
+  const {data,error}=await db.from("wallets").select("balance").eq("user_id",currentUser.id).maybeSingle();
 
   if(error){
     console.error(error);
-    document.getElementById("balance").textContent = "লোড হয়নি";
+    document.getElementById("balance").textContent="লোড হয়নি";
     return;
   }
-
-  document.getElementById("balance").textContent =
-    Number(data?.balance || 0).toFixed(2);
+  document.getElementById("balance").textContent=Number(data?.balance||0).toFixed(2);
 }
 
 async function loadTransactions(){
   if(!currentUser)return;
+  const box=document.getElementById("transactions");
+  box.innerHTML="<p class='note'>লোড হচ্ছে...</p>";
 
-  const box = document.getElementById("transactions");
-  box.innerHTML = "<p class='note'>লোড হচ্ছে...</p>";
-
-  const {data,error} = await db
-    .from("wallet_transactions")
-    .select("*")
-    .eq("user_id",currentUser.id)
-    .order("created_at",{ascending:false})
-    .limit(20);
+  const {data,error}=await db.from("wallet_transactions")
+    .select("*").eq("user_id",currentUser.id)
+    .order("created_at",{ascending:false}).limit(20);
 
   if(error){
-    box.innerHTML = "<p class='note'>লেনদেন লোড করা যায়নি।</p>";
+    box.innerHTML="<p class='note'>লেনদেন লোড করা যায়নি।</p>";
+    return;
+  }
+  if(!data||!data.length){
+    box.innerHTML="<p class='note'>এখনো কোনো লেনদেন নেই।</p>";
     return;
   }
 
-  if(!data || !data.length){
-    box.innerHTML = "<p class='note'>এখনো কোনো লেনদেন নেই।</p>";
-    return;
-  }
-
-  box.innerHTML = data.map(t=>`
+  box.innerHTML=data.map(t=>`
     <div class="list-item">
       <div>
-        <strong>${escapeHTML(t.description || t.type || "লেনদেন")}</strong>
+        <strong>${escapeHTML(t.description||t.type||"লেনদেন")}</strong>
         <div class="note">${formatDate(t.created_at)}</div>
       </div>
-      <strong>${Number(t.amount || 0).toFixed(2)} ৳</strong>
-    </div>
-  `).join("");
+      <strong>${Number(t.amount||0).toFixed(2)} ৳</strong>
+    </div>`).join("");
+}
+
+/* পেমেন্ট মাধ্যম অনুযায়ী নম্বর দেখানো */
+function updatePaymentInfo(){
+  const method=document.getElementById("moneyMethod").value;
+  const info=document.getElementById("paymentInfo");
+  const number=document.getElementById("paymentNumber");
+  const instruction=document.getElementById("paymentInstruction");
+
+  if(moneyMode!=="deposit"||!method){
+    info.classList.add("hidden");
+    return;
+  }
+
+  info.classList.remove("hidden");
+
+  if(method==="বিকাশ"||method==="নগদ"){
+    number.textContent="01759748984";
+    instruction.textContent=method+" থেকে নিচের নম্বরে Send Money করো:";
+  }else if(method==="রকেট"){
+    number.textContent="01351593943";
+    instruction.textContent="রকেট থেকে নিচের নম্বরে Send Money করো:";
+  }else{
+    info.classList.add("hidden");
+  }
+}
+
+async function copyPaymentNumber(){
+  const number=document.getElementById("paymentNumber").textContent;
+  if(!number){toast("আগে পেমেন্ট মাধ্যম নির্বাচন করো");return;}
+
+  try{
+    await navigator.clipboard.writeText(number);
+    toast("পেমেন্ট নম্বর কপি হয়েছে");
+  }catch(e){
+    toast("নম্বরটি হাতে কপি করো: "+number);
+  }
 }
 
 function openMoney(mode){
   if(!currentUser){openAuth();return;}
 
-  moneyMode = mode;
-
-  document.getElementById("moneyTitle").textContent =
-    mode==="deposit" ? "💰 টাকা যোগ করুন" : "💸 টাকা তুলুন";
-
+  moneyMode=mode;
+  document.getElementById("moneyTitle").textContent=mode==="deposit"?"💰 টাকা যোগ করুন":"💸 টাকা তুলুন";
   document.getElementById("depositFields").classList.toggle("hidden",mode!=="deposit");
   document.getElementById("withdrawFields").classList.toggle("hidden",mode!=="withdraw");
+  document.getElementById("moneySubmit").textContent=mode==="deposit"?"ডিপোজিট অনুরোধ পাঠাও":"উত্তোলনের অনুরোধ পাঠাও";
 
-  document.getElementById("moneySubmit").textContent =
-    mode==="deposit" ? "ডিপোজিট অনুরোধ পাঠাও" : "উত্তোলনের অনুরোধ পাঠাও";
-
+  document.getElementById("paymentInfo").classList.add("hidden");
+  document.getElementById("moneyMethod").value="";
   document.getElementById("moneyModal").classList.remove("hidden");
 }
 
 async function submitMoney(event){
   event.preventDefault();
-
   if(!currentUser){toast("আগে লগইন করো");return;}
 
-  const amount = Number(document.getElementById("moneyAmount").value);
-  const method = document.getElementById("moneyMethod").value;
+  const amount=Number(document.getElementById("moneyAmount").value);
+  const method=document.getElementById("moneyMethod").value;
 
-  if(!Number.isFinite(amount) || amount<=0){
-    toast("সঠিক পরিমাণ লিখো");
-    return;
-  }
-
-  if(!method){
-    toast("পেমেন্ট মাধ্যম নির্বাচন করো");
-    return;
-  }
+  if(!Number.isFinite(amount)||amount<=0){toast("সঠিক পরিমাণ লিখো");return;}
+  if(!method){toast("পেমেন্ট মাধ্যম নির্বাচন করো");return;}
 
   let result;
 
   if(moneyMode==="deposit"){
-    const trx = document.getElementById("transactionId").value.trim();
-    const sender = document.getElementById("senderNumber").value.trim();
+    const trx=document.getElementById("transactionId").value.trim();
+    if(!trx){toast("ট্রানজ্যাকশন আইডি লিখো");return;}
 
-    if(!trx){
-      toast("ট্রানজ্যাকশন আইডি লিখো");
-      return;
-    }
-
-    result = await db.from("deposit_requests").insert({
+    result=await db.from("deposit_requests").insert({
       user_id:currentUser.id,
       amount,
       method,
       transaction_id:trx,
       status:"pending"
     });
-
   }else{
-    const account = document.getElementById("withdrawNumber").value.trim();
+    const account=document.getElementById("withdrawNumber").value.trim();
+    if(!account){toast("টাকা নেওয়ার নম্বর লিখো");return;}
 
-    if(!account){
-      toast("টাকা নেওয়ার নম্বর লিখো");
-      return;
-    }
-
-    result = await db.from("withdraw_requests").insert({
+    result=await db.from("withdraw_requests").insert({
       user_id:currentUser.id,
       amount,
       method,
@@ -540,7 +455,7 @@ async function submitMoney(event){
   }
 
   if(result.error){
-    toast("অনুরোধ পাঠানো যায়নি: " + result.error.message);
+    toast("অনুরোধ পাঠানো যায়নি: "+result.error.message);
     return;
   }
 
@@ -553,43 +468,34 @@ async function submitMoney(event){
 }
 
 async function loadTournaments(){
-  const grid = document.getElementById("tournamentGrid");
-  grid.innerHTML = "<p class='note'>টুর্নামেন্ট লোড হচ্ছে...</p>";
+  const grid=document.getElementById("tournamentGrid");
+  grid.innerHTML="<p class='note'>টুর্নামেন্ট লোড হচ্ছে...</p>";
 
-  const {data,error} = await db
-    .from("tournaments")
-    .select("*")
-    .order("created_at",{ascending:false});
+  const {data,error}=await db.from("tournaments").select("*").order("created_at",{ascending:false});
 
   if(error){
     console.error(error);
-    grid.innerHTML = `<div class="panel">টুর্নামেন্ট লোড হয়নি: ${escapeHTML(error.message)}</div>`;
+    grid.innerHTML=`<div class="panel">টুর্নামেন্ট লোড হয়নি: ${escapeHTML(error.message)}</div>`;
     return;
   }
 
-  allTournaments = data || [];
-
-  document.getElementById("totalTours").textContent = allTournaments.length;
-  document.getElementById("liveTours").textContent =
-    allTournaments.filter(t=>String(t.status||"").toLowerCase()==="live").length;
-  document.getElementById("upcomingTours").textContent =
-    allTournaments.filter(t=>String(t.status||"").toLowerCase()==="upcoming").length;
-
+  allTournaments=data||[];
+  document.getElementById("totalTours").textContent=allTournaments.length;
+  document.getElementById("liveTours").textContent=allTournaments.filter(t=>String(t.status||"").toLowerCase()==="live").length;
+  document.getElementById("upcomingTours").textContent=allTournaments.filter(t=>String(t.status||"").toLowerCase()==="upcoming").length;
   renderTournaments();
 }
 
 function setFilter(value,button){
   categoryFilter=value;
-  const parent=button.parentElement;
-  parent.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+  button.parentElement.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
   button.classList.add("active");
   renderTournaments();
 }
 
 function setStatus(value,button){
   statusFilter=value;
-  const parent=button.parentElement;
-  parent.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+  button.parentElement.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
   button.classList.add("active");
   renderTournaments();
 }
@@ -597,14 +503,10 @@ function setStatus(value,button){
 function renderTournaments(){
   const grid=document.getElementById("tournamentGrid");
 
-  let list=allTournaments.filter(t=>{
+  const list=allTournaments.filter(t=>{
     const type=String(t.type||"").toUpperCase();
     const status=String(t.status||"").toUpperCase();
-
-    const categoryOK=categoryFilter==="ALL" || type===categoryFilter;
-    const statusOK=statusFilter==="ALL" || status===statusFilter;
-
-    return categoryOK && statusOK;
+    return (categoryFilter==="ALL"||type===categoryFilter)&&(statusFilter==="ALL"||status===statusFilter);
   });
 
   if(!list.length){
@@ -614,12 +516,7 @@ function renderTournaments(){
 
   grid.innerHTML=list.map(t=>{
     const status=String(t.status||"").toUpperCase();
-    const statusText={
-      UPCOMING:"আসন্ন",
-      LIVE:"চলমান",
-      COMPLETED:"শেষ হয়েছে",
-      CANCELLED:"বাতিল"
-    }[status] || t.status || "তথ্য নেই";
+    const statusText={UPCOMING:"আসন্ন",LIVE:"চলমান",COMPLETED:"শেষ হয়েছে",CANCELLED:"বাতিল"}[status]||t.status||"তথ্য নেই";
 
     return `
       <article class="tournament">
@@ -630,27 +527,21 @@ function renderTournaments(){
           <span class="badge">${escapeHTML(statusText)}</span>
           <h3>${escapeHTML(t.title||"Tournament")}</h3>
           <p class="note">${escapeHTML(t.description||"")}</p>
-
           <div class="meta">
             <div><small>🎮 গেম মোড</small><strong>${escapeHTML(t.mode||"—")}</strong></div>
             <div><small>💵 এন্ট্রি ফি</small><strong>৳ ${Number(t.entry_fee||0)}</strong></div>
             <div><small>🏆 পুরস্কার</small><strong>৳ ${Number(t.prize_pool||0)}</strong></div>
             <div><small>👥 মোট স্লট</small><strong>${Number(t.max_slots||0)}</strong></div>
           </div>
-
           <p class="note">শুরু: ${formatDate(t.start_at)}</p>
           <button class="btn full" onclick="joinNotice()">টুর্নামেন্টে যোগ দাও</button>
         </div>
-      </article>
-    `;
+      </article>`;
   }).join("");
 }
 
 function joinNotice(){
-  if(!currentUser){
-    openAuth();
-    return;
-  }
+  if(!currentUser){openAuth();return;}
   toast("টুর্নামেন্টে যোগ দেওয়ার ব্যবস্থা পরের ধাপে যুক্ত হবে।");
 }
 
@@ -663,25 +554,22 @@ function formatDate(value){
 
 function escapeHTML(value){
   return String(value??"").replace(/[&<>"']/g,char=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[char]));
 }
+
+document.getElementById("moneyMethod").addEventListener("change",updatePaymentInfo);
 
 async function init(){
   await updateUI();
   await loadTournaments();
 }
 
-db.auth.onAuthStateChange(async()=>{
-  await updateUI();
+db.auth.onAuthStateChange(()=>{
+  setTimeout(updateUI,0);
 });
 
 init();
 </script>
-
 </body>
- </html>
+  </html>
