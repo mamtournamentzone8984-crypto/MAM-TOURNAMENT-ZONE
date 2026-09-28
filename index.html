@@ -435,12 +435,7 @@ footer{
    <button class="btn secondary" onclick="closeDeposit()">✕</button>
   </div>
 
-  <div class="notice">
-   <b>Payment Number</b><br><br>
-   বিকাশ / নগদ: <b>01759748984</b><br>
-   রকেট: <b>01351593943</b><br><br>
-   প্রথমে Send Money করুন, তারপর নিচের তথ্য দিয়ে অনুরোধ পাঠান।
-  </div>
+  <!-- পেমেন্ট মাধ্যম সিলেক্ট করার আগে নম্বর দেখা যাবে না -->
 
   <div class="field">
    <label>পরিমাণ (টাকা)</label>
@@ -452,12 +447,13 @@ footer{
    <label>পেমেন্ট মাধ্যম</label>
    <select id="depositMethod">
     <option value="">নির্বাচন করো</option>
-    <option value="bKash">বিকাশ</option>
-    <option value="Nagad">নগদ</option>
-    <option value="Rocket">রকেট</option>
+    <option value="bkash">বিকাশ</option>
+    <option value="nagad">নগদ</option>
+    <option value="rocket">রকেট</option>
    </select>
   </div>
 
+  <!-- মাধ্যম সিলেক্ট করার পর এই বক্স দেখা যাবে -->
   <div id="paymentNumber" class="notice hidden"></div>
 
   <div class="field">
@@ -538,7 +534,7 @@ const SUPABASE_URL =
 "https://qskpvywtzageshrqenlz.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
+"sb_publishable_yqi_zggCenxo5y7Rdugutg_eib";
 
 const db =
 window.supabase.createClient(
@@ -858,6 +854,11 @@ function openDeposit(){
 
  clearMessage("depositMessage");
 
+ // প্রতিবার মডাল খুললে পেমেন্ট মাধ্যম রিসেট হবে
+ $("depositMethod").value = "";
+ $("paymentNumber").innerHTML = "";
+ $("paymentNumber").classList.add("hidden");
+
  $("depositModal")
  .classList.add("show");
 }
@@ -868,34 +869,56 @@ function closeDeposit(){
 }
 
 
-/* PAYMENT NUMBER */
+/* =========================================
+   PAYMENT NUMBER
+========================================= */
 
-$("depositMethod")
-.addEventListener("change",function(){
+$("depositMethod").addEventListener("change", function(){
 
- const method=this.value;
- const box=$("paymentNumber");
+ const method = this.value;
+ const box = $("paymentNumber");
 
+ // কোনো মাধ্যম নির্বাচন না করলে নম্বর লুকানো থাকবে
  if(!method){
+  box.innerHTML = "";
   box.classList.add("hidden");
   return;
  }
 
- let number="";
+ let number = "";
+ let methodName = "";
 
- if(method==="bKash" || method==="Nagad"){
-  number="01759748984";
+ if(method === "bkash"){
+  number = "01759748984";
+  methodName = "বিকাশ";
  }
 
- if(method==="Rocket"){
-  number="01351593943";
+ if(method === "nagad"){
+  number = "01759748984";
+  methodName = "নগদ";
  }
 
- box.innerHTML=
- `এই নম্বরে <b>${escapeHTML(method)}</b> Send Money করুন:<br>
- <strong style="font-size:20px;color:#6effc5">
- ${number}
- </strong>`;
+ if(method === "rocket"){
+  number = "01351593943";
+  methodName = "রকেট";
+ }
+
+ if(!number){
+  box.innerHTML = "";
+  box.classList.add("hidden");
+  return;
+ }
+
+ box.innerHTML = `
+  <b>Payment Number</b><br><br>
+  <b>${methodName}</b> Send Money করুন:<br><br>
+
+  <strong style="font-size:24px;color:#6effc5">
+   ${number}
+  </strong><br><br>
+
+  প্রথমে এই নম্বরে Send Money করুন, তারপর নিচের তথ্য দিয়ে অনুরোধ পাঠান।
+ `;
 
  box.classList.remove("hidden");
 });
@@ -961,7 +984,6 @@ async function submitDeposit(){
   return;
  }
 
-
  /*
    request_deposit RPC নেই।
    তাই deposit_requests table-এ সরাসরি insert।
@@ -989,11 +1011,6 @@ async function submitDeposit(){
   return;
  }
 
- /*
-   sender number-এর column তোমার দেওয়া
-   structure-এ নেই, তাই এখানে রাখা হচ্ছে না।
- */
-
  message(
   "depositMessage",
   "✅ Deposit request সফলভাবে পাঠানো হয়েছে। Admin যাচাই করার পর balance পরিবর্তন হবে।",
@@ -1004,6 +1021,8 @@ async function submitDeposit(){
  $("depositMethod").value="";
  $("senderNumber").value="";
  $("transactionId").value="";
+
+ $("paymentNumber").innerHTML = "";
  $("paymentNumber").classList.add("hidden");
 
  await loadDepositHistory();
@@ -1083,7 +1102,6 @@ async function submitWithdrawal(){
   );
   return;
  }
-
 
  /*
    তোমার RPC:
