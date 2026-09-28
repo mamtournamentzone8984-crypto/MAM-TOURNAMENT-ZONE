@@ -4,724 +4,569 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAM TOURNAMENT ZONE - Admin</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#080d18;color:#fff;font-family:Arial,"Noto Sans Bengali",sans-serif}
-header{background:#0d1728;border-bottom:1px solid #263650;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.logo{font-size:20px;font-weight:bold;color:#15e6a1}
-.logo small{display:block;color:#91a2bc;font-size:11px;margin-top:4px}
-.container{max-width:1200px;margin:auto;padding:18px}
-button{border:0;border-radius:8px;padding:10px 14px;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.5;cursor:not-allowed}
-.primary{background:#15e6a1;color:#06130e}
-.secondary{background:#293b57;color:white}
-.danger{background:#ef476f;color:white}
-.warning{background:#ffb703;color:#201600}
-.hidden{display:none!important}
-.login{max-width:420px;margin:70px auto;background:#111c2e;border:1px solid #263650;border-radius:16px;padding:25px}
-input,select,textarea{width:100%;padding:11px;margin:7px 0 14px;border-radius:8px;border:1px solid #30425e;background:#081321;color:white;outline:none}
-textarea{min-height:90px}
-label{color:#b5c5dc;font-size:13px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
-.stat{background:#111c2e;border:1px solid #263650;border-radius:12px;padding:17px}
-.stat small{color:#91a2bc}
-.stat strong{display:block;color:#15e6a1;font-size:25px;margin-top:8px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.tab{background:#18263c;color:white;border:1px solid #30425e}
-.tab.active{background:#15e6a1;color:#06130e}
-.panel{background:#111c2e;border:1px solid #263650;border-radius:14px;padding:18px;margin-bottom:18px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:750px}
-th,td{border-bottom:1px solid #263650;padding:11px 8px;text-align:left;font-size:13px}
-th{color:#15e6a1}
-td{color:#d9e3f1}
-.card{background:#0b1526;border:1px solid #263650;border-radius:11px;padding:14px;margin-bottom:10px}
-.card h3{margin:0 0 9px}
-.muted{color:#91a2bc;overflow-wrap:anywhere}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px;margin-bottom:8px}
-.pending{background:#49340c;color:#ffd66b}
-.approved{background:#064e3b;color:#75ffd0}
-.rejected{background:#4c1823;color:#ff9dad}
-.draft{background:#293b57;color:#d9e3f1}
-.published{background:#064e3b;color:#75ffd0}
-.cancelled{background:#4c1823;color:#ff9dad}
-.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.message{padding:11px;border-radius:8px;margin-top:10px;line-height:1.6;overflow-wrap:anywhere}
-.error{background:#351522;color:#ff9dad;border:1px solid #7b293b}
-.success{background:#063b2c;color:#75ffd0;border:1px solid #146b4e}
-.notice{background:#0a1424;border:1px solid #263650;color:#9eb0c9;padding:12px;border-radius:9px;line-height:1.7;margin-bottom:15px}
-.empty{text-align:center;padding:30px;color:#91a2bc}
-hr{border-color:#263650;margin:22px 0}
-@media(max-width:700px){
-.stats{grid-template-columns:1fr 1fr}
-.grid{grid-template-columns:1fr}
-.container{padding:12px}
+body{
+    margin:0;
+    background:#0b1020;
+    color:#fff;
+    font-family:Arial,sans-serif;
 }
+header{
+    background:#151d35;
+    padding:18px;
+    text-align:center;
+    border-bottom:1px solid #26375e;
+}
+header h2{margin:0;color:#00e5ff}
+header p{margin:7px 0 0;color:#9eb4d8}
+.container{padding:15px;max-width:1100px;margin:auto}
+button{
+    border:0;
+    border-radius:7px;
+    padding:10px 14px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:3px;
+}
+.green{background:#00c853;color:#fff}
+.red{background:#ff1744;color:#fff}
+.blue{background:#2979ff;color:#fff}
+.gray{background:#34415e;color:#fff}
+.orange{background:#ff9100;color:#111}
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:12px;
+    margin:15px 0;
+}
+.card{
+    background:#151d35;
+    border:1px solid #26375e;
+    border-radius:12px;
+    padding:18px;
+    text-align:center;
+}
+.card h3{font-size:14px;color:#a8b9d9;margin:0 0 12px}
+.card strong{font-size:25px;color:#00e5ff}
+.tabs{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding:10px 0;
+}
+.tabs button{white-space:nowrap}
+.panel{
+    background:#151d35;
+    padding:15px;
+    border-radius:12px;
+    margin-top:10px;
+    border:1px solid #26375e;
+}
+.panel h3{color:#00e5ff;margin-top:0}
+.item{
+    background:#0e162b;
+    border:1px solid #26375e;
+    border-radius:9px;
+    padding:13px;
+    margin:10px 0;
+    overflow-wrap:anywhere;
+}
+.item p{margin:7px 0;color:#d6e1f5}
+.status{color:#ffca28;font-weight:bold}
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    margin:7px 0;
+    border:1px solid #34415e;
+    border-radius:7px;
+    background:#0b1020;
+    color:#fff;
+}
+.hidden{display:none}
+#loginBox{
+    max-width:420px;
+    margin:60px auto;
+    padding:20px;
+    background:#151d35;
+    border-radius:12px;
+}
+.notice{color:#ffca28;font-size:14px}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">
-    🏆 MAM TOURNAMENT ZONE
-    <small>ADMIN CONTROL PANEL</small>
-  </div>
-  <div>
-    <button class="secondary" onclick="loadAll()">🔄 Refresh</button>
-    <button id="logoutBtn" class="danger hidden" onclick="logout()">Logout</button>
-  </div>
+    <h2>MAM TOURNAMENT ZONE</h2>
+    <p>ADMIN CONTROL PANEL</p>
 </header>
 
-<section id="loginSection" class="container">
-  <div class="login">
-    <h2>🔐 Admin Login</h2>
-    <p class="muted">শুধু অনুমোদিত Admin Account দিয়ে প্রবেশ করুন।</p>
+<div class="container">
 
-    <label>Email</label>
-    <input id="loginEmail" type="email" placeholder="Admin email">
+<div id="loginBox">
+    <h3>🔐 Admin Login</h3>
+    <input id="email" type="email" placeholder="Admin Email">
+    <input id="password" type="password" placeholder="Password">
+    <button class="blue" onclick="login()">Login</button>
+    <p id="loginMsg"></p>
+</div>
 
-    <label>Password</label>
-    <input id="loginPassword" type="password" placeholder="Password">
+<div id="adminArea" class="hidden">
 
-    <button id="loginBtn" class="primary" style="width:100%" onclick="login()">Login</button>
-    <div id="loginMessage"></div>
-  </div>
-</section>
+    <button class="blue" onclick="refreshAll()">🔄 Refresh</button>
+    <button class="red" onclick="logout()">Logout</button>
 
-<main id="adminSection" class="container hidden">
-
-  <div class="stats">
-    <div class="stat"><small>👥 মোট Users</small><strong id="userCount">0</strong></div>
-    <div class="stat"><small>🏆 মোট Tournament</small><strong id="tournamentCount">0</strong></div>
-    <div class="stat"><small>💳 Pending Deposit</small><strong id="depositCount">0</strong></div>
-    <div class="stat"><small>🏧 Pending Withdrawal</small><strong id="withdrawCount">0</strong></div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('usersPanel',this)">👥 Users</button>
-    <button class="tab" onclick="showTab('depositPanel',this)">💳 Deposit</button>
-    <button class="tab" onclick="showTab('withdrawPanel',this)">🏧 Withdrawal</button>
-    <button class="tab" onclick="showTab('prizePanel',this)">🏆 Prize</button>
-    <button class="tab" onclick="showTab('tournamentPanel',this)">🎮 Tournament</button>
-    <button class="tab" onclick="showTab('visitorPanel',this)">👀 Visitors</button>
-  </div>
-
-  <section id="usersPanel" class="panel">
-    <h2>👥 Registered Users</h2>
-    <div class="notice">পাবলিক ওয়েবসাইটে তৈরি হওয়া Auth Users এখানে দেখা যাবে।</div>
-    <button class="primary" onclick="loadUsers()">🔄 Users Refresh</button>
-    <div id="usersList" style="margin-top:15px"><div class="empty">লোড হচ্ছে...</div></div>
-  </section>
-
-  <section id="depositPanel" class="panel hidden">
-    <h2>💳 Deposit Requests</h2>
-    <div id="depositList"><div class="empty">লোড হচ্ছে...</div></div>
-  </section>
-
-  <section id="withdrawPanel" class="panel hidden">
-    <h2>🏧 Withdrawal Requests</h2>
-    <div id="withdrawList"><div class="empty">লোড হচ্ছে...</div></div>
-  </section>
-
-  <section id="prizePanel" class="panel hidden">
-    <h2>🏆 Prize / Bonus প্রদান</h2>
-    <div class="notice">User-এর UUID দিয়ে Wallet-এ পুরস্কারের টাকা যোগ করা যাবে।</div>
-
-    <label>User ID</label>
-    <input id="prizeUserId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
-
-    <label>Amount</label>
-    <input id="prizeAmount" type="number" min="0.01" step="0.01" placeholder="500">
-
-    <label>Description</label>
-    <input id="prizeDescription" placeholder="Tournament Winner Prize">
-
-    <button class="primary" onclick="givePrize()">🏆 Prize দিন</button>
-    <div id="prizeMessage"></div>
-  </section>
-
-  <section id="tournamentPanel" class="panel hidden">
-    <h2>🎮 Tournament Management</h2>
-
-    <div class="grid">
-      <div><label>Tournament Name</label><input id="tTitle" placeholder="Friday Night Tournament"></div>
-      <div><label>Game</label><input id="tGame" placeholder="Free Fire"></div>
-
-      <div>
-        <label>Type</label>
-        <select id="tType">
-          <option value="SOLO">SOLO</option>
-          <option value="DUO">DUO</option>
-          <option value="SQUAD">SQUAD</option>
-          <option value="CUSTOM">CUSTOM</option>
-        </select>
-      </div>
-
-      <div><label>Mode</label><input id="tMode" placeholder="Battle Royale"></div>
-      <div><label>Entry Fee</label><input id="tEntry" type="number" min="0" value="0"></div>
-      <div><label>Prize Pool</label><input id="tPrize" type="number" min="0" value="0"></div>
-      <div><label>Maximum Slots</label><input id="tSlots" type="number" min="1" value="48"></div>
-
-      <div>
-        <label>Status</label>
-        <select id="tStatus">
-          <option value="draft">Draft</option>
-          <option value="published">Published</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-      </div>
+    <div class="cards">
+        <div class="card">
+            <h3>👥 মোট Users</h3>
+            <strong id="totalUsers">0</strong>
+        </div>
+        <div class="card">
+            <h3>🏆 মোট Tournament</h3>
+            <strong id="totalTournaments">0</strong>
+        </div>
+        <div class="card">
+            <h3>💳 Pending Deposit</h3>
+            <strong id="pendingDeposits">0</strong>
+        </div>
+        <div class="card">
+            <h3>🏧 Pending Withdrawal</h3>
+            <strong id="pendingWithdrawals">0</strong>
+        </div>
+        <div class="card">
+            <h3>👀 মোট Visitor</h3>
+            <strong id="totalVisitors">0</strong>
+        </div>
     </div>
 
-    <label>Image URL</label>
-    <input id="tImage" placeholder="https://...">
+    <div class="tabs">
+        <button class="blue" onclick="showTab('users')">👥 Users</button>
+        <button class="blue" onclick="showTab('deposits')">💳 Deposit</button>
+        <button class="blue" onclick="showTab('withdrawals')">🏧 Withdrawal</button>
+        <button class="blue" onclick="showTab('tournaments')">🏆 Tournament</button>
+        <button class="blue" onclick="showTab('visitors')">👀 Visitors</button>
+    </div>
 
-    <label>Description</label>
-    <textarea id="tDescription"></textarea>
+    <div id="users" class="panel">
+        <h3>👥 Users</h3>
+        <div id="usersList">লোড হচ্ছে...</div>
+    </div>
 
-    <label>Rules</label>
-    <textarea id="tRules"></textarea>
+    <div id="deposits" class="panel hidden">
+        <h3>💳 Deposit Requests</h3>
+        <div id="depositList">লোড হচ্ছে...</div>
+    </div>
 
-    <button class="primary" onclick="createTournament()">➕ Tournament তৈরি করুন</button>
-    <div id="tournamentMessage"></div>
+    <div id="withdrawals" class="panel hidden">
+        <h3>🏧 Withdrawal Requests</h3>
+        <div id="withdrawList">লোড হচ্ছে...</div>
+    </div>
 
-    <hr>
-    <h3>🏆 Tournament List</h3>
-    <div id="tournamentList"><div class="empty">লোড হচ্ছে...</div></div>
-  </section>
+    <div id="tournaments" class="panel hidden">
+        <h3>🏆 Tournament Management</h3>
 
-  <section id="visitorPanel" class="panel hidden">
-    <h2>👀 Visitor Statistics</h2>
-    <button class="primary" onclick="loadVisitors()">🔄 Refresh Visitors</button>
-    <div id="visitorData" class="message">তথ্য লোড করতে Refresh চাপুন।</div>
-  </section>
+        <h4>নতুন Tournament তৈরি</h4>
+        <input id="tTitle" placeholder="Tournament Title">
+        <input id="tGame" placeholder="Game Name">
+        <input id="tMode" placeholder="Mode">
+        <input id="tType" placeholder="Type">
+        <input id="tEntry" type="number" placeholder="Entry Fee">
+        <input id="tPrize" type="number" placeholder="Prize Pool">
+        <input id="tSlots" type="number" placeholder="Max Slots">
+        <label>শুরুর সময়</label>
+        <input id="tStart" type="datetime-local">
+        <label>Registration Deadline</label>
+        <input id="tDeadline" type="datetime-local">
+        <input id="tImage" placeholder="Image URL">
+        <textarea id="tDescription" placeholder="Description"></textarea>
+        <textarea id="tRules" placeholder="Rules"></textarea>
 
-</main>
+        <button class="green" onclick="createTournament()">➕ Tournament তৈরি</button>
+
+        <hr style="border-color:#26375e;margin:20px 0">
+
+        <h4>সব Tournament</h4>
+        <div id="tournamentList">লোড হচ্ছে...</div>
+    </div>
+
+    <div id="visitors" class="panel hidden">
+        <h3>👀 Visitor Statistics</h3>
+        <div id="visitorStats">লোড হচ্ছে...</div>
+    </div>
+
+</div>
+</div>
 
 <script>
-/* SUPABASE CONFIG */
+const SUPABASE_URL = "https://qskpvywtzageshrqenlz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
 
-const SUPABASE_URL =
-  "https://qskpvywtzageshrqenlz.supabase.co";
+const ADMIN_UID = "d1c467af-9a20-47b1-ae63-164dd55bc8c0";
 
-const SUPABASE_KEY =
-  "sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
-
-const ADMIN_UID =
-  "d1c467af-9a20-47b1-ae63-164dd55bc8c0";
-
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
-
-let currentUser = null;
 
 const $ = id => document.getElementById(id);
 
-function esc(value) {
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  }[c]));
+function esc(value){
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    }[c]));
 }
 
-function money(value) {
-  return "৳" + Number(value || 0).toLocaleString("bn-BD");
+function money(value){
+    return "৳" + Number(value || 0).toLocaleString("bn-BD");
 }
 
-function msg(id, text, type = "error") {
-  $(id).className = "message " + type;
-  $(id).textContent = text;
+function dateFormat(value){
+    if(!value) return "—";
+    const d = new Date(value);
+    if(isNaN(d)) return esc(value);
+    return d.toLocaleString("bn-BD");
 }
 
-function dateText(value) {
-  return value ? new Date(value).toLocaleString("bn-BD") : "—";
+function showTab(tab){
+    ["users","deposits","withdrawals","tournaments","visitors"].forEach(id=>{
+        $(id).classList.toggle("hidden", id !== tab);
+    });
 }
 
-function showError(id, text) {
-  $(id).innerHTML = '<div class="message error">' + esc(text) + '</div>';
-}
+async function login(){
+    const email = $("email").value.trim();
+    const password = $("password").value;
 
-/* LOGIN */
+    $("loginMsg").textContent = "লগইন হচ্ছে...";
 
-async function login() {
-  const email = $("loginEmail").value.trim();
-  const password = $("loginPassword").value;
+    const {data,error} = await supabase.auth.signInWithPassword({
+        email,
+        password
+    });
 
-  if (!email || !password) {
-    msg("loginMessage", "Email এবং Password দিন।");
-    return;
-  }
-
-  $("loginBtn").disabled = true;
-
-  try {
-    const { data, error } = await db.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-
-    if (!data.user || data.user.id !== ADMIN_UID) {
-      await db.auth.signOut();
-      throw new Error("এই Account-এর Admin permission নেই।");
+    if(error){
+        $("loginMsg").textContent = error.message;
+        return;
     }
 
-    currentUser = data.user;
-    showAdmin();
-    await loadAll();
-
-  } catch (error) {
-    msg("loginMessage", "Login failed: " + error.message);
-  } finally {
-    $("loginBtn").disabled = false;
-  }
-}
-
-/* SESSION */
-
-async function checkSession() {
-  try {
-    const { data, error } = await db.auth.getSession();
-    if (error) throw error;
-
-    if (data.session && data.session.user.id === ADMIN_UID) {
-      currentUser = data.session.user;
-      showAdmin();
-      await loadAll();
-    } else {
-      if (data.session) await db.auth.signOut();
-      showLogin();
+    if(data.user.id !== ADMIN_UID){
+        await supabase.auth.signOut();
+        $("loginMsg").textContent = "এই অ্যাকাউন্ট Admin নয়!";
+        return;
     }
-  } catch (error) {
-    showLogin();
-    msg("loginMessage", "Session Error: " + error.message);
-  }
+
+    $("loginBox").classList.add("hidden");
+    $("adminArea").classList.remove("hidden");
+
+    refreshAll();
 }
 
-function showLogin() {
-  $("loginSection").classList.remove("hidden");
-  $("adminSection").classList.add("hidden");
-  $("logoutBtn").classList.add("hidden");
+async function logout(){
+    await supabase.auth.signOut();
+    location.reload();
 }
 
-function showAdmin() {
-  $("loginSection").classList.add("hidden");
-  $("adminSection").classList.remove("hidden");
-  $("logoutBtn").classList.remove("hidden");
+async function checkSession(){
+    const {data} = await supabase.auth.getSession();
+    const user = data.session?.user;
+
+    if(user && user.id === ADMIN_UID){
+        $("loginBox").classList.add("hidden");
+        $("adminArea").classList.remove("hidden");
+        refreshAll();
+    }
 }
 
-async function logout() {
-  await db.auth.signOut();
-  currentUser = null;
-  showLogin();
-}
-
-/* TABS */
-
-function showTab(id, button) {
-  document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-  button.classList.add("active");
-
-  [
-    "usersPanel", "depositPanel", "withdrawPanel",
-    "prizePanel", "tournamentPanel", "visitorPanel"
-  ].forEach(x => $(x).classList.toggle("hidden", x !== id));
-
-  if (id === "visitorPanel") loadVisitors();
-}
-
-/* LOAD ALL */
-
-async function loadAll() {
-  if (!currentUser || currentUser.id !== ADMIN_UID) {
-    showLogin();
-    return;
-  }
-
-  await Promise.allSettled([
-    loadUsers(),
-    loadDeposits(),
-    loadWithdrawals(),
-    loadTournaments()
-  ]);
+async function refreshAll(){
+    await Promise.allSettled([
+        loadUsers(),
+        loadDeposits(),
+        loadWithdrawals(),
+        loadTournaments(),
+        loadVisitors()
+    ]);
 }
 
 /* USERS */
 
-async function loadUsers() {
-  $("usersList").innerHTML = '<div class="empty">Users লোড হচ্ছে...</div>';
+async function loadUsers(){
+    const box = $("usersList");
+    box.innerHTML = "লোড হচ্ছে...";
 
-  const { data, error } = await db.rpc("admin_get_users");
+    const {data,error} = await supabase.rpc("admin_get_users");
 
-  if (error) {
-    showError("usersList", error.message);
-    return;
-  }
+    if(error){
+        box.innerHTML = `<p class="notice">Users লোড হয়নি: ${esc(error.message)}</p>`;
+        return;
+    }
 
-  const users = data || [];
-  $("userCount").textContent = users.length.toLocaleString("bn-BD");
+    const rows = Array.isArray(data) ? data : [];
 
-  if (!users.length) {
-    $("usersList").innerHTML = '<div class="empty">কোনো User নেই।</div>';
-    return;
-  }
+    $("totalUsers").textContent = rows.length;
 
-  $("usersList").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Email</th><th>User ID</th><th>Balance</th><th>Created</th></tr>
-        </thead>
-        <tbody>
-          ${users.map(u => `
-            <tr>
-              <td>${esc(u.email)}</td>
-              <td><small>${esc(u.user_id)}</small></td>
-              <td><b style="color:#15e6a1">${money(u.balance)}</b></td>
-              <td>${dateText(u.created_at)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>
-  `;
-}
+    if(!rows.length){
+        box.innerHTML = "কোনো User পাওয়া যায়নি।";
+        return;
+    }
 
-/* DEPOSIT */
-
-async function loadDeposits() {
-  $("depositList").innerHTML = '<div class="empty">Deposit লোড হচ্ছে...</div>';
-
-  const { data, error } = await db
-    .from("deposit_requests")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    showError("depositList", error.message);
-    return;
-  }
-
-  const rows = data || [];
-
-  $("depositCount").textContent = rows
-    .filter(x => x.status === "pending")
-    .length.toLocaleString("bn-BD");
-
-  if (!rows.length) {
-    $("depositList").innerHTML = '<div class="empty">কোনো Deposit Request নেই।</div>';
-    return;
-  }
-
-  $("depositList").innerHTML = rows.map(r => `
-    <div class="card">
-      <span class="badge ${esc(r.status)}">${esc(r.status)}</span>
-      <h3>${money(r.amount)}</h3>
-      <div class="muted">👤 User: <small>${esc(r.user_id)}</small></div>
-      <div class="muted">💳 Method: ${esc(r.method || "—")}</div>
-      <div class="muted">🧾 Transaction: ${esc(r.transaction_id || "—")}</div>
-      <div class="muted">🕒 ${dateText(r.created_at)}</div>
-
-      ${r.status === "pending" ? `
-        <div class="actions">
-          <button class="primary" onclick="reviewDeposit(${Number(r.id)},true)">✅ Approve</button>
-          <button class="danger" onclick="reviewDeposit(${Number(r.id)},false)">❌ Reject</button>
+    box.innerHTML = rows.map(u=>`
+        <div class="item">
+            <p><b>নাম:</b> ${esc(u.username || u.full_name || u.name || "—")}</p>
+            <p><b>User ID:</b> ${esc(u.user_id || u.id)}</p>
+            <p><b>Balance:</b> ${money(u.balance)}</p>
         </div>
-      ` : ""}
-    </div>
-  `).join("");
+    `).join("");
 }
 
-async function reviewDeposit(id, approve) {
-  if (!confirm(approve ? "Deposit approve করতে চাও?" : "Deposit reject করতে চাও?")) return;
+/* DEPOSITS */
 
-  const { data, error } = await db.rpc("admin_review_deposit", {
-    p_request_id: id,
-    p_approve: approve
-  });
+async function loadDeposits(){
+    const box = $("depositList");
+    box.innerHTML = "লোড হচ্ছে...";
 
-  if (error) {
-    alert("সমস্যা: " + error.message);
-    return;
-  }
+    const {data,error} = await supabase
+        .from("deposit_requests")
+        .select("*")
+        .order("created_at",{ascending:false});
 
-  alert(data || "Done");
-  await Promise.all([loadDeposits(), loadUsers()]);
-}
+    if(error){
+        box.innerHTML = `<p class="notice">Deposit লোড হয়নি: ${esc(error.message)}</p>`;
+        return;
+    }
 
-/* WITHDRAWAL */
+    const rows = data || [];
+    const pending = rows.filter(r=>r.status === "pending");
 
-async function loadWithdrawals() {
-  $("withdrawList").innerHTML = '<div class="empty">Withdrawal লোড হচ্ছে...</div>';
+    $("pendingDeposits").textContent = pending.length;
 
-  const { data, error } = await db
-    .from("withdrawal_requests")
-    .select("*")
-    .order("created_at", { ascending: false });
+    if(!rows.length){
+        box.innerHTML = "কোনো Deposit নেই।";
+        return;
+    }
 
-  if (error) {
-    showError("withdrawList", error.message);
-    return;
-  }
+    box.innerHTML = rows.map(r=>`
+        <div class="item">
+            <p><b>Amount:</b> ${money(r.amount)}</p>
+            <p><b>Method:</b> ${esc(r.method)}</p>
+            <p><b>Transaction ID:</b> ${esc(r.transaction_id)}</p>
+            <p><b>User ID:</b> ${esc(r.user_id)}</p>
+            <p><b>Status:</b> <span class="status">${esc(r.status)}</span></p>
+            <p><b>Date:</b> ${dateFormat(r.created_at)}</p>
 
-  const rows = data || [];
-
-  $("withdrawCount").textContent = rows
-    .filter(x => x.status === "pending")
-    .length.toLocaleString("bn-BD");
-
-  if (!rows.length) {
-    $("withdrawList").innerHTML = '<div class="empty">কোনো Withdrawal Request নেই।</div>';
-    return;
-  }
-
-  $("withdrawList").innerHTML = rows.map(r => `
-    <div class="card">
-      <span class="badge ${esc(r.status)}">${esc(r.status)}</span>
-      <h3>${money(r.amount)}</h3>
-      <div class="muted">👤 User: <small>${esc(r.user_id)}</small></div>
-      <div class="muted">💳 Method: ${esc(r.method || "—")}</div>
-      <div class="muted">📱 Account: ${esc(r.receiver_number || r.account_number || r.receiver || "—")}</div>
-      <div class="muted">🕒 ${dateText(r.created_at)}</div>
-
-      ${r.status === "pending" ? `
-        <div class="actions">
-          <button class="primary" onclick="reviewWithdrawal('${esc(r.id)}',true)">✅ Approve</button>
-          <button class="danger" onclick="reviewWithdrawal('${esc(r.id)}',false)">❌ Reject</button>
+            ${r.status === "pending" ? `
+                <button class="green" onclick="reviewDeposit(${Number(r.id)},true)">Approve</button>
+                <button class="red" onclick="reviewDeposit(${Number(r.id)},false)">Reject</button>
+            ` : ""}
         </div>
-      ` : ""}
-    </div>
-  `).join("");
+    `).join("");
 }
 
-/* REVIEW WITHDRAWAL - UUID */
+async function reviewDeposit(id,approve){
+    if(!confirm(approve ? "Deposit Approve করবেন?" : "Deposit Reject করবেন?")) return;
 
-async function reviewWithdrawal(id, approve) {
-  if (!confirm(approve
-    ? "Withdrawal approve করতে চাও?"
-    : "Withdrawal reject করে টাকা ফেরত দিতে চাও?")) return;
+    const {error} = await supabase.rpc("admin_review_deposit",{
+        p_request_id:id,
+        p_approve:approve
+    });
 
-  const { data, error } = await db.rpc("admin_review_withdrawal", {
-    p_request_id: id,
-    p_approve: approve
-  });
+    if(error){
+        alert("Deposit Error: " + error.message);
+        return;
+    }
 
-  if (error) {
-    alert("সমস্যা: " + error.message);
-    return;
-  }
-
-  alert(data || "Done");
-  await Promise.all([loadWithdrawals(), loadUsers()]);
+    alert("Deposit Request আপডেট হয়েছে।");
+    loadDeposits();
 }
 
-/* PRIZE */
+/* WITHDRAWALS */
 
-async function givePrize() {
-  const userId = $("prizeUserId").value.trim();
-  const amount = Number($("prizeAmount").value);
-  const description = $("prizeDescription").value.trim();
+async function loadWithdrawals(){
+    const box = $("withdrawList");
+    box.innerHTML = "লোড হচ্ছে...";
 
-  if (!userId || !Number.isFinite(amount) || amount <= 0 || !description) {
-    msg("prizeMessage", "User ID, Amount এবং Description সঠিকভাবে দিন।");
-    return;
-  }
+    const {data,error} = await supabase
+        .from("withdrawal_requests")
+        .select("*")
+        .order("created_at",{ascending:false});
 
-  if (!confirm(money(amount) + " Prize হিসেবে দিতে চাও?")) return;
+    if(error){
+        box.innerHTML = `<p class="notice">Withdrawal লোড হয়নি: ${esc(error.message)}</p>`;
+        return;
+    }
 
-  const { data, error } = await db.rpc("admin_award_prize", {
-    p_user_id: userId,
-    p_amount: amount,
-    p_description: description
-  });
+    const rows = data || [];
+    const pending = rows.filter(r=>r.status === "pending");
 
-  if (error) {
-    msg("prizeMessage", "Prize দেওয়া যায়নি: " + error.message);
-    return;
-  }
+    $("pendingWithdrawals").textContent = pending.length;
 
-  msg("prizeMessage", "✅ " + (data || "Prize সফলভাবে দেওয়া হয়েছে।"), "success");
+    if(!rows.length){
+        box.innerHTML = "কোনো Withdrawal Request নেই।";
+        return;
+    }
 
-  $("prizeUserId").value = "";
-  $("prizeAmount").value = "";
-  $("prizeDescription").value = "";
+    box.innerHTML = rows.map(r=>`
+        <div class="item">
+            <p><b>Amount:</b> ${money(r.amount)}</p>
+            <p><b>Method:</b> ${esc(r.method)}</p>
+            <p><b>Receiver Number:</b> ${esc(r.receiver_number)}</p>
+            <p><b>User ID:</b> ${esc(r.user_id)}</p>
+            <p><b>Request ID:</b> ${esc(r.id)}</p>
+            <p><b>Status:</b> <span class="status">${esc(r.status)}</span></p>
+            <p><b>Date:</b> ${dateFormat(r.created_at)}</p>
 
-  await loadUsers();
+            ${r.status === "pending" ? `
+                <button class="green" onclick="reviewWithdrawal('${esc(r.id)}',true)">Approve</button>
+                <button class="red" onclick="reviewWithdrawal('${esc(r.id)}',false)">Reject</button>
+            ` : ""}
+        </div>
+    `).join("");
 }
 
-/* CREATE TOURNAMENT */
+async function reviewWithdrawal(id,approve){
+    if(!confirm(approve ? "Withdrawal Approve করবেন?" : "Withdrawal Reject করবেন?")) return;
 
-async function createTournament() {
-  if (!currentUser || currentUser.id !== ADMIN_UID) {
-    msg("tournamentMessage", "Admin Login প্রয়োজন।");
-    return;
-  }
+    const {error} = await supabase.rpc("admin_review_withdrawal",{
+        p_request_id:id,
+        p_approve:approve
+    });
 
-  const payload = {
-    title: $("tTitle").value.trim(),
-    game: $("tGame").value.trim(),
-    type: $("tType").value,
-    mode: $("tMode").value.trim() || null,
-    entry_fee: Number($("tEntry").value || 0),
-    prize_pool: Number($("tPrize").value || 0),
-    max_slots: Number($("tSlots").value || 48),
-    image_url: $("tImage").value.trim() || null,
-    description: $("tDescription").value.trim() || null,
-    rules: $("tRules").value.trim() || null,
-    status: $("tStatus").value,
-    created_by: currentUser.id
-  };
+    if(error){
+        alert("Withdrawal Error: " + error.message);
+        console.error(error);
+        return;
+    }
 
-  if (!payload.title || !payload.game) {
-    msg("tournamentMessage", "Tournament Name এবং Game দিতে হবে।");
-    return;
-  }
-
-  if (
-    !Number.isFinite(payload.entry_fee) || payload.entry_fee < 0 ||
-    !Number.isFinite(payload.prize_pool) || payload.prize_pool < 0 ||
-    !Number.isInteger(payload.max_slots) || payload.max_slots < 1
-  ) {
-    msg("tournamentMessage", "Entry Fee, Prize Pool ও Slots সঠিকভাবে দিন।");
-    return;
-  }
-
-  const { error } = await db.from("tournaments").insert(payload);
-
-  if (error) {
-    msg("tournamentMessage", "Tournament তৈরি হয়নি: " + error.message);
-    return;
-  }
-
-  msg("tournamentMessage", "✅ Tournament সফলভাবে তৈরি হয়েছে।", "success");
-
-  ["tTitle","tGame","tMode","tImage","tDescription","tRules"]
-    .forEach(id => $(id).value = "");
-
-  $("tEntry").value = 0;
-  $("tPrize").value = 0;
-  $("tSlots").value = 48;
-
-  await loadTournaments();
+    alert("Withdrawal Request আপডেট হয়েছে।");
+    loadWithdrawals();
 }
 
-/* TOURNAMENT LIST */
+/* TOURNAMENTS */
 
-async function loadTournaments() {
-  $("tournamentList").innerHTML = '<div class="empty">Tournament লোড হচ্ছে...</div>';
+async function loadTournaments(){
+    const box = $("tournamentList");
+    box.innerHTML = "লোড হচ্ছে...";
 
-  const { data, error } = await db
-    .from("tournaments")
-    .select("*")
-    .order("created_at", { ascending: false });
+    const {data,error} = await supabase
+        .from("tournaments")
+        .select("*")
+        .order("created_at",{ascending:false});
 
-  if (error) {
-    showError("tournamentList", error.message);
-    return;
-  }
+    if(error){
+        box.innerHTML = `<p class="notice">Tournament লোড হয়নি: ${esc(error.message)}</p>`;
+        return;
+    }
 
-  const rows = data || [];
-  $("tournamentCount").textContent = rows.length.toLocaleString("bn-BD");
+    const rows = data || [];
+    $("totalTournaments").textContent = rows.length;
 
-  if (!rows.length) {
-    $("tournamentList").innerHTML = '<div class="empty">কোনো Tournament নেই।</div>';
-    return;
-  }
+    if(!rows.length){
+        box.innerHTML = "কোনো Tournament নেই।";
+        return;
+    }
 
-  $("tournamentList").innerHTML = rows.map(t => `
-    <div class="card">
-      <span class="badge ${esc(t.status)}">${esc(t.status)}</span>
-      <h3>🏆 ${esc(t.title)}</h3>
-      <div class="muted">🎮 ${esc(t.game)} · ${esc(t.type)}</div>
-      <div class="muted">💵 Entry: ${money(t.entry_fee)} &nbsp;&nbsp; 🥇 Prize: ${money(t.prize_pool)}</div>
-      <div class="muted">👥 Slots: ${esc(t.max_slots)}</div>
+    box.innerHTML = rows.map(t=>`
+        <div class="item">
+            <p><b>Title:</b> ${esc(t.title)}</p>
+            <p><b>Game:</b> ${esc(t.game)}</p>
+            <p><b>Mode:</b> ${esc(t.mode)}</p>
+            <p><b>Entry Fee:</b> ${money(t.entry_fee)}</p>
+            <p><b>Prize Pool:</b> ${money(t.prize_pool)}</p>
+            <p><b>Slots:</b> ${esc(t.max_slots)}</p>
+            <p><b>Status:</b> ${esc(t.status)}</p>
+            <p><b>Start:</b> ${dateFormat(t.start_at)}</p>
 
-      <div class="actions">
-        <button class="warning" onclick="toggleTournament('${esc(t.id)}','${esc(t.status)}')">
-          ${t.status === "published" ? "📢 Draft" : "📢 Publish"}
-        </button>
-        <button class="danger" onclick="deleteTournament('${esc(t.id)}')">🗑️ Delete</button>
-      </div>
-    </div>
-  `).join("");
+            <button class="orange" onclick="changeTournamentStatus('${esc(t.id)}','ongoing')">Ongoing</button>
+            <button class="green" onclick="changeTournamentStatus('${esc(t.id)}','completed')">Completed</button>
+            <button class="red" onclick="changeTournamentStatus('${esc(t.id)}','cancelled')">Cancel</button>
+        </div>
+    `).join("");
 }
 
-/* PUBLISH / DRAFT */
+async function createTournament(){
+    const title = $("tTitle").value.trim();
 
-async function toggleTournament(id, status) {
-  const newStatus = status === "published" ? "draft" : "published";
+    if(!title){
+        alert("Tournament Title দিন।");
+        return;
+    }
 
-  if (!confirm(newStatus === "published"
-    ? "Tournament Publish করবে?"
-    : "Tournament Draft করবে?")) return;
+    const {data:{user}} = await supabase.auth.getUser();
 
-  const { error } = await db
-    .from("tournaments")
-    .update({ status: newStatus })
-    .eq("id", id);
+    const payload = {
+        title,
+        game: $("tGame").value.trim(),
+        mode: $("tMode").value.trim(),
+        type: $("tType").value.trim(),
+        entry_fee: Number($("tEntry").value || 0),
+        prize_pool: Number($("tPrize").value || 0),
+        max_slots: Number($("tSlots").value || 0),
+        start_at: $("tStart").value ? new Date($("tStart").value).toISOString() : null,
+        registration_deadline: $("tDeadline").value ? new Date($("tDeadline").value).toISOString() : null,
+        image_url: $("tImage").value.trim(),
+        description: $("tDescription").value.trim(),
+        rules: $("tRules").value.trim(),
+        status: "upcoming",
+        created_by: user.id
+    };
 
-  if (error) {
-    alert("সমস্যা: " + error.message);
-    return;
-  }
+    const {error} = await supabase.from("tournaments").insert(payload);
 
-  await loadTournaments();
+    if(error){
+        alert("Tournament Error: " + error.message);
+        return;
+    }
+
+    alert("Tournament তৈরি হয়েছে।");
+    loadTournaments();
 }
 
-/* DELETE TOURNAMENT */
+async function changeTournamentStatus(id,status){
+    if(!confirm("Tournament Status পরিবর্তন করবেন?")) return;
 
-async function deleteTournament(id) {
-  if (!confirm("এই Tournament Delete করতে চাও?")) return;
+    const {error} = await supabase
+        .from("tournaments")
+        .update({status})
+        .eq("id",id);
 
-  const { error } = await db
-    .from("tournaments")
-    .delete()
-    .eq("id", id);
+    if(error){
+        alert("Status Error: " + error.message);
+        return;
+    }
 
-  if (error) {
-    alert("Delete করা যায়নি: " + error.message);
-    return;
-  }
-
-  await loadTournaments();
+    loadTournaments();
 }
 
 /* VISITORS */
 
-async function loadVisitors() {
-  $("visitorData").className = "message";
-  $("visitorData").textContent = "Visitor তথ্য লোড হচ্ছে...";
+async function loadVisitors(){
+    const box = $("visitorStats");
+    box.innerHTML = "লোড হচ্ছে...";
 
-  try {
-    const { data, error } = await db.rpc("admin_visit_stats");
-    if (error) throw error;
+    const {data,error} = await supabase.rpc("admin_visit_stats");
 
-    $("visitorData").className = "message success";
-    $("visitorData").textContent = typeof data === "object"
-      ? JSON.stringify(data, null, 2)
-      : String(data ?? "কোনো তথ্য পাওয়া যায়নি।");
+    if(error){
+        box.innerHTML = `<p class="notice">Visitor Stats লোড হয়নি: ${esc(error.message)}</p>`;
+        return;
+    }
 
-  } catch (error) {
-    $("visitorData").className = "message error";
-    $("visitorData").textContent = "Visitor তথ্য পাওয়া যায়নি: " + error.message;
-  }
+    box.innerHTML = `<pre style="white-space:pre-wrap">${esc(JSON.stringify(data,null,2))}</pre>`;
+
+    if(typeof data === "number"){
+        $("totalVisitors").textContent = data;
+    }else if(data && typeof data.total_visits === "number"){
+        $("totalVisitors").textContent = data.total_visits;
+    }else if(Array.isArray(data) && data[0]?.total_visits != null){
+        $("totalVisitors").textContent = data[0].total_visits;
+    }
 }
-
-/* AUTH STATE */
-
-db.auth.onAuthStateChange((event) => {
-  if (event === "SIGNED_OUT") {
-    currentUser = null;
-    showLogin();
-  }
-});
-
-/* START */
 
 checkSession();
 </script>
