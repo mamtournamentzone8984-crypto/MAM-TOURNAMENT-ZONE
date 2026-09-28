@@ -4,84 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAM TOURNAMENT ZONE - Admin</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;background:#080d18;color:#fff;
-  font-family:Arial,"Noto Sans Bengali",sans-serif
-}
-header{
-  background:#0d1728;border-bottom:1px solid #263650;
-  padding:16px;display:flex;justify-content:space-between;
-  align-items:center;gap:10px;flex-wrap:wrap
-}
+body{margin:0;background:#080d18;color:#fff;font-family:Arial,"Noto Sans Bengali",sans-serif}
+header{background:#0d1728;border-bottom:1px solid #263650;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .logo{font-size:20px;font-weight:bold;color:#15e6a1}
 .logo small{display:block;color:#91a2bc;font-size:11px;margin-top:4px}
 .container{max-width:1200px;margin:auto;padding:18px}
-button{
-  border:0;border-radius:8px;padding:10px 14px;
-  font-weight:bold;cursor:pointer
-}
+button{border:0;border-radius:8px;padding:10px 14px;font-weight:bold;cursor:pointer}
 button:disabled{opacity:.5;cursor:not-allowed}
 .primary{background:#15e6a1;color:#06130e}
 .secondary{background:#293b57;color:white}
 .danger{background:#ef476f;color:white}
 .warning{background:#ffb703;color:#201600}
 .hidden{display:none!important}
-
-.login{
-  max-width:420px;margin:70px auto;background:#111c2e;
-  border:1px solid #263650;border-radius:16px;padding:25px
-}
-input,select,textarea{
-  width:100%;padding:11px;margin:7px 0 14px;
-  border-radius:8px;border:1px solid #30425e;
-  background:#081321;color:white;outline:none
-}
+.login{max-width:420px;margin:70px auto;background:#111c2e;border:1px solid #263650;border-radius:16px;padding:25px}
+input,select,textarea{width:100%;padding:11px;margin:7px 0 14px;border-radius:8px;border:1px solid #30425e;background:#081321;color:white;outline:none}
 textarea{min-height:90px}
 label{color:#b5c5dc;font-size:13px}
-
-.stats{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:12px;margin-bottom:18px
-}
-.stat{
-  background:#111c2e;border:1px solid #263650;
-  border-radius:12px;padding:17px
-}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat{background:#111c2e;border:1px solid #263650;border-radius:12px;padding:17px}
 .stat small{color:#91a2bc}
-.stat strong{
-  display:block;color:#15e6a1;font-size:25px;margin-top:8px
-}
+.stat strong{display:block;color:#15e6a1;font-size:25px;margin-top:8px}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .tab{background:#18263c;color:white;border:1px solid #30425e}
 .tab.active{background:#15e6a1;color:#06130e}
-.panel{
-  background:#111c2e;border:1px solid #263650;
-  border-radius:14px;padding:18px;margin-bottom:18px
-}
+.panel{background:#111c2e;border:1px solid #263650;border-radius:14px;padding:18px;margin-bottom:18px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:750px}
-th,td{
-  border-bottom:1px solid #263650;padding:11px 8px;
-  text-align:left;font-size:13px
-}
+th,td{border-bottom:1px solid #263650;padding:11px 8px;text-align:left;font-size:13px}
 th{color:#15e6a1}
 td{color:#d9e3f1}
-.card{
-  background:#0b1526;border:1px solid #263650;
-  border-radius:11px;padding:14px;margin-bottom:10px
-}
+.card{background:#0b1526;border:1px solid #263650;border-radius:11px;padding:14px;margin-bottom:10px}
 .card h3{margin:0 0 9px}
 .muted{color:#91a2bc;overflow-wrap:anywhere}
-.badge{
-  display:inline-block;padding:5px 9px;border-radius:20px;
-  font-size:12px;margin-bottom:8px
-}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px;margin-bottom:8px}
 .pending{background:#49340c;color:#ffd66b}
 .approved{background:#064e3b;color:#75ffd0}
 .rejected{background:#4c1823;color:#ff9dad}
@@ -89,19 +49,12 @@ td{color:#d9e3f1}
 .published{background:#064e3b;color:#75ffd0}
 .cancelled{background:#4c1823;color:#ff9dad}
 .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.message{
-  padding:11px;border-radius:8px;margin-top:10px;line-height:1.6;
-  overflow-wrap:anywhere
-}
+.message{padding:11px;border-radius:8px;margin-top:10px;line-height:1.6;overflow-wrap:anywhere}
 .error{background:#351522;color:#ff9dad;border:1px solid #7b293b}
 .success{background:#063b2c;color:#75ffd0;border:1px solid #146b4e}
-.notice{
-  background:#0a1424;border:1px solid #263650;color:#9eb0c9;
-  padding:12px;border-radius:9px;line-height:1.7;margin-bottom:15px
-}
+.notice{background:#0a1424;border:1px solid #263650;color:#9eb0c9;padding:12px;border-radius:9px;line-height:1.7;margin-bottom:15px}
 .empty{text-align:center;padding:30px;color:#91a2bc}
 hr{border-color:#263650;margin:22px 0}
-
 @media(max-width:700px){
   .stats{grid-template-columns:1fr 1fr}
   .grid{grid-template-columns:1fr}
@@ -117,14 +70,12 @@ hr{border-color:#263650;margin:22px 0}
     🏆 MAM TOURNAMENT ZONE
     <small>ADMIN CONTROL PANEL</small>
   </div>
-
   <div>
     <button class="secondary" onclick="loadAll()">🔄 Refresh</button>
     <button id="logoutBtn" class="danger hidden" onclick="logout()">Logout</button>
   </div>
 </header>
 
-<!-- LOGIN -->
 <section id="loginSection" class="container">
   <div class="login">
     <h2>🔐 Admin Login</h2>
@@ -136,38 +87,20 @@ hr{border-color:#263650;margin:22px 0}
     <label>Password</label>
     <input id="loginPassword" type="password" placeholder="Password">
 
-    <button id="loginBtn" class="primary" style="width:100%" onclick="login()">
-      Login
-    </button>
-
+    <button id="loginBtn" class="primary" style="width:100%" onclick="login()">Login</button>
     <div id="loginMessage"></div>
   </div>
 </section>
 
-<!-- ADMIN -->
 <main id="adminSection" class="container hidden">
 
-  <!-- STATS -->
   <div class="stats">
-    <div class="stat">
-      <small>👥 মোট Users</small>
-      <strong id="userCount">0</strong>
-    </div>
-    <div class="stat">
-      <small>🏆 মোট Tournament</small>
-      <strong id="tournamentCount">0</strong>
-    </div>
-    <div class="stat">
-      <small>💳 Pending Deposit</small>
-      <strong id="depositCount">0</strong>
-    </div>
-    <div class="stat">
-      <small>🏧 Pending Withdrawal</small>
-      <strong id="withdrawCount">0</strong>
-    </div>
+    <div class="stat"><small>👥 মোট Users</small><strong id="userCount">0</strong></div>
+    <div class="stat"><small>🏆 মোট Tournament</small><strong id="tournamentCount">0</strong></div>
+    <div class="stat"><small>💳 Pending Deposit</small><strong id="depositCount">0</strong></div>
+    <div class="stat"><small>🏧 Pending Withdrawal</small><strong id="withdrawCount">0</strong></div>
   </div>
 
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab active" onclick="showTab('usersPanel',this)">👥 Users</button>
     <button class="tab" onclick="showTab('depositPanel',this)">💳 Deposit</button>
@@ -177,29 +110,23 @@ hr{border-color:#263650;margin:22px 0}
     <button class="tab" onclick="showTab('visitorPanel',this)">👀 Visitors</button>
   </div>
 
-  <!-- USERS -->
   <section id="usersPanel" class="panel">
     <h2>👥 Registered Users</h2>
     <div class="notice">পাবলিক ওয়েবসাইটে তৈরি হওয়া Auth Users এখানে দেখা যাবে।</div>
     <button class="primary" onclick="loadUsers()">🔄 Users Refresh</button>
-    <div id="usersList" style="margin-top:15px">
-      <div class="empty">লোড হচ্ছে...</div>
-    </div>
+    <div id="usersList" style="margin-top:15px"><div class="empty">লোড হচ্ছে...</div></div>
   </section>
 
-  <!-- DEPOSIT -->
   <section id="depositPanel" class="panel hidden">
     <h2>💳 Deposit Requests</h2>
     <div id="depositList"><div class="empty">লোড হচ্ছে...</div></div>
   </section>
 
-  <!-- WITHDRAWAL -->
   <section id="withdrawPanel" class="panel hidden">
     <h2>🏧 Withdrawal Requests</h2>
     <div id="withdrawList"><div class="empty">লোড হচ্ছে...</div></div>
   </section>
 
-  <!-- PRIZE -->
   <section id="prizePanel" class="panel hidden">
     <h2>🏆 Prize / Bonus প্রদান</h2>
     <div class="notice">User-এর UUID দিয়ে Wallet-এ পুরস্কারের টাকা যোগ করা যাবে।</div>
@@ -217,19 +144,13 @@ hr{border-color:#263650;margin:22px 0}
     <div id="prizeMessage"></div>
   </section>
 
-  <!-- TOURNAMENT -->
   <section id="tournamentPanel" class="panel hidden">
     <h2>🎮 Tournament Management</h2>
 
     <div class="grid">
-      <div>
-        <label>Tournament Name</label>
-        <input id="tTitle" placeholder="Friday Night Tournament">
-      </div>
-      <div>
-        <label>Game</label>
-        <input id="tGame" placeholder="Free Fire">
-      </div>
+      <div><label>Tournament Name</label><input id="tTitle" placeholder="Friday Night Tournament"></div>
+      <div><label>Game</label><input id="tGame" placeholder="Free Fire"></div>
+
       <div>
         <label>Type</label>
         <select id="tType">
@@ -239,22 +160,12 @@ hr{border-color:#263650;margin:22px 0}
           <option value="CUSTOM">CUSTOM</option>
         </select>
       </div>
-      <div>
-        <label>Mode</label>
-        <input id="tMode" placeholder="Battle Royale">
-      </div>
-      <div>
-        <label>Entry Fee</label>
-        <input id="tEntry" type="number" min="0" value="0">
-      </div>
-      <div>
-        <label>Prize Pool</label>
-        <input id="tPrize" type="number" min="0" value="0">
-      </div>
-      <div>
-        <label>Maximum Slots</label>
-        <input id="tSlots" type="number" min="1" value="48">
-      </div>
+
+      <div><label>Mode</label><input id="tMode" placeholder="Battle Royale"></div>
+      <div><label>Entry Fee</label><input id="tEntry" type="number" min="0" value="0"></div>
+      <div><label>Prize Pool</label><input id="tPrize" type="number" min="0" value="0"></div>
+      <div><label>Maximum Slots</label><input id="tSlots" type="number" min="1" value="48"></div>
+
       <div>
         <label>Status</label>
         <select id="tStatus">
@@ -282,7 +193,6 @@ hr{border-color:#263650;margin:22px 0}
     <div id="tournamentList"><div class="empty">লোড হচ্ছে...</div></div>
   </section>
 
-  <!-- VISITORS -->
   <section id="visitorPanel" class="panel hidden">
     <h2>👀 Visitor Statistics</h2>
     <button class="primary" onclick="loadVisitors()">🔄 Refresh Visitors</button>
@@ -292,9 +202,7 @@ hr{border-color:#263650;margin:22px 0}
 </main>
 
 <script>
-/* =====================================
-   SUPABASE CONFIG
-===================================== */
+/* SUPABASE CONFIG */
 
 const SUPABASE_URL =
   "https://qskpvywtzageshrqenlz.supabase.co";
@@ -311,11 +219,6 @@ const db = window.supabase.createClient(
 );
 
 let currentUser = null;
-let busy = false;
-
-/* =====================================
-   HELPERS
-===================================== */
 
 const $ = id => document.getElementById(id);
 
@@ -339,19 +242,14 @@ function msg(id, text, type = "error") {
 }
 
 function dateText(value) {
-  return value
-    ? new Date(value).toLocaleString("bn-BD")
-    : "—";
+  return value ? new Date(value).toLocaleString("bn-BD") : "—";
 }
 
-function showError(containerId, text) {
-  $(containerId).innerHTML =
-    '<div class="message error">' + esc(text) + '</div>';
+function showError(id, text) {
+  $(id).innerHTML = '<div class="message error">' + esc(text) + '</div>';
 }
 
-/* =====================================
-   LOGIN
-===================================== */
+/* LOGIN */
 
 async function login() {
   const email = $("loginEmail").value.trim();
@@ -365,11 +263,7 @@ async function login() {
   $("loginBtn").disabled = true;
 
   try {
-    const { data, error } = await db.auth.signInWithPassword({
-      email,
-      password
-    });
-
+    const { data, error } = await db.auth.signInWithPassword({ email, password });
     if (error) throw error;
 
     if (!data.user || data.user.id !== ADMIN_UID) {
@@ -388,9 +282,7 @@ async function login() {
   }
 }
 
-/* =====================================
-   SESSION
-===================================== */
+/* SESSION */
 
 async function checkSession() {
   try {
@@ -429,31 +321,21 @@ async function logout() {
   showLogin();
 }
 
-/* =====================================
-   TABS
-===================================== */
+/* TABS */
 
 function showTab(id, button) {
   document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
   button.classList.add("active");
 
   [
-    "usersPanel",
-    "depositPanel",
-    "withdrawPanel",
-    "prizePanel",
-    "tournamentPanel",
-    "visitorPanel"
-  ].forEach(x => {
-    $(x).classList.toggle("hidden", x !== id);
-  });
+    "usersPanel", "depositPanel", "withdrawPanel",
+    "prizePanel", "tournamentPanel", "visitorPanel"
+  ].forEach(x => $(x).classList.toggle("hidden", x !== id));
 
   if (id === "visitorPanel") loadVisitors();
 }
 
-/* =====================================
-   LOAD ALL
-===================================== */
+/* LOAD ALL */
 
 async function loadAll() {
   if (!currentUser || currentUser.id !== ADMIN_UID) {
@@ -470,9 +352,7 @@ async function loadAll() {
   ]);
 }
 
-/* =====================================
-   USERS
-===================================== */
+/* USERS */
 
 async function loadUsers() {
   $("usersList").innerHTML = '<div class="empty">Users লোড হচ্ছে...</div>';
@@ -496,12 +376,7 @@ async function loadUsers() {
     <div class="table-wrap">
       <table>
         <thead>
-          <tr>
-            <th>Email</th>
-            <th>User ID</th>
-            <th>Balance</th>
-            <th>Created</th>
-          </tr>
+          <tr><th>Email</th><th>User ID</th><th>Balance</th><th>Created</th></tr>
         </thead>
         <tbody>
           ${users.map(u => `
@@ -518,9 +393,7 @@ async function loadUsers() {
   `;
 }
 
-/* =====================================
-   DEPOSIT
-===================================== */
+/* DEPOSIT */
 
 async function loadDeposits() {
   $("depositList").innerHTML = '<div class="empty">Deposit লোড হচ্ছে...</div>';
@@ -536,6 +409,7 @@ async function loadDeposits() {
   }
 
   const rows = data || [];
+
   $("depositCount").textContent = rows
     .filter(x => x.status === "pending")
     .length.toLocaleString("bn-BD");
@@ -549,7 +423,6 @@ async function loadDeposits() {
     <div class="card">
       <span class="badge ${esc(r.status)}">${esc(r.status)}</span>
       <h3>${money(r.amount)}</h3>
-
       <div class="muted">👤 User: <small>${esc(r.user_id)}</small></div>
       <div class="muted">💳 Method: ${esc(r.method || "—")}</div>
       <div class="muted">🧾 Transaction: ${esc(r.transaction_id || "—")}</div>
@@ -566,11 +439,7 @@ async function loadDeposits() {
 }
 
 async function reviewDeposit(id, approve) {
-  const question = approve
-    ? "Deposit approve করতে চাও?"
-    : "Deposit reject করতে চাও?";
-
-  if (!confirm(question)) return;
+  if (!confirm(approve ? "Deposit approve করতে চাও?" : "Deposit reject করতে চাও?")) return;
 
   const { data, error } = await db.rpc("admin_review_deposit", {
     p_request_id: id,
@@ -586,9 +455,7 @@ async function reviewDeposit(id, approve) {
   await Promise.all([loadDeposits(), loadUsers()]);
 }
 
-/* =====================================
-   WITHDRAWAL
-===================================== */
+/* WITHDRAWAL */
 
 async function loadWithdrawals() {
   $("withdrawList").innerHTML = '<div class="empty">Withdrawal লোড হচ্ছে...</div>';
@@ -618,13 +485,9 @@ async function loadWithdrawals() {
     <div class="card">
       <span class="badge ${esc(r.status)}">${esc(r.status)}</span>
       <h3>${money(r.amount)}</h3>
-
       <div class="muted">👤 User: <small>${esc(r.user_id)}</small></div>
       <div class="muted">💳 Method: ${esc(r.method || "—")}</div>
-      <div class="muted">
-        📱 Account:
-        ${esc(r.receiver_number || r.account_number || r.receiver || "—")}
-      </div>
+      <div class="muted">📱 Account: ${esc(r.receiver_number || r.account_number || r.receiver || "—")}</div>
       <div class="muted">🕒 ${dateText(r.created_at)}</div>
 
       ${r.status === "pending" ? `
@@ -638,11 +501,9 @@ async function loadWithdrawals() {
 }
 
 async function reviewWithdrawal(id, approve) {
-  const question = approve
+  if (!confirm(approve
     ? "Withdrawal approve করতে চাও?"
-    : "Withdrawal reject করে টাকা ফেরত দিতে চাও?";
-
-  if (!confirm(question)) return;
+    : "Withdrawal reject করে টাকা ফেরত দিতে চাও?")) return;
 
   const { data, error } = await db.rpc("admin_review_withdrawal", {
     p_request_id: id,
@@ -658,9 +519,7 @@ async function reviewWithdrawal(id, approve) {
   await Promise.all([loadWithdrawals(), loadUsers()]);
 }
 
-/* =====================================
-   PRIZE
-===================================== */
+/* PRIZE */
 
 async function givePrize() {
   const userId = $("prizeUserId").value.trim();
@@ -694,9 +553,7 @@ async function givePrize() {
   await loadUsers();
 }
 
-/* =====================================
-   TOURNAMENT CREATE
-===================================== */
+/* CREATE TOURNAMENT */
 
 async function createTournament() {
   if (!currentUser || currentUser.id !== ADMIN_UID) {
@@ -742,9 +599,8 @@ async function createTournament() {
 
   msg("tournamentMessage", "✅ Tournament সফলভাবে তৈরি হয়েছে।", "success");
 
-  [
-    "tTitle", "tGame", "tMode", "tImage", "tDescription", "tRules"
-  ].forEach(id => $(id).value = "");
+  ["tTitle","tGame","tMode","tImage","tDescription","tRules"]
+    .forEach(id => $(id).value = "");
 
   $("tEntry").value = 0;
   $("tPrize").value = 0;
@@ -753,9 +609,7 @@ async function createTournament() {
   await loadTournaments();
 }
 
-/* =====================================
-   TOURNAMENT LIST
-===================================== */
+/* TOURNAMENT LIST */
 
 async function loadTournaments() {
   $("tournamentList").innerHTML = '<div class="empty">Tournament লোড হচ্ছে...</div>';
@@ -782,31 +636,21 @@ async function loadTournaments() {
     <div class="card">
       <span class="badge ${esc(t.status)}">${esc(t.status)}</span>
       <h3>🏆 ${esc(t.title)}</h3>
-
       <div class="muted">🎮 ${esc(t.game)} · ${esc(t.type)}</div>
-      <div class="muted">
-        💵 Entry: ${money(t.entry_fee)}
-        &nbsp;&nbsp; 🥇 Prize: ${money(t.prize_pool)}
-      </div>
+      <div class="muted">💵 Entry: ${money(t.entry_fee)} &nbsp;&nbsp; 🥇 Prize: ${money(t.prize_pool)}</div>
       <div class="muted">👥 Slots: ${esc(t.max_slots)}</div>
 
       <div class="actions">
-        <button class="warning"
-          onclick="toggleTournament('${esc(t.id)}','${esc(t.status)}')">
+        <button class="warning" onclick="toggleTournament('${esc(t.id)}','${esc(t.status)}')">
           ${t.status === "published" ? "📢 Draft" : "📢 Publish"}
         </button>
-
-        <button class="danger" onclick="deleteTournament('${esc(t.id)}')">
-          🗑️ Delete
-        </button>
+        <button class="danger" onclick="deleteTournament('${esc(t.id)}')">🗑️ Delete</button>
       </div>
     </div>
   `).join("");
 }
 
-/* =====================================
-   TOURNAMENT PUBLISH / DRAFT
-===================================== */
+/* PUBLISH / DRAFT */
 
 async function toggleTournament(id, status) {
   const newStatus = status === "published" ? "draft" : "published";
@@ -828,9 +672,7 @@ async function toggleTournament(id, status) {
   await loadTournaments();
 }
 
-/* =====================================
-   DELETE TOURNAMENT
-===================================== */
+/* DELETE TOURNAMENT */
 
 async function deleteTournament(id) {
   if (!confirm("এই Tournament Delete করতে চাও?")) return;
@@ -848,9 +690,7 @@ async function deleteTournament(id) {
   await loadTournaments();
 }
 
-/* =====================================
-   VISITORS
-===================================== */
+/* VISITORS */
 
 async function loadVisitors() {
   $("visitorData").className = "message";
@@ -858,37 +698,29 @@ async function loadVisitors() {
 
   try {
     const { data, error } = await db.rpc("admin_visit_stats");
-
     if (error) throw error;
 
     $("visitorData").className = "message success";
-
-    $("visitorData").textContent =
-      typeof data === "object"
-        ? JSON.stringify(data, null, 2)
-        : String(data ?? "কোনো তথ্য পাওয়া যায়নি।");
+    $("visitorData").textContent = typeof data === "object"
+      ? JSON.stringify(data, null, 2)
+      : String(data ?? "কোনো তথ্য পাওয়া যায়নি।");
 
   } catch (error) {
     $("visitorData").className = "message error";
-    $("visitorData").textContent =
-      "Visitor তথ্য পাওয়া যায়নি: " + error.message;
+    $("visitorData").textContent = "Visitor তথ্য পাওয়া যায়নি: " + error.message;
   }
 }
 
-/* =====================================
-   AUTH STATE
-===================================== */
+/* AUTH STATE */
 
-db.auth.onAuthStateChange((event, session) => {
+db.auth.onAuthStateChange((event) => {
   if (event === "SIGNED_OUT") {
     currentUser = null;
     showLogin();
   }
 });
 
-/* =====================================
-   START
-===================================== */
+/* START */
 
 checkSession();
 </script>
