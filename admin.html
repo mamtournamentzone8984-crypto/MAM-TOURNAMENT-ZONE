@@ -56,9 +56,9 @@ td{color:#d9e3f1}
 .empty{text-align:center;padding:30px;color:#91a2bc}
 hr{border-color:#263650;margin:22px 0}
 @media(max-width:700px){
-  .stats{grid-template-columns:1fr 1fr}
-  .grid{grid-template-columns:1fr}
-  .container{padding:12px}
+.stats{grid-template-columns:1fr 1fr}
+.grid{grid-template-columns:1fr}
+.container{padding:12px}
 }
 </style>
 </head>
@@ -347,8 +347,7 @@ async function loadAll() {
     loadUsers(),
     loadDeposits(),
     loadWithdrawals(),
-    loadTournaments(),
-    loadVisitors()
+    loadTournaments()
   ]);
 }
 
@@ -492,13 +491,15 @@ async function loadWithdrawals() {
 
       ${r.status === "pending" ? `
         <div class="actions">
-          <button class="primary" onclick="reviewWithdrawal(${Number(r.id)},true)">✅ Approve</button>
-          <button class="danger" onclick="reviewWithdrawal(${Number(r.id)},false)">❌ Reject</button>
+          <button class="primary" onclick="reviewWithdrawal('${esc(r.id)}',true)">✅ Approve</button>
+          <button class="danger" onclick="reviewWithdrawal('${esc(r.id)}',false)">❌ Reject</button>
         </div>
       ` : ""}
     </div>
   `).join("");
 }
+
+/* REVIEW WITHDRAWAL - UUID */
 
 async function reviewWithdrawal(id, approve) {
   if (!confirm(approve
