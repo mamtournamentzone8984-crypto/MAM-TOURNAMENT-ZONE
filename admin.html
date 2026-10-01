@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MAM TOURNAMENT ZONE - ADMIN</title>
+<title>MAM TOURNAMENT ZONE - Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -21,15 +20,20 @@ body{
     color:#fff;
 }
 
-button,input,select,textarea{
-    font:inherit;
-}
-
 .hidden{
-    display:none!important;
+    display:none !important;
 }
 
-/* LOGIN */
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
 
 #loginPage{
     min-height:100vh;
@@ -37,23 +41,22 @@ button,input,select,textarea{
     justify-content:center;
     align-items:center;
     padding:20px;
-    background:
-    radial-gradient(circle at top,#182552,#0b1020 60%);
+    background:linear-gradient(135deg,#07111f,#101b38);
 }
 
 .loginBox{
     width:100%;
     max-width:420px;
-    background:#151c33;
-    border:1px solid #29345a;
-    border-radius:18px;
+    background:#151d35;
     padding:30px;
-    box-shadow:0 20px 60px rgba(0,0,0,.4);
+    border-radius:18px;
+    border:1px solid #2b395c;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
 
 .logo{
     text-align:center;
-    font-size:25px;
+    font-size:24px;
     font-weight:bold;
     margin-bottom:8px;
 }
@@ -64,7 +67,7 @@ button,input,select,textarea{
 
 .loginSub{
     text-align:center;
-    color:#9ca3af;
+    color:#94a3b8;
     margin-bottom:25px;
 }
 
@@ -72,19 +75,21 @@ button,input,select,textarea{
     margin-bottom:15px;
 }
 
-.field label{
+label{
     display:block;
     margin-bottom:7px;
     color:#cbd5e1;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
     width:100%;
-    border:1px solid #334155;
-    background:#0f172a;
-    color:#fff;
     padding:12px;
     border-radius:10px;
+    border:1px solid #334155;
+    background:#0b1224;
+    color:white;
     outline:none;
 }
 
@@ -95,7 +100,7 @@ textarea:focus{
 }
 
 textarea{
-    min-height:90px;
+    min-height:100px;
     resize:vertical;
 }
 
@@ -103,42 +108,41 @@ textarea{
     border:0;
     border-radius:10px;
     padding:11px 16px;
-    cursor:pointer;
     font-weight:bold;
+    color:white;
 }
 
-.btnBlue{
+.blue{
     background:#2563eb;
-    color:white;
 }
 
-.btnGreen{
+.green{
     background:#16a34a;
-    color:white;
 }
 
-.btnRed{
+.red{
     background:#dc2626;
-    color:white;
 }
 
-.btnGray{
+.gray{
     background:#334155;
-    color:white;
 }
 
 .btn:hover{
     opacity:.88;
 }
 
-#loginMessage{
-    min-height:24px;
-    margin-top:15px;
-    text-align:center;
-    color:#fca5a5;
+.loginBtn{
+    width:100%;
+    margin-top:5px;
 }
 
-/* ADMIN */
+#loginMessage{
+    text-align:center;
+    min-height:25px;
+    margin-top:15px;
+    color:#fca5a5;
+}
 
 #adminPage{
     min-height:100vh;
@@ -147,14 +151,14 @@ textarea{
 .topbar{
     position:sticky;
     top:0;
-    z-index:20;
-    background:#111827;
-    border-bottom:1px solid #26324e;
-    padding:15px 20px;
+    z-index:100;
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:15px;
+    align-items:center;
+    gap:10px;
+    padding:15px 20px;
+    background:#111827;
+    border-bottom:1px solid #293650;
 }
 
 .topTitle{
@@ -185,8 +189,8 @@ textarea{
 }
 
 .card{
-    background:#151c33;
-    border:1px solid #29345a;
+    background:#151d35;
+    border:1px solid #293650;
     border-radius:14px;
     padding:18px;
 }
@@ -210,17 +214,16 @@ textarea{
 }
 
 .tab{
-    background:#1e293b;
-    color:#cbd5e1;
     border:0;
     border-radius:10px;
     padding:11px 15px;
-    cursor:pointer;
+    background:#1e293b;
+    color:#cbd5e1;
 }
 
 .tab.active{
     background:#2563eb;
-    color:#fff;
+    color:white;
 }
 
 .section{
@@ -232,8 +235,8 @@ textarea{
 }
 
 .panel{
-    background:#151c33;
-    border:1px solid #29345a;
+    background:#151d35;
+    border:1px solid #293650;
     border-radius:14px;
     padding:20px;
     margin-bottom:20px;
@@ -257,6 +260,7 @@ textarea{
 
 .tableWrap{
     overflow-x:auto;
+    margin-top:15px;
 }
 
 table{
@@ -264,56 +268,73 @@ table{
     border-collapse:collapse;
 }
 
-th,td{
-    padding:12px 10px;
-    border-bottom:1px solid #29345a;
+th,
+td{
+    padding:11px;
+    border-bottom:1px solid #293650;
     text-align:left;
     white-space:nowrap;
 }
 
 th{
-    color:#93c5fd;
     background:#111827;
+    color:#93c5fd;
 }
 
 td{
     color:#dbeafe;
 }
 
+.message{
+    margin-top:12px;
+    padding:10px;
+    border-radius:9px;
+    background:#0b1224;
+    color:#94a3b8;
+}
+
+.success{
+    color:#86efac;
+}
+
+.error{
+    color:#fca5a5;
+}
+
 .badge{
     display:inline-block;
     padding:5px 9px;
-    border-radius:999px;
+    border-radius:20px;
     font-size:12px;
     font-weight:bold;
 }
 
-.badgePending{
+.pending{
     background:#78350f;
     color:#fde68a;
 }
 
-.badgeApproved{
+.approved{
     background:#14532d;
     color:#bbf7d0;
 }
 
-.badgeRejected{
+.rejected{
     background:#7f1d1d;
     color:#fecaca;
 }
 
-.badgeUpcoming{
+.upcoming{
     background:#1e3a8a;
     color:#bfdbfe;
 }
 
-.badgeOngoing{
+.ongoing{
     background:#065f46;
     color:#a7f3d0;
 }
 
-.badgeCompleted{
+.completed{
     background:#374151;
     color:#d1d5db;
 }
@@ -328,38 +349,25 @@ td{
     font-size:12px;
 }
 
-.message{
-    padding:10px;
-    border-radius:9px;
-    background:#0f172a;
-    color:#94a3b8;
-    margin-top:12px;
-}
-
-.success{
-    color:#86efac;
-}
-
-.error{
-    color:#fca5a5;
-}
-
 .prizes{
     display:flex;
-    gap:8px;
     flex-wrap:wrap;
+    gap:8px;
 }
 
 .prize{
-    background:#0f172a;
+    background:#0b1224;
     border:1px solid #334155;
-    padding:8px 10px;
     border-radius:8px;
+    padding:8px 10px;
 }
 
-.logout{
-    background:#dc2626;
-    color:white;
+.tournamentCard{
+    background:#111827;
+    border:1px solid #293650;
+    border-radius:12px;
+    padding:16px;
+    margin-top:15px;
 }
 
 @media(max-width:900px){
@@ -384,7 +392,7 @@ td{
     }
 
     .topActions{
-        justify-content:stretch;
+        width:100%;
     }
 
     .topActions button{
@@ -396,13 +404,14 @@ td{
     }
 
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- ==================================================
+     LOGIN
+================================================== -->
 
 <div id="loginPage">
 
@@ -419,7 +428,7 @@ td{
         <div class="field">
             <label>Admin Email</label>
             <input
-                id="loginEmail"
+                id="email"
                 type="email"
                 placeholder="Admin Email">
         </div>
@@ -427,16 +436,15 @@ td{
         <div class="field">
             <label>Password</label>
             <input
-                id="loginPassword"
+                id="password"
                 type="password"
                 placeholder="Password">
         </div>
 
         <button
             id="loginBtn"
-            class="btn btnBlue"
-            style="width:100%;">
-            Login
+            class="btn blue loginBtn">
+            LOGIN
         </button>
 
         <div id="loginMessage"></div>
@@ -446,28 +454,29 @@ td{
 </div>
 
 
-<!-- ================= ADMIN ================= -->
+<!-- ==================================================
+     ADMIN PANEL
+================================================== -->
 
 <div id="adminPage" class="hidden">
 
     <div class="topbar">
 
         <div class="topTitle">
-            MAM <span>TOURNAMENT ZONE</span>
-            <small> ADMIN</small>
+            MAM <span>TOURNAMENT ZONE</span> ADMIN
         </div>
 
         <div class="topActions">
 
             <button
                 id="refreshBtn"
-                class="btn btnGray">
+                class="btn gray">
                 🔄 Refresh
             </button>
 
             <button
                 id="logoutBtn"
-                class="btn logout">
+                class="btn red">
                 Logout
             </button>
 
@@ -483,23 +492,54 @@ td{
         <div class="cards">
 
             <div class="card">
-                <div class="cardTitle">👥 মোট Users</div>
-                <div id="totalUsers" class="cardValue">0</div>
+                <div class="cardTitle">
+                    👥 মোট Users
+                </div>
+
+                <div
+                    id="totalUsers"
+                    class="cardValue">
+                    0
+                </div>
             </div>
 
-            <div class="card">
-                <div class="cardTitle">🏆 মোট Tournament</div>
-                <div id="totalTournaments" class="cardValue">0</div>
-            </div>
 
             <div class="card">
-                <div class="cardTitle">💳 Pending Deposit</div>
-                <div id="pendingDeposits" class="cardValue">0</div>
+                <div class="cardTitle">
+                    🏆 মোট Tournament
+                </div>
+
+                <div
+                    id="totalTournaments"
+                    class="cardValue">
+                    0
+                </div>
             </div>
 
+
             <div class="card">
-                <div class="cardTitle">🏧 Pending Withdrawal</div>
-                <div id="pendingWithdrawals" class="cardValue">0</div>
+                <div class="cardTitle">
+                    💳 Pending Deposit
+                </div>
+
+                <div
+                    id="pendingDeposits"
+                    class="cardValue">
+                    0
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="cardTitle">
+                    🏧 Pending Withdrawal
+                </div>
+
+                <div
+                    id="pendingWithdrawals"
+                    class="cardValue">
+                    0
+                </div>
             </div>
 
         </div>
@@ -509,47 +549,59 @@ td{
 
         <div class="tabs">
 
-            <button class="tab active" data-tab="dashboard">
+            <button
+                class="tab active"
+                data-tab="dashboard">
                 📊 Dashboard
             </button>
 
-            <button class="tab" data-tab="users">
+            <button
+                class="tab"
+                data-tab="users">
                 👥 Users
             </button>
 
-            <button class="tab" data-tab="deposits">
+            <button
+                class="tab"
+                data-tab="deposits">
                 💳 Deposit
             </button>
 
-            <button class="tab" data-tab="withdrawals">
+            <button
+                class="tab"
+                data-tab="withdrawals">
                 🏧 Withdrawal
             </button>
 
-            <button class="tab" data-tab="tournaments">
+            <button
+                class="tab"
+                data-tab="tournaments">
                 🏆 Tournament
             </button>
 
-            <button class="tab" data-tab="visitors">
+            <button
+                class="tab"
+                data-tab="visitors">
                 👀 Visitors
             </button>
 
         </div>
 
 
-        <!-- ================= DASHBOARD ================= -->
+        <!-- DASHBOARD -->
 
-        <div id="section-dashboard" class="section active">
+        <div
+            id="dashboard"
+            class="section active">
 
             <div class="panel">
 
-                <h2>📊 Admin Dashboard</h2>
+                <h2>📊 Dashboard</h2>
 
-                <p>
-                    MAM TOURNAMENT ZONE-এর Admin Control Panel।
-                </p>
-
-                <div id="dashboardMessage" class="message">
-                    Dashboard loading...
+                <div
+                    id="dashboardMessage"
+                    class="message">
+                    Dashboard প্রস্তুত।
                 </div>
 
             </div>
@@ -557,36 +609,39 @@ td{
         </div>
 
 
-        <!-- ================= USERS ================= -->
+        <!-- USERS -->
 
-        <div id="section-users" class="section">
+        <div
+            id="users"
+            class="section">
 
             <div class="panel">
 
                 <h2>👥 Users</h2>
 
                 <button
-                    id="loadUsersBtn"
-                    class="btn btnBlue">
-                    Users Refresh
+                    id="usersRefresh"
+                    class="btn blue">
+                    Refresh Users
                 </button>
 
-                <div id="usersMessage" class="message">
-                    Users loading...
+                <div
+                    id="usersMessage"
+                    class="message">
                 </div>
-
-                <br>
 
                 <div class="tableWrap">
 
                     <table>
 
                         <thead>
+
                             <tr>
                                 <th>#</th>
                                 <th>User ID</th>
                                 <th>Balance</th>
                             </tr>
+
                         </thead>
 
                         <tbody id="usersTable">
@@ -601,40 +656,43 @@ td{
         </div>
 
 
-        <!-- ================= DEPOSITS ================= -->
+        <!-- DEPOSITS -->
 
-        <div id="section-deposits" class="section">
+        <div
+            id="deposits"
+            class="section">
 
             <div class="panel">
 
                 <h2>💳 Deposit Requests</h2>
 
                 <button
-                    id="loadDepositsBtn"
-                    class="btn btnBlue">
+                    id="depositsRefresh"
+                    class="btn blue">
                     Refresh
                 </button>
 
-                <div id="depositsMessage" class="message">
-                    Deposit loading...
+                <div
+                    id="depositsMessage"
+                    class="message">
                 </div>
-
-                <br>
 
                 <div class="tableWrap">
 
                     <table>
 
                         <thead>
+
                             <tr>
                                 <th>ID</th>
                                 <th>User</th>
                                 <th>Amount</th>
                                 <th>Method</th>
-                                <th>Transaction</th>
+                                <th>Transaction ID</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
+
                         </thead>
 
                         <tbody id="depositsTable">
@@ -649,31 +707,33 @@ td{
         </div>
 
 
-        <!-- ================= WITHDRAWALS ================= -->
+        <!-- WITHDRAWALS -->
 
-        <div id="section-withdrawals" class="section">
+        <div
+            id="withdrawals"
+            class="section">
 
             <div class="panel">
 
                 <h2>🏧 Withdrawal Requests</h2>
 
                 <button
-                    id="loadWithdrawalsBtn"
-                    class="btn btnBlue">
+                    id="withdrawalsRefresh"
+                    class="btn blue">
                     Refresh
                 </button>
 
-                <div id="withdrawalsMessage" class="message">
-                    Withdrawal loading...
+                <div
+                    id="withdrawalsMessage"
+                    class="message">
                 </div>
-
-                <br>
 
                 <div class="tableWrap">
 
                     <table>
 
                         <thead>
+
                             <tr>
                                 <th>ID</th>
                                 <th>User</th>
@@ -683,6 +743,7 @@ td{
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
+
                         </thead>
 
                         <tbody id="withdrawalsTable">
@@ -697,9 +758,11 @@ td{
         </div>
 
 
-        <!-- ================= TOURNAMENT ================= -->
+        <!-- TOURNAMENTS -->
 
-        <div id="section-tournaments" class="section">
+        <div
+            id="tournaments"
+            class="section">
 
             <div class="panel">
 
@@ -708,54 +771,126 @@ td{
                 <div class="grid2">
 
                     <div class="field">
+
                         <label>Tournament Title</label>
-                        <input id="tTitle" placeholder="যেমন: Friday Night Tournament">
+
+                        <input
+                            id="title"
+                            placeholder="Tournament Name">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>Game</label>
-                        <input id="tGame" placeholder="Free Fire">
+
+                        <input
+                            id="game"
+                            value="Free Fire"
+                            placeholder="Game">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>Type</label>
-                        <select id="tType">
-                            <option value="Battle Royale">Battle Royale</option>
-                            <option value="Clash Squad">Clash Squad</option>
-                            <option value="Solo">Solo</option>
-                            <option value="Duo">Duo</option>
-                            <option value="Squad">Squad</option>
+
+                        <select id="type">
+
+                            <option value="Battle Royale">
+                                Battle Royale
+                            </option>
+
+                            <option value="Clash Squad">
+                                Clash Squad
+                            </option>
+
+                            <option value="Solo">
+                                Solo
+                            </option>
+
+                            <option value="Duo">
+                                Duo
+                            </option>
+
+                            <option value="Squad">
+                                Squad
+                            </option>
+
                         </select>
+
                     </div>
 
+
                     <div class="field">
+
                         <label>Mode</label>
-                        <input id="tMode" placeholder="Squad">
+
+                        <input
+                            id="mode"
+                            placeholder="Squad">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>Entry Fee</label>
-                        <input id="tEntryFee" type="number" min="0" value="0">
+
+                        <input
+                            id="entryFee"
+                            type="number"
+                            min="0"
+                            value="0">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>Max Slots</label>
-                        <input id="tMaxSlots" type="number" min="1" value="48">
+
+                        <input
+                            id="maxSlots"
+                            type="number"
+                            min="1"
+                            value="48">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>Start Date & Time</label>
-                        <input id="tStartAt" type="datetime-local">
+
+                        <input
+                            id="startAt"
+                            type="datetime-local">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>Registration Deadline</label>
-                        <input id="tDeadline" type="datetime-local">
+
+                        <input
+                            id="deadline"
+                            type="datetime-local">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>Image URL</label>
-                        <input id="tImage" placeholder="https://...">
+
+                        <input
+                            id="imageUrl"
+                            placeholder="https://...">
+
                     </div>
 
                 </div>
@@ -766,30 +901,41 @@ td{
                 <div class="grid3">
 
                     <div class="field">
+
                         <label>🥇 1st Prize</label>
+
                         <input
-                            id="tPrize1"
+                            id="prize1"
                             type="number"
                             min="0"
                             value="0">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>🥈 2nd Prize</label>
+
                         <input
-                            id="tPrize2"
+                            id="prize2"
                             type="number"
                             min="0"
                             value="0">
+
                     </div>
 
+
                     <div class="field">
+
                         <label>🥉 3rd Prize</label>
+
                         <input
-                            id="tPrize3"
+                            id="prize3"
                             type="number"
                             min="0"
                             value="0">
+
                     </div>
 
                 </div>
@@ -800,8 +946,8 @@ td{
                     <label>Description</label>
 
                     <textarea
-                        id="tDescription"
-                        placeholder="Tournament সম্পর্কে লিখুন"></textarea>
+                        id="description"
+                        placeholder="Tournament description"></textarea>
 
                 </div>
 
@@ -811,44 +957,40 @@ td{
                     <label>Rules</label>
 
                     <textarea
-                        id="tRules"
-                        placeholder="Tournament rules লিখুন"></textarea>
+                        id="rules"
+                        placeholder="Tournament rules"></textarea>
 
                 </div>
 
 
                 <button
-                    id="createTournamentBtn"
-                    class="btn btnGreen">
+                    id="createBtn"
+                    class="btn green">
                     ➕ Create Tournament
                 </button>
 
                 <div
-                    id="tournamentCreateMessage"
+                    id="createMessage"
                     class="message">
                 </div>
 
             </div>
 
 
-            <!-- TOURNAMENT LIST -->
-
             <div class="panel">
 
                 <h2>🏆 Tournament List</h2>
 
                 <button
-                    id="loadTournamentsBtn"
-                    class="btn btnBlue">
+                    id="tournamentsRefresh"
+                    class="btn blue">
                     Refresh
                 </button>
 
                 <div
-                    id="tournamentListMessage"
+                    id="tournamentMessage"
                     class="message">
                 </div>
-
-                <br>
 
                 <div id="tournamentList"></div>
 
@@ -857,22 +999,25 @@ td{
         </div>
 
 
-        <!-- ================= VISITORS ================= -->
+        <!-- VISITORS -->
 
-        <div id="section-visitors" class="section">
+        <div
+            id="visitors"
+            class="section">
 
             <div class="panel">
 
-                <h2>👀 Visitor Statistics</h2>
+                <h2>👀 Visitor Counting</h2>
 
                 <button
-                    id="loadVisitorsBtn"
-                    class="btn btnBlue">
+                    id="visitorsRefresh"
+                    class="btn blue">
                     Refresh
                 </button>
 
-                <div id="visitorMessage" class="message">
-                    Visitor statistics loading...
+                <div
+                    id="visitorMessage"
+                    class="message">
                 </div>
 
                 <div
@@ -898,17 +1043,19 @@ td{
 const SUPABASE_URL =
 "https://qskpvywtzageshrqenlz.supabase.co";
 
-const SUPABASE_KEY =
+const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
 
 const ADMIN_UID =
 "d1c467af-9a20-47b1-ae63-164dd55bc8c0";
 
 
+/* ONE SUPABASE CLIENT ONLY */
+
 const supabaseClient =
 window.supabase.createClient(
     SUPABASE_URL,
-    SUPABASE_KEY,
+    SUPABASE_PUBLISHABLE_KEY,
     {
         auth:{
             autoRefreshToken:true,
@@ -920,13 +1067,8 @@ window.supabase.createClient(
 
 
 /* =====================================================
-   HELPERS
+   HELPER
 ===================================================== */
-
-function $(id){
-    return document.getElementById(id);
-}
-
 
 function esc(value){
 
@@ -940,12 +1082,15 @@ function esc(value){
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
+
 }
 
 
 function money(value){
 
-    return "৳ " + Number(value || 0).toLocaleString("en-US");
+    return "৳ " +
+        Number(value || 0)
+        .toLocaleString("en-US");
 
 }
 
@@ -956,26 +1101,26 @@ function statusBadge(status){
         String(status || "")
         .toLowerCase();
 
-    let cls = "badgePending";
+    let cls = "pending";
 
     if(s === "approved"){
-        cls = "badgeApproved";
+        cls = "approved";
     }
 
     if(s === "rejected"){
-        cls = "badgeRejected";
+        cls = "rejected";
     }
 
     if(s === "upcoming"){
-        cls = "badgeUpcoming";
+        cls = "upcoming";
     }
 
     if(s === "ongoing"){
-        cls = "badgeOngoing";
+        cls = "ongoing";
     }
 
     if(s === "completed"){
-        cls = "badgeCompleted";
+        cls = "completed";
     }
 
     return `
@@ -983,21 +1128,36 @@ function statusBadge(status){
             ${esc(status || "unknown")}
         </span>
     `;
+
 }
 
 
+/* =====================================================
+   PAGE CONTROL
+===================================================== */
+
 function showLogin(){
 
-    $("loginPage").classList.remove("hidden");
-    $("adminPage").classList.add("hidden");
+    document
+        .getElementById("loginPage")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("adminPage")
+        .classList.add("hidden");
 
 }
 
 
 function showAdmin(){
 
-    $("loginPage").classList.add("hidden");
-    $("adminPage").classList.remove("hidden");
+    document
+        .getElementById("loginPage")
+        .classList.add("hidden");
+
+    document
+        .getElementById("adminPage")
+        .classList.remove("hidden");
 
 }
 
@@ -1009,76 +1169,111 @@ function showAdmin(){
 async function login(){
 
     const email =
-        $("loginEmail").value.trim();
+        document
+        .getElementById("email")
+        .value
+        .trim();
 
     const password =
-        $("loginPassword").value;
+        document
+        .getElementById("password")
+        .value;
 
-    const message =
-        $("loginMessage");
+    const msg =
+        document.getElementById(
+            "loginMessage"
+        );
 
-    message.textContent =
+
+    msg.textContent =
         "Login হচ্ছে...";
 
-    message.className = "";
 
     if(!email || !password){
 
-        message.textContent =
+        msg.textContent =
             "Email এবং Password দিন।";
 
         return;
+
     }
 
 
-    const {data,error} =
-        await supabaseClient.auth
-        .signInWithPassword({
+    try{
 
-            email:email,
-            password:password
+        const result =
+            await supabaseClient.auth
+            .signInWithPassword({
 
-        });
+                email:email,
+
+                password:password
+
+            });
 
 
-    if(error){
+        if(result.error){
 
-        message.textContent =
-            "ERROR: " + error.message;
+            msg.textContent =
+                "Login Error: " +
+                result.error.message;
+
+            console.error(
+                result.error
+            );
+
+            return;
+
+        }
+
+
+        const user =
+            result.data.user;
+
+
+        if(!user){
+
+            msg.textContent =
+                "User পাওয়া যায়নি।";
+
+            return;
+
+        }
+
+
+        if(user.id !== ADMIN_UID){
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+            msg.textContent =
+                "এই Account-এর Admin Access নেই।";
+
+            return;
+
+        }
+
+
+        msg.textContent =
+            "Login Success!";
+
+
+        showAdmin();
+
+
+        await loadDashboard();
+
+    }
+    catch(error){
 
         console.error(error);
 
-        return;
+        msg.textContent =
+            "Login Error: " +
+            error.message;
+
     }
-
-
-    if(!data.user){
-
-        message.textContent =
-            "User পাওয়া যায়নি।";
-
-        return;
-    }
-
-
-    if(data.user.id !== ADMIN_UID){
-
-        await supabaseClient.auth.signOut();
-
-        message.textContent =
-            "এই Account-এর Admin Access নেই।";
-
-        return;
-    }
-
-
-    message.textContent =
-        "Login সফল!";
-
-
-    showAdmin();
-
-    await loadAll();
 
 }
 
@@ -1093,36 +1288,52 @@ async function logout(){
 
     showLogin();
 
-    $("loginPassword").value = "";
+    document
+        .getElementById("password")
+        .value = "";
 
 }
 
 
 /* =====================================================
-   SESSION CHECK
+   SESSION
 ===================================================== */
 
 async function checkSession(){
 
-    const {
-        data:{
-            session
+    try{
+
+        const result =
+            await supabaseClient
+            .auth
+            .getSession();
+
+
+        const session =
+            result.data.session;
+
+
+        if(
+            session &&
+            session.user &&
+            session.user.id === ADMIN_UID
+        ){
+
+            showAdmin();
+
+            await loadDashboard();
+
         }
-    } =
-        await supabaseClient.auth.getSession();
+        else{
 
+            showLogin();
 
-    if(
-        session &&
-        session.user &&
-        session.user.id === ADMIN_UID
-    ){
+        }
 
-        showAdmin();
+    }
+    catch(error){
 
-        await loadAll();
-
-    }else{
+        console.error(error);
 
         showLogin();
 
@@ -1135,34 +1346,45 @@ async function checkSession(){
    TABS
 ===================================================== */
 
-document.querySelectorAll(".tab")
-.forEach(button => {
+document
+.querySelectorAll(".tab")
+.forEach(tab=>{
 
-    button.addEventListener("click",function(){
+    tab.addEventListener(
+        "click",
+        function(){
 
-        document
-        .querySelectorAll(".tab")
-        .forEach(x =>
-            x.classList.remove("active")
-        );
-
-        document
-        .querySelectorAll(".section")
-        .forEach(x =>
-            x.classList.remove("active")
-        );
-
-
-        this.classList.add("active");
+            document
+            .querySelectorAll(".tab")
+            .forEach(x=>{
+                x.classList.remove(
+                    "active"
+                );
+            });
 
 
-        const tab =
-            this.dataset.tab;
+            document
+            .querySelectorAll(".section")
+            .forEach(x=>{
+                x.classList.remove(
+                    "active"
+                );
+            });
 
-        $("section-" + tab)
-        .classList.add("active");
 
-    });
+            this.classList.add("active");
+
+
+            const id =
+                this.dataset.tab;
+
+
+            document
+            .getElementById(id)
+            .classList.add("active");
+
+        }
+    );
 
 });
 
@@ -1173,42 +1395,47 @@ document.querySelectorAll(".tab")
 
 async function loadUsers(){
 
-    $("usersMessage").textContent =
-        "Users loading...";
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.rpc(
-            "admin_get_users"
+    const msg =
+        document.getElementById(
+            "usersMessage"
         );
 
+    msg.textContent =
+        "Users loading...";
 
-    if(error){
 
-        $("usersMessage").innerHTML =
+    const result =
+        await supabaseClient
+        .rpc("admin_get_users");
+
+
+    if(result.error){
+
+        msg.innerHTML =
             `<span class="error">
-            ${esc(error.message)}
+            ${esc(result.error.message)}
             </span>`;
 
-        console.error(error);
-
         return;
+
     }
 
 
     const users =
-        Array.isArray(data)
-        ? data
+        Array.isArray(result.data)
+        ? result.data
         : [];
 
 
-    $("totalUsers").textContent =
+    document.getElementById(
+        "totalUsers"
+    ).textContent =
         users.length;
 
 
-    $("usersTable").innerHTML =
+    document.getElementById(
+        "usersTable"
+    ).innerHTML =
         users.map((u,i)=>{
 
             return `
@@ -1226,8 +1453,7 @@ async function loadUsers(){
 
                     <td>
                         ${money(
-                            u.balance ||
-                            0
+                            u.balance
                         )}
                     </td>
 
@@ -1237,7 +1463,7 @@ async function loadUsers(){
         }).join("");
 
 
-    $("usersMessage").textContent =
+    msg.textContent =
         users.length +
         " জন User পাওয়া গেছে।";
 
@@ -1245,19 +1471,21 @@ async function loadUsers(){
 
 
 /* =====================================================
-   DEPOSITS
+   DEPOSIT
 ===================================================== */
 
 async function loadDeposits(){
 
-    $("depositsMessage").textContent =
+    const msg =
+        document.getElementById(
+            "depositsMessage"
+        );
+
+    msg.textContent =
         "Deposit loading...";
 
 
-    const {
-        data,
-        error
-    } =
+    const result =
         await supabaseClient
         .from("deposit_requests")
         .select("*")
@@ -1269,93 +1497,86 @@ async function loadDeposits(){
         );
 
 
-    if(error){
+    if(result.error){
 
-        $("depositsMessage").innerHTML =
+        msg.innerHTML =
             `<span class="error">
-            ${esc(error.message)}
+            ${esc(result.error.message)}
             </span>`;
 
         return;
+
     }
 
 
     const rows =
-        data || [];
+        result.data || [];
 
 
     const pending =
-        rows.filter(
-            r =>
+        rows.filter(r=>
             String(r.status)
             .toLowerCase()
             === "pending"
         ).length;
 
 
-    $("pendingDeposits").textContent =
+    document.getElementById(
+        "pendingDeposits"
+    ).textContent =
         pending;
 
 
-    $("depositsTable").innerHTML =
+    document.getElementById(
+        "depositsTable"
+    ).innerHTML =
         rows.map(r=>{
-
-            const id =
-                r.id;
-
-
-            const status =
-                String(
-                    r.status || ""
-                ).toLowerCase();
-
 
             let actions = "-";
 
 
-            if(status === "pending"){
+            if(
+                String(r.status)
+                .toLowerCase()
+                === "pending"
+            ){
 
                 actions = `
+
                     <div class="actions">
 
                         <button
-                            class="btn btnGreen small"
-                            onclick="reviewDeposit(${Number(id)},true)">
+                            class="btn green small"
+                            onclick="reviewDeposit(${Number(r.id)},true)">
                             Approve
                         </button>
 
                         <button
-                            class="btn btnRed small"
-                            onclick="reviewDeposit(${Number(id)},false)">
+                            class="btn red small"
+                            onclick="reviewDeposit(${Number(r.id)},false)">
                             Reject
                         </button>
 
                     </div>
+
                 `;
 
             }
 
 
             return `
+
                 <tr>
 
-                    <td>${esc(id)}</td>
+                    <td>${esc(r.id)}</td>
 
-                    <td>
-                        ${esc(r.user_id)}
-                    </td>
+                    <td>${esc(r.user_id)}</td>
 
-                    <td>
-                        ${money(r.amount)}
-                    </td>
+                    <td>${money(r.amount)}</td>
 
-                    <td>
-                        ${esc(r.method)}
-                    </td>
+                    <td>${esc(r.method)}</td>
 
-                    <td>
-                        ${esc(r.transaction_id)}
-                    </td>
+                    <td>${esc(r.transaction_id)}</td>
 
                     <td>
                         ${statusBadge(r.status)}
@@ -1366,12 +1587,13 @@ async function loadDeposits(){
                     </td>
 
                 </tr>
+
             `;
 
         }).join("");
 
 
-    $("depositsMessage").textContent =
+    msg.textContent =
         rows.length +
         " টি Deposit Request পাওয়া গেছে।";
 
@@ -1382,52 +1604,49 @@ async function loadDeposits(){
    REVIEW DEPOSIT
 ===================================================== */
 
-async function reviewDeposit(id,approve){
+async function reviewDeposit(
+    requestId,
+    approve
+){
 
-    const action =
-        approve
-        ? "Approve"
-        : "Reject";
-
-
-    if(!confirm(
-        "আপনি কি Deposit " +
-        action +
-        " করতে চান?"
-    )){
+    if(
+        !confirm(
+            approve
+            ? "Deposit Approve করবেন?"
+            : "Deposit Reject করবেন?"
+        )
+    ){
         return;
     }
 
 
-    const {
-        error
-    } =
-        await supabaseClient.rpc(
+    const result =
+        await supabaseClient
+        .rpc(
             "admin_review_deposit",
             {
-                p_request_id:id,
+                p_request_id:requestId,
                 p_approve:approve
             }
         );
 
 
-    if(error){
+    if(result.error){
 
         alert(
             "ERROR: " +
-            error.message
+            result.error.message
         );
 
-        console.error(error);
-
         return;
+
     }
 
 
     alert(
-        "Deposit " +
-        action +
-        " হয়েছে।"
+        approve
+        ? "Deposit Approved"
+        : "Deposit Rejected"
     );
 
 
@@ -1437,19 +1656,21 @@ async function reviewDeposit(id,approve){
 
 
 /* =====================================================
-   WITHDRAWALS
+   WITHDRAWAL
 ===================================================== */
 
 async function loadWithdrawals(){
 
-    $("withdrawalsMessage").textContent =
+    const msg =
+        document.getElementById(
+            "withdrawalsMessage"
+        );
+
+    msg.textContent =
         "Withdrawal loading...";
 
 
-    const {
-        data,
-        error
-    } =
+    const result =
         await supabaseClient
         .from("withdrawal_requests")
         .select("*")
@@ -1461,91 +1682,86 @@ async function loadWithdrawals(){
         );
 
 
-    if(error){
+    if(result.error){
 
-        $("withdrawalsMessage").innerHTML =
+        msg.innerHTML =
             `<span class="error">
-            ${esc(error.message)}
+            ${esc(result.error.message)}
             </span>`;
 
         return;
+
     }
 
 
     const rows =
-        data || [];
+        result.data || [];
 
 
     const pending =
-        rows.filter(
-            r =>
+        rows.filter(r=>
             String(r.status)
             .toLowerCase()
             === "pending"
         ).length;
 
 
-    $("pendingWithdrawals").textContent =
+    document.getElementById(
+        "pendingWithdrawals"
+    ).textContent =
         pending;
 
 
-    $("withdrawalsTable").innerHTML =
+    document.getElementById(
+        "withdrawalsTable"
+    ).innerHTML =
         rows.map(r=>{
-
-            const status =
-                String(
-                    r.status || ""
-                ).toLowerCase();
-
 
             let actions = "-";
 
 
-            if(status === "pending"){
+            if(
+                String(r.status)
+                .toLowerCase()
+                === "pending"
+            ){
 
                 actions = `
+
                     <div class="actions">
 
                         <button
-                            class="btn btnGreen small"
+                            class="btn green small"
                             onclick="reviewWithdrawal('${esc(r.id)}',true)">
                             Approve
                         </button>
 
                         <button
-                            class="btn btnRed small"
+                            class="btn red small"
                             onclick="reviewWithdrawal('${esc(r.id)}',false)">
                             Reject
                         </button>
 
                     </div>
+
                 `;
 
             }
 
 
             return `
+
                 <tr>
 
-                    <td>
-                        ${esc(r.id)}
-                    </td>
+                    <td>${esc(r.id)}</td>
 
-                    <td>
-                        ${esc(r.user_id)}
-                    </td>
+                    <td>${esc(r.user_id)}</td>
 
-                    <td>
-                        ${money(r.amount)}
-                    </td>
+                    <td>${money(r.amount)}</td>
 
-                    <td>
-                        ${esc(r.method)}
-                    </td>
+                    <td>${esc(r.method)}</td>
 
-                    <td>
-                        ${esc(r.receiver_number)}
-                    </td>
+                    <td>${esc(r.receiver_number)}</td>
 
                     <td>
                         ${statusBadge(r.status)}
@@ -1556,12 +1772,13 @@ async function loadWithdrawals(){
                     </td>
 
                 </tr>
+
             `;
 
         }).join("");
 
 
-    $("withdrawalsMessage").textContent =
+    msg.textContent =
         rows.length +
         " টি Withdrawal Request পাওয়া গেছে।";
 
@@ -1572,52 +1789,49 @@ async function loadWithdrawals(){
    REVIEW WITHDRAWAL
 ===================================================== */
 
-async function reviewWithdrawal(id,approve){
+async function reviewWithdrawal(
+    requestId,
+    approve
+){
 
-    const action =
-        approve
-        ? "Approve"
-        : "Reject";
-
-
-    if(!confirm(
-        "আপনি কি Withdrawal " +
-        action +
-        " করতে চান?"
-    )){
+    if(
+        !confirm(
+            approve
+            ? "Withdrawal Approve করবেন?"
+            : "Withdrawal Reject করবেন?"
+        )
+    ){
         return;
     }
 
 
-    const {
-        error
-    } =
-        await supabaseClient.rpc(
+    const result =
+        await supabaseClient
+        .rpc(
             "admin_review_withdrawal",
             {
-                p_request_id:id,
+                p_request_id:requestId,
                 p_approve:approve
             }
         );
 
 
-    if(error){
+    if(result.error){
 
         alert(
             "ERROR: " +
-            error.message
+            result.error.message
         );
 
-        console.error(error);
-
         return;
+
     }
 
 
     alert(
-        "Withdrawal " +
-        action +
-        " হয়েছে।"
+        approve
+        ? "Withdrawal Approved"
+        : "Withdrawal Rejected"
     );
 
 
@@ -1632,127 +1846,180 @@ async function reviewWithdrawal(id,approve){
 
 async function createTournament(){
 
-    const message =
-        $("tournamentCreateMessage");
+    const msg =
+        document.getElementById(
+            "createMessage"
+        );
 
 
-    message.textContent =
+    msg.textContent =
         "Tournament তৈরি হচ্ছে...";
 
 
-    const {
-        data:{
-            user
-        }
-    } =
-        await supabaseClient.auth.getUser();
+    const userResult =
+        await supabaseClient
+        .auth
+        .getUser();
 
 
-    if(!user){
+    if(
+        userResult.error ||
+        !userResult.data.user
+    ){
 
-        message.innerHTML =
+        msg.innerHTML =
             `<span class="error">
             Admin login পাওয়া যায়নি।
             </span>`;
 
         return;
+
     }
+
+
+    const user =
+        userResult.data.user;
 
 
     if(user.id !== ADMIN_UID){
 
-        message.innerHTML =
+        msg.innerHTML =
             `<span class="error">
             Admin permission নেই।
             </span>`;
 
         return;
+
     }
 
 
     const title =
-        $("tTitle").value.trim();
+        document
+        .getElementById("title")
+        .value
+        .trim();
+
 
     const game =
-        $("tGame").value.trim();
+        document
+        .getElementById("game")
+        .value
+        .trim();
+
 
     const type =
-        $("tType").value;
+        document
+        .getElementById("type")
+        .value;
+
 
     const mode =
-        $("tMode").value.trim();
+        document
+        .getElementById("mode")
+        .value
+        .trim();
+
 
     const entryFee =
         Number(
-            $("tEntryFee").value
+            document
+            .getElementById("entryFee")
+            .value
         ) || 0;
+
 
     const maxSlots =
         Number(
-            $("tMaxSlots").value
+            document
+            .getElementById("maxSlots")
+            .value
         ) || 0;
 
+
     const startAt =
-        $("tStartAt").value;
+        document
+        .getElementById("startAt")
+        .value;
+
 
     const deadline =
-        $("tDeadline").value;
+        document
+        .getElementById("deadline")
+        .value;
 
-    const image =
-        $("tImage").value.trim();
+
+    const imageUrl =
+        document
+        .getElementById("imageUrl")
+        .value
+        .trim();
+
 
     const prize1 =
         Number(
-            $("tPrize1").value
+            document
+            .getElementById("prize1")
+            .value
         ) || 0;
+
 
     const prize2 =
         Number(
-            $("tPrize2").value
+            document
+            .getElementById("prize2")
+            .value
         ) || 0;
+
 
     const prize3 =
         Number(
-            $("tPrize3").value
+            document
+            .getElementById("prize3")
+            .value
         ) || 0;
 
+
     const description =
-        $("tDescription").value.trim();
+        document
+        .getElementById("description")
+        .value
+        .trim();
+
 
     const rules =
-        $("tRules").value.trim();
+        document
+        .getElementById("rules")
+        .value
+        .trim();
 
 
     if(!title){
 
-        message.innerHTML =
-            `<span class="error">
-            Tournament Title দিন।
-            </span>`;
+        msg.textContent =
+            "Tournament Title দিন।";
 
         return;
+
     }
 
 
     if(!game){
 
-        message.innerHTML =
-            `<span class="error">
-            Game-এর নাম দিন।
-            </span>`;
+        msg.textContent =
+            "Game-এর নাম দিন।";
 
         return;
+
     }
 
 
-    if(!maxSlots || maxSlots < 1){
+    if(maxSlots < 1){
 
-        message.innerHTML =
-            `<span class="error">
-            Max Slots সঠিকভাবে দিন।
-            </span>`;
+        msg.textContent =
+            "Max Slots সঠিকভাবে দিন।";
 
         return;
+
     }
 
 
@@ -1784,7 +2051,7 @@ async function createTournament(){
 
         max_slots:maxSlots,
 
-        image_url:image || null,
+        image_url:imageUrl || null,
 
         description:
             description || null,
@@ -1817,10 +2084,7 @@ async function createTournament(){
     }
 
 
-    const {
-        data,
-        error
-    } =
+    const result =
         await supabaseClient
         .from("tournaments")
         .insert(payload)
@@ -1828,38 +2092,71 @@ async function createTournament(){
         .single();
 
 
-    if(error){
+    if(result.error){
 
-        message.innerHTML =
+        msg.innerHTML =
             `<span class="error">
-            ERROR: ${esc(error.message)}
+            ERROR: ${esc(result.error.message)}
             </span>`;
 
-        console.error(error);
+        console.error(
+            result.error
+        );
 
         return;
+
     }
 
 
-    message.innerHTML =
+    msg.innerHTML =
         `<span class="success">
-        ✅ Tournament সফলভাবে তৈরি হয়েছে।
+        ✅ Tournament তৈরি হয়েছে।
         </span>`;
 
 
-    $("tTitle").value = "";
-    $("tGame").value = "";
-    $("tMode").value = "";
-    $("tEntryFee").value = "0";
-    $("tMaxSlots").value = "48";
-    $("tStartAt").value = "";
-    $("tDeadline").value = "";
-    $("tImage").value = "";
-    $("tPrize1").value = "0";
-    $("tPrize2").value = "0";
-    $("tPrize3").value = "0";
-    $("tDescription").value = "";
-    $("tRules").value = "";
+    document.getElementById(
+        "title"
+    ).value = "";
+
+    document.getElementById(
+        "mode"
+    ).value = "";
+
+    document.getElementById(
+        "entryFee"
+    ).value = "0";
+
+    document.getElementById(
+        "startAt"
+    ).value = "";
+
+    document.getElementById(
+        "deadline"
+    ).value = "";
+
+    document.getElementById(
+        "imageUrl"
+    ).value = "";
+
+    document.getElementById(
+        "prize1"
+    ).value = "0";
+
+    document.getElementById(
+        "prize2"
+    ).value = "0";
+
+    document.getElementById(
+        "prize3"
+    ).value = "0";
+
+    document.getElementById(
+        "description"
+    ).value = "";
+
+    document.getElementById(
+        "rules"
+    ).value = "";
 
 
     await loadTournaments();
@@ -1868,19 +2165,22 @@ async function createTournament(){
 
 
 /* =====================================================
-   LOAD TOURNAMENTS
+   TOURNAMENT LIST
 ===================================================== */
 
 async function loadTournaments(){
 
-    $("tournamentListMessage").textContent =
+    const msg =
+        document.getElementById(
+            "tournamentMessage"
+        );
+
+
+    msg.textContent =
         "Tournament loading...";
 
 
-    const {
-        data,
-        error
-    } =
+    const result =
         await supabaseClient
         .from("tournaments")
         .select("*")
@@ -1892,75 +2192,67 @@ async function loadTournaments(){
         );
 
 
-    if(error){
+    if(result.error){
 
-        $("tournamentListMessage").innerHTML =
+        msg.innerHTML =
             `<span class="error">
-            ${esc(error.message)}
+            ${esc(result.error.message)}
             </span>`;
 
-        console.error(error);
-
         return;
+
     }
 
 
     const rows =
-        data || [];
+        result.data || [];
 
 
-    $("totalTournaments").textContent =
+    document.getElementById(
+        "totalTournaments"
+    ).textContent =
         rows.length;
 
 
     if(rows.length === 0){
 
-        $("tournamentList").innerHTML =
+        document.getElementById(
+            "tournamentList"
+        ).innerHTML =
             `<div class="message">
-            কোনো Tournament পাওয়া যায়নি।
+            কোনো Tournament নেই।
             </div>`;
 
-        $("tournamentListMessage").textContent =
+        msg.textContent =
             "0 Tournament";
 
         return;
+
     }
 
 
-    $("tournamentList").innerHTML =
+    document.getElementById(
+        "tournamentList"
+    ).innerHTML =
         rows.map(t=>{
 
             return `
 
-                <div class="panel">
+                <div class="tournamentCard">
 
-                    <div style="
-                        display:flex;
-                        justify-content:space-between;
-                        gap:15px;
-                        flex-wrap:wrap;
-                    ">
+                    <h2>
+                        ${esc(t.title)}
+                    </h2>
 
-                        <div>
+                    <p>
+                        🎮 ${esc(t.game)}
+                        |
+                        ${esc(t.mode)}
+                    </p>
 
-                            <h2>
-                                ${esc(t.title)}
-                            </h2>
-
-                            <p>
-                                🎮 ${esc(t.game || "")}
-                                |
-                                ${esc(t.mode || "")}
-                            </p>
-
-                        </div>
-
-                        <div>
-                            ${statusBadge(t.status)}
-                        </div>
-
-                    </div>
-
+                    <p>
+                        ${statusBadge(t.status)}
+                    </p>
 
                     <div class="grid3">
 
@@ -1984,9 +2276,7 @@ async function loadTournaments(){
 
                     </div>
 
-
                     <br>
-
 
                     <div class="prizes">
 
@@ -2013,7 +2303,6 @@ async function loadTournaments(){
 
                     </div>
 
-
                     ${
                         t.description
                         ?
@@ -2025,7 +2314,6 @@ async function loadTournaments(){
                         :
                         ""
                     }
-
 
                     ${
                         t.rules
@@ -2047,7 +2335,7 @@ async function loadTournaments(){
         }).join("");
 
 
-    $("tournamentListMessage").textContent =
+    msg.textContent =
         rows.length +
         " টি Tournament পাওয়া গেছে।";
 
@@ -2055,55 +2343,73 @@ async function loadTournaments(){
 
 
 /* =====================================================
-   VISITORS
+   VISITOR STATS
 ===================================================== */
 
 async function loadVisitors(){
 
-    $("visitorMessage").textContent =
-        "Visitor statistics loading...";
-
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.rpc(
-            "admin_visit_stats"
+    const msg =
+        document.getElementById(
+            "visitorMessage"
         );
 
 
-    if(error){
+    msg.textContent =
+        "Visitor statistics loading...";
 
-        $("visitorMessage").innerHTML =
+
+    const result =
+        await supabaseClient
+        .rpc("admin_visit_stats");
+
+
+    if(result.error){
+
+        msg.innerHTML =
             `<span class="error">
-            ${esc(error.message)}
+            ${esc(result.error.message)}
             </span>`;
 
-        console.error(error);
-
         return;
+
     }
 
 
-    $("visitorStats").innerHTML = `
+    const data =
+        result.data;
 
-        <div class="cards">
 
-            <div class="card">
+    let total = 0;
 
-                <div class="cardTitle">
-                    👀 Total Visitors
-                </div>
 
-                <div class="cardValue">
-                    ${esc(
-                        data?.total_visitors ??
-                        data?.total ??
-                        0
-                    )}
-                </div>
+    if(typeof data === "number"){
 
+        total = data;
+
+    }
+    else if(data){
+
+        total =
+            data.total_visitors ??
+            data.total ??
+            data.count ??
+            0;
+
+    }
+
+
+    document.getElementById(
+        "visitorStats"
+    ).innerHTML = `
+
+        <div class="card">
+
+            <div class="cardTitle">
+                👀 Total Visitors
+            </div>
+
+            <div class="cardValue">
+                ${esc(total)}
             </div>
 
         </div>
@@ -2111,19 +2417,21 @@ async function loadVisitors(){
     `;
 
 
-    $("visitorMessage").textContent =
-        "Visitor statistics loaded.";
+    msg.textContent =
+        "Visitor statistics loaded।";
 
 }
 
 
 /* =====================================================
-   LOAD ALL
+   DASHBOARD
 ===================================================== */
 
-async function loadAll(){
+async function loadDashboard(){
 
-    $("dashboardMessage").textContent =
+    document.getElementById(
+        "dashboardMessage"
+    ).textContent =
         "Dashboard loading...";
 
 
@@ -2142,86 +2450,94 @@ async function loadAll(){
     ]);
 
 
-    $("dashboardMessage").innerHTML =
+    document.getElementById(
+        "dashboardMessage"
+    ).innerHTML =
         `<span class="success">
-        ✅ Dashboard loaded.
+        ✅ Dashboard loaded।
         </span>`;
 
 }
 
 
 /* =====================================================
-   BUTTON EVENTS
+   EVENTS
 ===================================================== */
 
-$("loginBtn")
+document
+.getElementById("loginBtn")
 .addEventListener(
     "click",
     login
 );
 
 
-$("logoutBtn")
+document
+.getElementById("logoutBtn")
 .addEventListener(
     "click",
     logout
 );
 
 
-$("refreshBtn")
+document
+.getElementById("refreshBtn")
 .addEventListener(
     "click",
-    loadAll
+    loadDashboard
 );
 
 
-$("loadUsersBtn")
+document
+.getElementById("usersRefresh")
 .addEventListener(
     "click",
     loadUsers
 );
 
 
-$("loadDepositsBtn")
+document
+.getElementById("depositsRefresh")
 .addEventListener(
     "click",
     loadDeposits
 );
 
 
-$("loadWithdrawalsBtn")
+document
+.getElementById("withdrawalsRefresh")
 .addEventListener(
     "click",
     loadWithdrawals
 );
 
 
-$("createTournamentBtn")
+document
+.getElementById("createBtn")
 .addEventListener(
     "click",
     createTournament
 );
 
 
-$("loadTournamentsBtn")
+document
+.getElementById("tournamentsRefresh")
 .addEventListener(
     "click",
     loadTournaments
 );
 
 
-$("loadVisitorsBtn")
+document
+.getElementById("visitorsRefresh")
 .addEventListener(
     "click",
     loadVisitors
 );
 
 
-/* =====================================================
-   ENTER KEY LOGIN
-===================================================== */
-
-$("loginPassword")
+document
+.getElementById("password")
 .addEventListener(
     "keydown",
     function(event){
@@ -2243,4 +2559,4 @@ checkSession();
 </script>
 
 </body>
-    </html>
+</html>
