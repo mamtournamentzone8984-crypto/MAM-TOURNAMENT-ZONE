@@ -2,157 +2,2415 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Login</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>MAM TOURNAMENT ZONE - ADMIN</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+*{
+  box-sizing:border-box;
+}
+
 body{
-    background:#0b1020;
-    color:white;
-    font-family:Arial;
-    padding:30px;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0b1020;
+  color:#fff;
 }
-.box{
-    max-width:400px;
-    margin:50px auto;
-    background:#151d38;
-    padding:25px;
-    border-radius:15px;
+
+header{
+  background:#111936;
+  padding:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #26345f;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
-input{
-    width:100%;
-    box-sizing:border-box;
-    padding:14px;
-    margin:8px 0;
-    border-radius:8px;
-    border:1px solid #334;
-    background:#080d1c;
-    color:white;
+
+header h1{
+  margin:0;
+  font-size:20px;
 }
+
+.container{
+  width:95%;
+  max-width:1200px;
+  margin:20px auto;
+}
+
+.card{
+  background:#111936;
+  border:1px solid #26345f;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:18px;
+}
+
+h2{
+  margin-top:0;
+  color:#61a8ff;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0 12px;
+  border:none;
+  border-radius:8px;
+  background:#080d1c;
+  color:white;
+  outline:none;
+  border:1px solid #27355f;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
 button{
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border:0;
-    border-radius:8px;
-    background:#1677ff;
-    color:white;
-    font-weight:bold;
+  border:0;
+  padding:11px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  margin:4px;
 }
-#result{
-    margin-top:20px;
-    padding:12px;
-    white-space:pre-wrap;
+
+.blue{
+  background:#1677ff;
+  color:#fff;
+}
+
+.green{
+  background:#16a34a;
+  color:#fff;
+}
+
+.red{
+  background:#dc2626;
+  color:#fff;
+}
+
+.orange{
+  background:#f59e0b;
+  color:#111;
+}
+
+.gray{
+  background:#374151;
+  color:#fff;
+}
+
+.purple{
+  background:#7c3aed;
+  color:#fff;
+}
+
+button:hover{
+  opacity:.85;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.msg{
+  padding:10px;
+  border-radius:8px;
+  margin:10px 0;
+  background:#17213e;
+}
+
+.success{
+  color:#4ade80;
+}
+
+.error{
+  color:#ff6b6b;
+}
+
+.warning{
+  color:#fbbf24;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:15px;
+}
+
+.item{
+  background:#0b1228;
+  border:1px solid #293963;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.item strong{
+  color:#60a5fa;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#24345d;
+  font-size:12px;
+  margin:3px;
+}
+
+.prizeBox{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.prizeBox div{
+  background:#0a1022;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #26345f;
+}
+
+.prizeBox label{
+  display:block;
+  color:#aaa;
+  font-size:12px;
+  margin-bottom:4px;
+}
+
+.stat{
+  text-align:center;
+  padding:18px;
+  background:#0a1022;
+  border-radius:12px;
+  border:1px solid #293963;
+}
+
+.stat h3{
+  margin:0;
+  color:#aaa;
+  font-size:14px;
+}
+
+.stat p{
+  font-size:28px;
+  margin:8px 0 0;
+  color:#60a5fa;
+}
+
+.loginBox{
+  width:95%;
+  max-width:420px;
+  margin:80px auto;
+}
+
+.small{
+  font-size:12px;
+  color:#aaa;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,
+td{
+  padding:9px;
+  border-bottom:1px solid #26345f;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  color:#60a5fa;
+}
+
+@media(max-width:600px){
+  .prizeBox{
+    grid-template-columns:1fr;
+  }
+
+  header h1{
+    font-size:16px;
+  }
+
+  button{
+    width:100%;
+    margin:4px 0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<!-- ================= LOGIN ================= -->
 
-<h2>🔐 MAM ADMIN LOGIN</h2>
+<div id="loginPage" class="loginBox">
 
-<input id="email" type="email" placeholder="Email">
+  <div class="card">
 
-<input id="password" type="password" placeholder="Password">
+    <h2>🔐 MAM TOURNAMENT ZONE</h2>
 
-<button id="login">LOGIN</button>
+    <p>ADMIN CONTROL PANEL</p>
 
-<div id="result">Login চাপুন</div>
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="Admin Email"
+    >
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button
+      id="loginBtn"
+      class="blue"
+      type="button"
+    >
+      LOGIN
+    </button>
+
+    <div id="loginMsg"></div>
+
+  </div>
 
 </div>
 
+
+<!-- ================= ADMIN ================= -->
+
+<div id="adminPage" class="hidden">
+
+<header>
+
+  <h1>🎮 MAM TOURNAMENT ZONE ADMIN</h1>
+
+  <div>
+
+    <button
+      id="refreshBtn"
+      class="blue"
+      type="button"
+    >
+      🔄 Refresh
+    </button>
+
+    <button
+      id="logoutBtn"
+      class="red"
+      type="button"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="card">
+
+<h2>📊 Dashboard</h2>
+
+<div class="grid">
+
+  <div class="stat">
+    <h3>মোট Users</h3>
+    <p id="totalUsers">0</p>
+  </div>
+
+  <div class="stat">
+    <h3>Deposit Pending</h3>
+    <p id="pendingDeposits">0</p>
+  </div>
+
+  <div class="stat">
+    <h3>Withdrawal Pending</h3>
+    <p id="pendingWithdrawals">0</p>
+  </div>
+
+  <div class="stat">
+    <h3>Visitors</h3>
+    <p id="totalVisitors">0</p>
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- ================= USERS ================= -->
+
+<div class="card">
+
+<h2>👥 Users</h2>
+
+<div id="usersList">
+Loading...
+</div>
+
+</div>
+
+
+<!-- ================= DEPOSIT ================= -->
+
+<div class="card">
+
+<h2>💰 Deposit Requests</h2>
+
+<div id="depositList">
+Loading...
+</div>
+
+</div>
+
+
+<!-- ================= WITHDRAW ================= -->
+
+<div class="card">
+
+<h2>💸 Withdrawal Requests</h2>
+
+<div id="withdrawList">
+Loading...
+</div>
+
+</div>
+
+
+<!-- ================= CREATE TOURNAMENT ================= -->
+
+<div class="card">
+
+<h2>🏆 Create Tournament</h2>
+
+<input
+  id="tTitle"
+  placeholder="Tournament Title"
+>
+
+<select id="tGame">
+
+<option value="Free Fire">
+Free Fire
+</option>
+
+<option value="PUBG Mobile">
+PUBG Mobile
+</option>
+
+<option value="Call of Duty Mobile">
+Call of Duty Mobile
+</option>
+
+<option value="eFootball">
+eFootball
+</option>
+
+</select>
+
+<select id="tType">
+
+<option value="Solo">
+Solo
+</option>
+
+<option value="Duo">
+Duo
+</option>
+
+<option value="Squad">
+Squad
+</option>
+
+</select>
+
+<select id="tMode">
+
+<option value="Battle Royale">
+Battle Royale
+</option>
+
+<option value="Clash Squad">
+Clash Squad
+</option>
+
+<option value="Custom">
+Custom
+</option>
+
+</select>
+
+<input
+  id="tEntry"
+  type="number"
+  min="0"
+  step="0.01"
+  placeholder="Entry Fee"
+>
+
+<div class="prizeBox">
+
+<div>
+<label>🥇 ১ম পুরস্কার</label>
+<input
+  id="tPrize1"
+  type="number"
+  min="0"
+  step="0.01"
+  placeholder="১ম Prize"
+>
+</div>
+
+<div>
+<label>🥈 ২য় পুরস্কার</label>
+<input
+  id="tPrize2"
+  type="number"
+  min="0"
+  step="0.01"
+  placeholder="২য় Prize"
+>
+</div>
+
+<div>
+<label>🥉 ৩য় পুরস্কার</label>
+<input
+  id="tPrize3"
+  type="number"
+  min="0"
+  step="0.01"
+  placeholder="৩য় Prize"
+>
+</div>
+
+</div>
+
+<input
+  id="tSlots"
+  type="number"
+  min="1"
+  placeholder="Maximum Slots"
+>
+
+<input
+  id="tStart"
+  type="datetime-local"
+>
+
+<input
+  id="tDeadline"
+  type="datetime-local"
+>
+
+<input
+  id="tImage"
+  placeholder="Image URL"
+>
+
+<textarea
+  id="tDescription"
+  placeholder="Tournament Description"
+></textarea>
+
+<textarea
+  id="tRules"
+  placeholder="Tournament Rules"
+></textarea>
+
+<button
+  id="createTournamentBtn"
+  class="green"
+  type="button"
+>
+➕ Create Tournament
+</button>
+
+<div id="createMsg"></div>
+
+</div>
+
+
+<!-- ================= TOURNAMENT LIST ================= -->
+
+<div class="card">
+
+<h2>🏆 Tournament Management</h2>
+
+<div id="tournamentList">
+Loading...
+</div>
+
+</div>
+
+
+<!-- ================= AWARD PRIZE ================= -->
+
+<div class="card">
+
+<h2>🎁 Award Tournament Prize</h2>
+
+<div class="msg">
+
+<b>Prize দেওয়ার নিয়ম:</b>
+
+<br>
+
+1. Tournament নির্বাচন করুন
+
+<br>
+
+2. Winner User ID দিন
+
+<br>
+
+3. ১ম / ২য় / ৩য় নির্বাচন করুন
+
+<br>
+
+4. Prize Amount অটো আসবে
+
+<br>
+
+5. Award Prize চাপুন
+
+</div>
+
+
+<label>Tournament</label>
+
+<select id="awardTournament">
+
+<option value="">
+-- Tournament Select করুন --
+</option>
+
+</select>
+
+
+<label>Winner User ID</label>
+
+<input
+  id="awardUserId"
+  placeholder="Winner-এর UUID/User ID"
+>
+
+
+<label>Position</label>
+
+<select id="awardPosition">
+
+<option value="">
+-- Position নির্বাচন করুন --
+</option>
+
+<option value="1">
+🥇 ১ম স্থান
+</option>
+
+<option value="2">
+🥈 ২য় স্থান
+</option>
+
+<option value="3">
+🥉 ৩য় স্থান
+</option>
+
+</select>
+
+
+<label>Prize Amount</label>
+
+<input
+  id="awardAmount"
+  type="number"
+  readonly
+  placeholder="Position নির্বাচন করলে Amount আসবে"
+>
+
+
+<button
+  id="awardBtn"
+  class="purple"
+  type="button"
+>
+🎁 Award Prize
+</button>
+
+<div id="awardMsg"></div>
+
+</div>
+
+
+<!-- ================= VISITOR ================= -->
+
+<div class="card">
+
+<h2>👁️ Visitor Statistics</h2>
+
+<div id="visitorStats">
+Loading...
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
 <script>
 
-const URL =
+"use strict";
+
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
 "https://qskpvywtzageshrqenlz.supabase.co";
 
-const KEY =
+const SUPABASE_KEY =
 "sb_publishable_yqi_zggCenxo5y7Rdugutg_eibJ5-uc";
 
-const ADMIN =
+const ADMIN_UID =
 "d1c467af-9a20-47b1-ae63-164dd55bc8c0";
 
 
-const client =
-window.supabase.createClient(URL, KEY);
+const supabase =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
-document.getElementById("login").onclick =
-async function(){
+/* =====================================================
+   HELPERS
+===================================================== */
 
-    const result =
-    document.getElementById("result");
+function $(id){
+  return document.getElementById(id);
+}
 
-    const email =
-    document.getElementById("email").value.trim();
 
-    const password =
-    document.getElementById("password").value;
+function esc(value){
 
-    result.innerText =
-    "⏳ Login হচ্ছে...";
+  if(value === null || value === undefined){
+    return "";
+  }
 
-    try{
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
-        const response =
-        await client.auth.signInWithPassword({
-            email: email,
-            password: password
-        });
 
-        console.log(response);
+function money(value){
 
-        if(response.error){
+  return Number(value || 0).toFixed(2);
 
-            result.innerText =
-            "❌ ERROR:\n\n" +
-            response.error.message;
+}
 
-            return;
-        }
 
-        const user =
-        response.data.user;
+function showMsg(id,text,type=""){
 
-        if(!user){
+  const el = $(id);
 
-            result.innerText =
-            "❌ User পাওয়া যায়নি";
+  if(!el) return;
 
-            return;
-        }
+  el.innerHTML =
+    `<div class="msg ${type}">${esc(text)}</div>`;
 
-        if(user.id !== ADMIN){
+}
 
-            result.innerText =
-            "❌ এই User Admin নয়\n\n" +
-            "User ID:\n" +
-            user.id +
-            "\n\nAdmin ID:\n" +
-            ADMIN;
 
-            return;
-        }
+/* =====================================================
+   LOGIN
+===================================================== */
 
-        result.innerText =
-        "✅ LOGIN SUCCESS!\n\n" +
-        "ADMIN VERIFIED\n\n" +
-        "User ID:\n" +
-        user.id;
+async function login(){
 
-    }catch(error){
+  const email =
+    $("loginEmail").value.trim();
 
-        result.innerText =
-        "❌ JAVASCRIPT ERROR:\n\n" +
-        error.message;
+  const password =
+    $("loginPassword").value;
+
+  if(!email || !password){
+
+    showMsg(
+      "loginMsg",
+      "Email এবং Password দিন",
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMsg(
+    "loginMsg",
+    "Login হচ্ছে...",
+    "warning"
+  );
+
+
+  try{
+
+    const {data,error} =
+      await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+
+    if(error){
+
+      showMsg(
+        "loginMsg",
+        "ERROR: " + error.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    if(!data.user){
+
+      showMsg(
+        "loginMsg",
+        "User পাওয়া যায়নি",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if(data.user.id !== ADMIN_UID){
+
+      await supabase.auth.signOut();
+
+      showMsg(
+        "loginMsg",
+        "এই account Admin নয়",
+        "error"
+      );
+
+      return;
+    }
+
+
+    $("loginPage").classList.add("hidden");
+
+    $("adminPage").classList.remove("hidden");
+
+
+    await loadAll();
+
+
+  }catch(err){
+
+    showMsg(
+      "loginMsg",
+      "ERROR: " + err.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SESSION
+===================================================== */
+
+async function checkSession(){
+
+  try{
+
+    const {data} =
+      await supabase.auth.getSession();
+
+    const session =
+      data?.session;
+
+    if(
+      session &&
+      session.user &&
+      session.user.id === ADMIN_UID
+    ){
+
+      $("loginPage")
+        .classList
+        .add("hidden");
+
+      $("adminPage")
+        .classList
+        .remove("hidden");
+
+      await loadAll();
 
     }
 
-};
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout(){
+
+  await supabase.auth.signOut();
+
+  location.reload();
+
+}
+
+
+/* =====================================================
+   USERS
+===================================================== */
+
+async function loadUsers(){
+
+  const box =
+    $("usersList");
+
+  box.innerHTML =
+    "Loading Users...";
+
+
+  try{
+
+    const {data,error} =
+      await supabase.rpc(
+        "admin_get_users"
+      );
+
+
+    if(error){
+
+      box.innerHTML =
+        `<div class="error">
+        ${esc(error.message)}
+        </div>`;
+
+      return;
+    }
+
+
+    const users =
+      data || [];
+
+
+    $("totalUsers").textContent =
+      users.length;
+
+
+    if(!users.length){
+
+      box.innerHTML =
+        "কোনো User পাওয়া যায়নি";
+
+      return;
+    }
+
+
+    box.innerHTML =
+      users.map(u => `
+
+        <div class="item">
+
+          <strong>User ID:</strong>
+          ${esc(u.id || u.user_id || "")}
+
+          <br>
+
+          <strong>Email:</strong>
+          ${esc(u.email || "")}
+
+          <br>
+
+          <strong>Name:</strong>
+          ${esc(
+            u.name ||
+            u.full_name ||
+            u.username ||
+            ""
+          )}
+
+        </div>
+
+      `).join("");
+
+
+  }catch(error){
+
+    box.innerHTML =
+      `<div class="error">
+      ${esc(error.message)}
+      </div>`;
+
+  }
+
+}
+
+
+/* =====================================================
+   DEPOSITS
+===================================================== */
+
+async function loadDeposits(){
+
+  const box =
+    $("depositList");
+
+  box.innerHTML =
+    "Loading...";
+
+
+  const {data,error} =
+    await supabase
+      .from("deposit_requests")
+      .select("*")
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
+
+  if(error){
+
+    box.innerHTML =
+      `<div class="error">
+      ${esc(error.message)}
+      </div>`;
+
+    return;
+  }
+
+
+  const rows =
+    data || [];
+
+
+  const pending =
+    rows.filter(
+      r =>
+        String(r.status || "")
+          .toLowerCase() === "pending"
+    ).length;
+
+
+  $("pendingDeposits").textContent =
+    pending;
+
+
+  if(!rows.length){
+
+    box.innerHTML =
+      "কোনো Deposit Request নেই";
+
+    return;
+  }
+
+
+  box.innerHTML =
+    rows.map(r => {
+
+      const status =
+        String(r.status || "")
+          .toLowerCase();
+
+
+      return `
+
+      <div class="item">
+
+        <strong>Request ID:</strong>
+        ${esc(r.id)}
+
+        <br>
+
+        <strong>User:</strong>
+        ${esc(r.user_id)}
+
+        <br>
+
+        <strong>Amount:</strong>
+        ৳${money(r.amount)}
+
+        <br>
+
+        <strong>Method:</strong>
+        ${esc(r.method)}
+
+        <br>
+
+        <strong>Transaction ID:</strong>
+        ${esc(r.transaction_id)}
+
+        <br>
+
+        <strong>Status:</strong>
+        <span class="badge">
+          ${esc(r.status)}
+        </span>
+
+        <br><br>
+
+        ${
+          status === "pending"
+          ?
+          `
+          <button
+            class="green"
+            onclick="reviewDeposit('${esc(r.id)}',true)"
+          >
+            ✅ Approve
+          </button>
+
+          <button
+            class="red"
+            onclick="reviewDeposit('${esc(r.id)}',false)"
+          >
+            ❌ Reject
+          </button>
+          `
+          :
+          ""
+        }
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   REVIEW DEPOSIT
+===================================================== */
+
+async function reviewDeposit(
+  id,
+  approve
+){
+
+  if(
+    !confirm(
+      approve
+      ?
+      "Deposit Approve করবেন?"
+      :
+      "Deposit Reject করবেন?"
+    )
+  ){
+
+    return;
+  }
+
+
+  try{
+
+    const {error} =
+      await supabase.rpc(
+        "admin_review_deposit",
+        {
+          p_request_id: Number(id),
+          p_approve: approve
+        }
+      );
+
+
+    if(error){
+
+      alert(
+        "ERROR: " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      approve
+      ?
+      "Deposit Approved"
+      :
+      "Deposit Rejected"
+    );
+
+
+    await loadDeposits();
+
+  }catch(error){
+
+    alert(
+      "ERROR: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   WITHDRAWALS
+===================================================== */
+
+async function loadWithdrawals(){
+
+  const box =
+    $("withdrawList");
+
+  box.innerHTML =
+    "Loading...";
+
+
+  const {data,error} =
+    await supabase
+      .from("withdrawal_requests")
+      .select("*")
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
+
+  if(error){
+
+    box.innerHTML =
+      `<div class="error">
+      ${esc(error.message)}
+      </div>`;
+
+    return;
+  }
+
+
+  const rows =
+    data || [];
+
+
+  const pending =
+    rows.filter(
+      r =>
+        String(r.status || "")
+          .toLowerCase() === "pending"
+    ).length;
+
+
+  $("pendingWithdrawals").textContent =
+    pending;
+
+
+  if(!rows.length){
+
+    box.innerHTML =
+      "কোনো Withdrawal Request নেই";
+
+    return;
+  }
+
+
+  box.innerHTML =
+    rows.map(r => {
+
+      const status =
+        String(r.status || "")
+          .toLowerCase();
+
+
+      return `
+
+      <div class="item">
+
+        <strong>Request ID:</strong>
+        ${esc(r.id)}
+
+        <br>
+
+        <strong>User:</strong>
+        ${esc(r.user_id)}
+
+        <br>
+
+        <strong>Amount:</strong>
+        ৳${money(r.amount)}
+
+        <br>
+
+        <strong>Method:</strong>
+        ${esc(r.method)}
+
+        <br>
+
+        <strong>Receiver:</strong>
+        ${esc(r.receiver_number)}
+
+        <br>
+
+        <strong>Status:</strong>
+        <span class="badge">
+          ${esc(r.status)}
+        </span>
+
+        <br><br>
+
+        ${
+          status === "pending"
+          ?
+          `
+          <button
+            class="green"
+            onclick="reviewWithdrawal('${esc(r.id)}',true)"
+          >
+            ✅ Approve
+          </button>
+
+          <button
+            class="red"
+            onclick="reviewWithdrawal('${esc(r.id)}',false)"
+          >
+            ❌ Reject
+          </button>
+          `
+          :
+          ""
+        }
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   REVIEW WITHDRAWAL
+===================================================== */
+
+async function reviewWithdrawal(
+  id,
+  approve
+){
+
+  if(
+    !confirm(
+      approve
+      ?
+      "Withdrawal Approve করবেন?"
+      :
+      "Withdrawal Reject করবেন?"
+    )
+  ){
+
+    return;
+  }
+
+
+  try{
+
+    const {error} =
+      await supabase.rpc(
+        "admin_review_withdrawal",
+        {
+          p_request_id: id,
+          p_approve: approve
+        }
+      );
+
+
+    if(error){
+
+      alert(
+        "ERROR: " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      approve
+      ?
+      "Withdrawal Approved"
+      :
+      "Withdrawal Rejected"
+    );
+
+
+    await loadWithdrawals();
+
+  }catch(error){
+
+    alert(
+      "ERROR: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   CREATE TOURNAMENT
+===================================================== */
+
+async function createTournament(){
+
+  const title =
+    $("tTitle").value.trim();
+
+  const game =
+    $("tGame").value;
+
+  const type =
+    $("tType").value;
+
+  const mode =
+    $("tMode").value;
+
+  const entry =
+    Number($("tEntry").value || 0);
+
+  const prize1 =
+    Number($("tPrize1").value || 0);
+
+  const prize2 =
+    Number($("tPrize2").value || 0);
+
+  const prize3 =
+    Number($("tPrize3").value || 0);
+
+  const slots =
+    Number($("tSlots").value || 0);
+
+  const start =
+    $("tStart").value;
+
+  const deadline =
+    $("tDeadline").value;
+
+  const image =
+    $("tImage").value.trim();
+
+  const description =
+    $("tDescription").value.trim();
+
+  const rules =
+    $("tRules").value.trim();
+
+
+  if(!title){
+
+    showMsg(
+      "createMsg",
+      "Tournament Title দিন",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(slots <= 0){
+
+    showMsg(
+      "createMsg",
+      "Maximum Slots দিন",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const prizePool =
+    prize1 + prize2 + prize3;
+
+
+  showMsg(
+    "createMsg",
+    "Tournament তৈরি হচ্ছে...",
+    "warning"
+  );
+
+
+  try{
+
+    const {
+      data:{
+        user
+      }
+    } =
+      await supabase.auth.getUser();
+
+
+    if(!user){
+
+      showMsg(
+        "createMsg",
+        "Admin login নেই",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const {error} =
+      await supabase
+        .from("tournaments")
+        .insert({
+
+          title:title,
+
+          type:type,
+
+          game:game,
+
+          mode:mode,
+
+          entry_fee:entry,
+
+          prize_pool:prizePool,
+
+          prize_1:prize1,
+
+          prize_2:prize2,
+
+          prize_3:prize3,
+
+          max_slots:slots,
+
+          start_at:
+            start
+            ?
+            new Date(start).toISOString()
+            :
+            null,
+
+          registration_deadline:
+            deadline
+            ?
+            new Date(deadline).toISOString()
+            :
+            null,
+
+          image_url:image || null,
+
+          description:
+            description || null,
+
+          rules:
+            rules || null,
+
+          status:"upcoming",
+
+          created_by:user.id
+
+        });
+
+
+    if(error){
+
+      showMsg(
+        "createMsg",
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    showMsg(
+      "createMsg",
+      "Tournament সফলভাবে তৈরি হয়েছে",
+      "success"
+    );
+
+
+    $("tTitle").value="";
+    $("tEntry").value="";
+    $("tPrize1").value="";
+    $("tPrize2").value="";
+    $("tPrize3").value="";
+    $("tSlots").value="";
+    $("tStart").value="";
+    $("tDeadline").value="";
+    $("tImage").value="";
+    $("tDescription").value="";
+    $("tRules").value="";
+
+
+    await loadTournaments();
+
+
+  }catch(error){
+
+    showMsg(
+      "createMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   LOAD TOURNAMENTS
+===================================================== */
+
+let tournamentCache = [];
+
+
+async function loadTournaments(){
+
+  const box =
+    $("tournamentList");
+
+  box.innerHTML =
+    "Loading...";
+
+
+  const {data,error} =
+    await supabase
+      .from("tournaments")
+      .select("*")
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
+
+  if(error){
+
+    box.innerHTML =
+      `<div class="error">
+      ${esc(error.message)}
+      </div>`;
+
+    return;
+  }
+
+
+  tournamentCache =
+    data || [];
+
+
+  fillAwardTournament();
+
+
+  if(!tournamentCache.length){
+
+    box.innerHTML =
+      "কোনো Tournament নেই";
+
+    return;
+  }
+
+
+  box.innerHTML =
+    tournamentCache.map(t => `
+
+      <div class="item">
+
+        <strong>🏆 ${esc(t.title)}</strong>
+
+        <br><br>
+
+        <span class="badge">
+          ${esc(t.game)}
+        </span>
+
+        <span class="badge">
+          ${esc(t.type)}
+        </span>
+
+        <span class="badge">
+          ${esc(t.mode)}
+        </span>
+
+        <span class="badge">
+          ${esc(t.status)}
+        </span>
+
+        <br><br>
+
+        <strong>Entry Fee:</strong>
+        ৳${money(t.entry_fee)}
+
+        <br>
+
+        <strong>Prize Pool:</strong>
+        ৳${money(t.prize_pool)}
+
+        <br><br>
+
+        <div class="prizeBox">
+
+          <div>
+            <label>🥇 ১ম</label>
+            <b>
+              ৳${money(t.prize_1)}
+            </b>
+          </div>
+
+          <div>
+            <label>🥈 ২য়</label>
+            <b>
+              ৳${money(t.prize_2)}
+            </b>
+          </div>
+
+          <div>
+            <label>🥉 ৩য়</label>
+            <b>
+              ৳${money(t.prize_3)}
+            </b>
+          </div>
+
+        </div>
+
+        <br>
+
+        <button
+          class="orange"
+          onclick="editPrize('${esc(t.id)}')"
+        >
+          ✏️ Edit Prize
+        </button>
+
+        <button
+          class="blue"
+          onclick="changeTournamentStatus('${esc(t.id)}','upcoming')"
+        >
+          Upcoming
+        </button>
+
+        <button
+          class="green"
+          onclick="changeTournamentStatus('${esc(t.id)}','live')"
+        >
+          Live
+        </button>
+
+        <button
+          class="purple"
+          onclick="changeTournamentStatus('${esc(t.id)}','completed')"
+        >
+          Completed
+        </button>
+
+        <button
+          class="red"
+          onclick="changeTournamentStatus('${esc(t.id)}','cancelled')"
+        >
+          Cancelled
+        </button>
+
+      </div>
+
+  `).join("");
+
+}
+
+
+/* =====================================================
+   EDIT PRIZE
+===================================================== */
+
+async function editPrize(id){
+
+  const tournament =
+    tournamentCache.find(
+      t =>
+        String(t.id) === String(id)
+    );
+
+
+  if(!tournament){
+
+    alert("Tournament পাওয়া যায়নি");
+
+    return;
+  }
+
+
+  const p1 =
+    prompt(
+      "🥇 ১ম Prize",
+      tournament.prize_1 || 0
+    );
+
+
+  if(p1 === null) return;
+
+
+  const p2 =
+    prompt(
+      "🥈 ২য় Prize",
+      tournament.prize_2 || 0
+    );
+
+
+  if(p2 === null) return;
+
+
+  const p3 =
+    prompt(
+      "🥉 ৩য় Prize",
+      tournament.prize_3 || 0
+    );
+
+
+  if(p3 === null) return;
+
+
+  const prize1 =
+    Number(p1);
+
+  const prize2 =
+    Number(p2);
+
+  const prize3 =
+    Number(p3);
+
+
+  if(
+    !Number.isFinite(prize1) ||
+    !Number.isFinite(prize2) ||
+    !Number.isFinite(prize3) ||
+    prize1 < 0 ||
+    prize2 < 0 ||
+    prize3 < 0
+  ){
+
+    alert(
+      "সঠিক Prize Amount দিন"
+    );
+
+    return;
+  }
+
+
+  const prizePool =
+    prize1 + prize2 + prize3;
+
+
+  const {error} =
+    await supabase
+      .from("tournaments")
+      .update({
+
+        prize_1:prize1,
+
+        prize_2:prize2,
+
+        prize_3:prize3,
+
+        prize_pool:prizePool
+
+      })
+      .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "Prize Update Error:\n" +
+      error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    "Prize সফলভাবে Update হয়েছে"
+  );
+
+
+  await loadTournaments();
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+async function changeTournamentStatus(
+  id,
+  status
+){
+
+  const {error} =
+    await supabase
+      .from("tournaments")
+      .update({
+        status:status
+      })
+      .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "Status Error:\n" +
+      error.message
+    );
+
+    return;
+  }
+
+
+  await loadTournaments();
+
+}
+
+
+/* =====================================================
+   AWARD TOURNAMENT DROPDOWN
+===================================================== */
+
+function fillAwardTournament(){
+
+  const select =
+    $("awardTournament");
+
+
+  if(!select) return;
+
+
+  select.innerHTML = `
+
+    <option value="">
+      -- Tournament Select করুন --
+    </option>
+
+  `;
+
+
+  tournamentCache.forEach(t => {
+
+    const option =
+      document.createElement("option");
+
+
+    option.value =
+      String(t.id);
+
+
+    option.textContent =
+      `${t.title} | Prize ৳${money(t.prize_pool)}`;
+
+
+    select.appendChild(option);
+
+  });
+
+}
+
+
+/* =====================================================
+   AWARD AMOUNT
+===================================================== */
+
+function updateAwardAmount(){
+
+  const tournamentId =
+    $("awardTournament").value;
+
+  const position =
+    $("awardPosition").value;
+
+
+  $("awardAmount").value="";
+
+
+  if(!tournamentId || !position){
+
+    return;
+  }
+
+
+  const tournament =
+    tournamentCache.find(
+      t =>
+        String(t.id) ===
+        String(tournamentId)
+    );
+
+
+  if(!tournament){
+
+    return;
+  }
+
+
+  let amount = 0;
+
+
+  if(position === "1"){
+
+    amount =
+      Number(tournament.prize_1 || 0);
+
+  }
+
+  if(position === "2"){
+
+    amount =
+      Number(tournament.prize_2 || 0);
+
+  }
+
+  if(position === "3"){
+
+    amount =
+      Number(tournament.prize_3 || 0);
+
+  }
+
+
+  $("awardAmount").value =
+    amount;
+
+}
+
+
+/* =====================================================
+   AWARD PRIZE
+===================================================== */
+
+async function awardPrize(){
+
+  const tournamentId =
+    $("awardTournament").value;
+
+  const userId =
+    $("awardUserId").value.trim();
+
+  const position =
+    $("awardPosition").value;
+
+  const amount =
+    Number($("awardAmount").value || 0);
+
+
+  if(!tournamentId){
+
+    showMsg(
+      "awardMsg",
+      "Tournament নির্বাচন করুন",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(!userId){
+
+    showMsg(
+      "awardMsg",
+      "Winner User ID দিন",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(!position){
+
+    showMsg(
+      "awardMsg",
+      "১ম/২য়/৩য় নির্বাচন করুন",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(amount <= 0){
+
+    showMsg(
+      "awardMsg",
+      "Prize Amount 0 হতে পারবে না",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const positionText =
+    position === "1"
+    ?
+    "১ম"
+    :
+    position === "2"
+    ?
+    "২য়"
+    :
+    "৩য়";
+
+
+  if(
+    !confirm(
+      `User ${userId}\n\n` +
+      `${positionText} Prize = ৳${amount}\n\n` +
+      `Wallet-এ টাকা দিতে চান?`
+    )
+  ){
+
+    return;
+  }
+
+
+  showMsg(
+    "awardMsg",
+    "Prize দেওয়া হচ্ছে...",
+    "warning"
+  );
+
+
+  try{
+
+    /*
+      Expected RPC:
+
+      admin_award_prize(
+        p_tournament_id,
+        p_user_id,
+        p_position,
+        p_amount
+      )
+    */
+
+    const {data,error} =
+      await supabase.rpc(
+        "admin_award_prize",
+        {
+
+          p_tournament_id:
+            tournamentId,
+
+          p_user_id:
+            userId,
+
+          p_position:
+            Number(position),
+
+          p_amount:
+            amount
+
+        }
+      );
+
+
+    if(error){
+
+      showMsg(
+        "awardMsg",
+        "Award Error: " +
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    showMsg(
+      "awardMsg",
+      `সফল! ${positionText} Prize ৳${amount} Award করা হয়েছে।`,
+      "success"
+    );
+
+
+    $("awardUserId").value="";
+    $("awardPosition").value="";
+    $("awardAmount").value="";
+
+
+  }catch(error){
+
+    showMsg(
+      "awardMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   VISITOR STATS
+===================================================== */
+
+async function loadVisitors(){
+
+  const box =
+    $("visitorStats");
+
+  box.innerHTML =
+    "Loading...";
+
+
+  try{
+
+    const {data,error} =
+      await supabase.rpc(
+        "admin_visit_stats"
+      );
+
+
+    if(error){
+
+      box.innerHTML =
+        `<div class="error">
+        ${esc(error.message)}
+        </div>`;
+
+      return;
+    }
+
+
+    if(
+      data === null ||
+      data === undefined
+    ){
+
+      box.innerHTML =
+        "কোনো Visitor data নেই";
+
+      return;
+    }
+
+
+    let total = 0;
+
+
+    if(Array.isArray(data)){
+
+      if(data.length){
+
+        total =
+          Number(
+            data[0].total_visitors ||
+            data[0].count ||
+            data[0].total ||
+            0
+          );
+
+      }
+
+    }else{
+
+      total =
+        Number(
+          data.total_visitors ||
+          data.count ||
+          data.total ||
+          0
+        );
+
+    }
+
+
+    $("totalVisitors").textContent =
+      total;
+
+
+    box.innerHTML = `
+
+      <div class="grid">
+
+        <div class="stat">
+
+          <h3>Total Visitors</h3>
+
+          <p>${total}</p>
+
+        </div>
+
+      </div>
+
+    `;
+
+
+  }catch(error){
+
+    box.innerHTML =
+      `<div class="error">
+      ${esc(error.message)}
+      </div>`;
+
+  }
+
+}
+
+
+/* =====================================================
+   LOAD ALL
+===================================================== */
+
+async function loadAll(){
+
+  try{
+
+    await Promise.all([
+
+      loadUsers(),
+
+      loadDeposits(),
+
+      loadWithdrawals(),
+
+      loadTournaments(),
+
+      loadVisitors()
+
+    ]);
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+$("loginBtn")
+  .addEventListener(
+    "click",
+    login
+  );
+
+
+$("logoutBtn")
+  .addEventListener(
+    "click",
+    logout
+  );
+
+
+$("refreshBtn")
+  .addEventListener(
+    "click",
+    loadAll
+  );
+
+
+$("createTournamentBtn")
+  .addEventListener(
+    "click",
+    createTournament
+  );
+
+
+$("awardTournament")
+  .addEventListener(
+    "change",
+    updateAwardAmount
+  );
+
+
+$("awardPosition")
+  .addEventListener(
+    "change",
+    updateAwardAmount
+  );
+
+
+$("awardBtn")
+  .addEventListener(
+    "click",
+    awardPrize
+  );
+
+
+/* Enter key login */
+
+$("loginPassword")
+  .addEventListener(
+    "keydown",
+    function(e){
+
+      if(e.key === "Enter"){
+
+        login();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+checkSession();
 
 </script>
 
